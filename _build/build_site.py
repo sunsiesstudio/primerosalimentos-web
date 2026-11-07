@@ -5,7 +5,7 @@ from recipes import R
 from guides3 import G3
 from recipes2 import R2
 from guides4 import G4,R3
-import illus
+import illus,illus2
 for a in A1: a.setdefault('cat','guia')
 ARTICLES=A1+G2+G3+G4+R+R2+R3
 import os as _os
@@ -14,7 +14,7 @@ if _PUB: ARTICLES=[a for a in ARTICLES if a['slug'] in _PUB.split(',')]
 OUT=_os.environ.get('OUT','/home/claude/landing/out')
 for a in R+R2+R3: a.setdefault('mins',3); a.setdefault('faq',[])
 for a in ARTICLES:
-    if 'body' in a: a['body']=illus.apply(a['body'])
+    if 'body' in a: illus2.colocar(a); a['body']=illus2.apply(illus.apply(a['body']))
 BASE="https://www.primerosalimentos.com"
 F={**json.load(open('/tmp/foods2.json')),**json.load(open('/tmp/extra.json')),**json.load(open('/tmp/pdfic.json'))}
 MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
@@ -92,7 +92,7 @@ footer .soc a:hover{background:rgba(255,255,255,.12)}
 footer .soc svg{width:19px;height:19px}
 footer .links{margin-bottom:14px;max-width:36em;margin-left:auto!important;margin-right:auto!important;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
 @media(max-width:480px){.top nav{gap:12px}.top .btn{min-height:40px;padding:0 14px;font-size:.85rem}footer .links{flex-wrap:wrap;gap:12px 20px}}
-"""+illus.CSS
+"""+illus.CSS+illus2.CSS
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
@@ -136,6 +136,7 @@ for a in ARTICLES:
 <h2>Cómo servirlo según la edad</h2><ul>'''+"".join(f"<li>{x}</li>" for x in a['serve'])+f'''</ul>
 <h2>Conservar</h2><p>{a['keep']}</p>
 <p>Sin sal ni azúcar añadidos. Antes de servir, comprueba que la temperatura y la textura son las adecuadas: se tiene que poder aplastar entre los dedos.</p>'''
+        a['body']=illus2.receta(a)
     faq="".join(f"<details><summary>{html.escape(q)}</summary><p>{html.escape(r)}</p></details>" for q,r in a['faq'])
     pool=[b for b in ARTICLES if b is not a and b['cat']==a['cat']][:3]+[b for b in ARTICLES if b is not a and b['cat']!=a['cat']][:1]
     rel="".join(f'<a class="r" href="{BASE}/blog/{b["slug"]}/">{ic(b["icon"])}<span>{html.escape(b["title"])}</span></a>' for b in pool)

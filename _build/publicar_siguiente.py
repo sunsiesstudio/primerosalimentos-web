@@ -116,6 +116,7 @@ out=construir(B,publicados()+[slug])
 # 3. Copiar solo la página nueva, el índice del blog y el sitemap
 shutil.copytree(f"{out}/blog/{slug}",f"{ROOT}/blog/{slug}",dirs_exist_ok=True)
 shutil.copy(f"{out}/blog/index.html",f"{ROOT}/blog/index.html")
+shutil.copy(f"{out}/blog/blog.css",f"{ROOT}/blog/blog.css")
 shutil.copy(f"{out}/sitemap.xml",f"{ROOT}/sitemap.xml")
 # 4. Borradores al día
 borradores(hoy,True)
