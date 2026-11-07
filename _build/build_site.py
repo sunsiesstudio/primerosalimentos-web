@@ -2,6 +2,7 @@ import json,os,html,shutil
 from articles import ARTICLES as A1,U_AEP
 from guides2 import G2
 from recipes import R
+import illus
 for a in A1: a.setdefault('cat','guia')
 ARTICLES=A1+G2+R
 import os as _os
@@ -9,6 +10,8 @@ _PUB=_os.environ.get('PUB')
 if _PUB: ARTICLES=[a for a in ARTICLES if a['slug'] in _PUB.split(',')]
 OUT=_os.environ.get('OUT','/home/claude/landing/out')
 for a in R: a.setdefault('mins',3); a.setdefault('faq',[])
+for a in ARTICLES:
+    if 'body' in a: a['body']=illus.apply(a['body'])
 BASE="https://www.primerosalimentos.com"
 F={**json.load(open('/tmp/foods2.json')),**json.load(open('/tmp/extra.json')),**json.load(open('/tmp/pdfic.json'))}
 MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
@@ -20,10 +23,12 @@ CSS=r"""
 body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.7 Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--green)}
 .disp,h1,h2.t{font-family:"Luckiest Guy","Arial Rounded MT Bold",sans-serif;font-weight:400;letter-spacing:.02em}
-.top{display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(1080px,100% - 40px);margin:0 auto;padding:22px 0}
+.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;width:min(1080px,100% - 40px);margin:0 auto;padding:22px 0}
 .top .lg{display:block;width:clamp(120px,30vw,170px);flex:none}.top .lg svg{display:block;width:100%;overflow:visible}
 .top nav{display:flex;gap:18px;align-items:center;font-weight:700;font-size:.92rem}
 .top nav a{color:var(--ink);text-decoration:none}
+.top .lg{grid-column:2}.top nav{grid-column:3;justify-self:end}
+@media(max-width:640px){.top{grid-template-columns:1fr;justify-items:center;gap:14px;padding:18px 0 0}.top .lg,.top nav{grid-column:1;justify-self:center}.top nav{order:-1}}
 .btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:14px;background:var(--terra);color:#fff!important;font:800 .95rem Montserrat,sans-serif;text-decoration:none;box-shadow:0 4px 0 #a24f30}
 .wrap{width:min(1080px,100% - 40px);margin:0 auto}
 .hero{padding:56px 0 40px}
@@ -77,7 +82,7 @@ footer{background:var(--green);color:rgba(255,255,255,.85);text-align:center;pad
 footer a{color:#fff}footer .links{display:flex;justify-content:center;gap:22px;font-weight:700;margin:0 0 14px}
 footer p{max-width:36em;margin:0 auto}
 @media(max-width:480px){.top nav{gap:12px}.top .btn{min-height:40px;padding:0 14px;font-size:.85rem}footer .links{flex-wrap:wrap;gap:12px 20px}}
-"""
+"""+illus.CSS
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
