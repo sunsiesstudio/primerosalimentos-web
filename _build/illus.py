@@ -130,18 +130,10 @@ def arcada_vs():
 def pasos():
     phone = _svg(f'<rect x="18" y="6" width="28" height="52" rx="7" fill="{INK}"/><rect x="21" y="12" width="22" height="38" rx="3" fill="#fff"/>'
                  f'<text x="32" y="36" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="11" fill="{TERRA}">112</text>')
-    # Boca abajo sobre el antebrazo, cabeza más baja: golpes en la espalda
-    back = _svg(f'<path d="M6 28l50 14" stroke="{SKIN}" stroke-width="7" stroke-linecap="round"/>'
-                f'<path d="M14 24c4-6 26-2 32 6l-2 6c-10-2-22-4-28-6z" fill="{GREEN}"/>'
-                + _face(52, 40, 8, "flat")
-                + f'<path d="M26 4l2 10M32 6l-1 9M20 8l4 8" stroke="{TERRA}" stroke-width="2.4" stroke-linecap="round"/>'
-                f'<ellipse cx="28" cy="18" rx="7" ry="4" fill="#e9b48f" transform="rotate(12 28 18)"/>')
-    # Boca arriba: dos dedos en el centro del pecho
-    chest = _svg(f'<rect x="8" y="46" width="50" height="5" rx="2.5" fill="#d8d3bc"/>'
-                 f'<path d="M18 46c0-10 6-14 14-14s16 4 16 14z" fill="{GREEN}"/>'
-                 + _face(12, 38, 8, "flat")
-                 + f'<rect x="29" y="12" width="4.5" height="20" rx="2.2" fill="#e9b48f"/><rect x="34.5" y="10" width="4.5" height="22" rx="2.2" fill="#e9b48f"/>'
-                 f'<path d="M24 20l4 4M44 20l-4 4" stroke="{TERRA}" stroke-width="2.4" stroke-linecap="round"/>')
+    # Mano abierta dando palmadas: golpes en la espalda
+    back = _svg('<g transform="rotate(-18 30 36)"><rect x="18.5" y="11" width="7" height="26" rx="3.5" fill="#e9b48f"/><rect x="25" y="7" width="7" height="30" rx="3.5" fill="#e9b48f"/><rect x="31.5" y="8" width="7" height="29" rx="3.5" fill="#e9b48f"/><rect x="38" y="13" width="6.5" height="24" rx="3.25" fill="#e9b48f"/><rect x="13" y="30" width="7.5" height="20" rx="3.75" fill="#e9b48f" transform="rotate(-35 19 48)"/><path d="M18.5 28h26v16c0 8-5.5 13-13 13S18.5 52 18.5 44z" fill="#e9b48f"/><path d="M25.2 14v15M31.8 11v18M38.2 15v14" stroke="#d99a72" stroke-width="1.4" stroke-linecap="round"/></g><path d="M50 16l6-4M52 26h8M50 36l6 4" stroke="#c96a47" stroke-width="2.6" stroke-linecap="round"/>')
+    # Dos dedos apretando hacia abajo: compresiones en el pecho
+    chest = _svg('<rect x="20" y="2" width="26" height="22" rx="9" fill="#e9b48f"/><rect x="14" y="8" width="8" height="18" rx="4" fill="#e9b48f" transform="rotate(25 18 24)"/><path d="M41 20q4 1 4-3" stroke="#d99a72" stroke-width="1.4" fill="none" stroke-linecap="round"/><rect x="25" y="14" width="8" height="30" rx="4" fill="#e9b48f"/><rect x="32.5" y="14" width="8" height="32" rx="4" fill="#e9b48f"/><path d="M32.7 26v18" stroke="#d99a72" stroke-width="1.4" stroke-linecap="round"/><path d="M14 49q19 7 38 0" stroke="#d8d3bc" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M54 12v20M49 27l5 6 5-6" stroke="#c96a47" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
     rep = _svg(f'<path d="M48 26a17 17 0 1 0-2 14" fill="none" stroke="{GREEN}" stroke-width="5" stroke-linecap="round"/>'
                f'<path d="M50 14v13H37" fill="none" stroke="{GREEN}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>')
     steps = [(phone, "Llama al 112"), (back, "5 golpes en la espalda"), (chest, "5 compresiones en el pecho"), (rep, "Repite hasta que lo expulse")]
