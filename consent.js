@@ -20,13 +20,14 @@
   }
 
   var css =
-    ".pa-ck{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin:0 auto;" +
-    "background:var(--card,#f7f4e8);color:var(--ink,#262626);border:1.5px solid var(--line,#d8d3bc);border-radius:20px;" +
-    "padding:18px 20px;box-shadow:0 14px 40px rgba(0,0,0,.18);font:500 14.5px/1.5 Montserrat,system-ui,sans-serif}" +
-    ".pa-ck p{margin:0 0 14px}.pa-ck a{color:var(--green,#4a8760);font-weight:700}" +
-    ".pa-ck .b{display:flex;gap:10px;flex-wrap:wrap}" +
-    ".pa-ck button{flex:1 1 140px;min-height:44px;border-radius:14px;cursor:pointer;font:800 .92rem Montserrat,system-ui,sans-serif;border:1.5px solid var(--line,#d8d3bc);background:transparent;color:var(--ink,#262626)}" +
-    ".pa-ck button.y{background:var(--terra,#c96a47);border-color:transparent;color:#fff;box-shadow:0 4px 0 #a24f30}";
+    ".pa-ck{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:9999;max-width:520px;margin:0 auto;" +
+    "display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#2f5a43;color:#f5f1e4;border-radius:16px;" +
+    "padding:12px 14px 12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.18);font:500 13px/1.45 Montserrat,system-ui,sans-serif}" +
+    ".pa-ck p{margin:0;flex:1 1 200px}.pa-ck a{color:inherit;font-weight:600;text-decoration:underline}" +
+    ".pa-ck .b{display:flex;gap:8px;flex:none;margin-left:auto}" +
+    ".pa-ck button{min-height:34px;padding:0 14px;border-radius:999px;cursor:pointer;font:700 12.5px Montserrat,system-ui,sans-serif;" +
+    "border:1px solid rgba(245,241,228,.55);background:transparent;color:#f5f1e4}" +
+    ".pa-ck button:hover{background:rgba(245,241,228,.12)}";
 
   var box;
   function show() {
@@ -38,8 +39,7 @@
     box = document.createElement("div");
     box.className = "pa-ck"; box.setAttribute("role", "dialog"); box.setAttribute("aria-label", "Cookies");
     box.innerHTML =
-      "<p>Usamos cookies de analítica (Microsoft Clarity) para ver cómo se usa la web y mejorarla. " +
-      "Solo se activan si aceptas. <a href=\"/privacy.html#cookies\">Más información</a></p>" +
+      "<p>Usamos cookies de analítica (Microsoft Clarity) para mejorar la web. <a href=\"/privacy.html#cookies\">Más info</a></p>" +
       "<div class=\"b\"><button type=\"button\" class=\"n\">Rechazar</button><button type=\"button\" class=\"y\">Aceptar</button></div>";
     box.querySelector(".y").onclick = function () { set("yes"); hide(); loadClarity(); };
     box.querySelector(".n").onclick = function () {

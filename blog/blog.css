@@ -206,3 +206,14 @@ figure.il{padding:16px;margin:24px -6px 28px}
 .nb-steps,.nb-serve{grid-template-columns:1fr}
 .nb-steps li{transform:none!important}
 }
+/* ajustes nov 2026 */
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.faq summary::after{float:none;flex:none;width:1em;text-align:center;font-size:1.2em;line-height:1}
+.vs{align-items:flex-start}
+.vs .side.main b{color:inherit}
+.vs .plus{align-self:flex-start;height:96px;display:flex;align-items:center;line-height:1}
+@media(max-width:640px){
+.vs .plus{height:76px;font-size:1.6rem}
+.ages{gap:34px}
+.ages li:not(:last-child)::after{bottom:-25px}
+}
