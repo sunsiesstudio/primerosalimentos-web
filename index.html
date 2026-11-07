@@ -427,7 +427,7 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
   <div class="done">
     <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" style="display:block;margin:0 auto"><circle cx="32" cy="32" r="30" fill="#4a8760"/><path d="M19 33l9 9 17-18" stroke="#fff" stroke-width="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <h3 class="disp">¡Ya&nbsp;estás dentro!</h3>
-    <p>Te avisamos el 1 de diciembre. Mientras, aquí tienes tu guía.</p>
+    <p>Te avisamos el 1 de diciembre. Mientras, aquí tienes tu guía (y&nbsp;te la mandamos también por email).</p>
     <div class="btns">
       <a class="btn" href="/guia-primeros-alimentos.pdf" target="_blank" rel="noopener">Abrir la guía (PDF)</a>
       <button class="btn ghost" type="button" data-share>Pásasela a otra mamá (o papá)</button>
@@ -542,6 +542,11 @@ const ORIGEN=(()=>{try{const q=new URLSearchParams(location.search);return(q.get
 let fb=null;
 const getDB=()=>fb||(fb=(async()=>{const {initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
   const fs=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");return{db:fs.getFirestore(initializeApp(CFG)),fs}})());
+/* MailerLite: además de guardarlo en Firestore, apunta el email al grupo de MailerLite (envía la guía por email y luego el aviso del lanzamiento).
+   Rellena con los IDs del formulario embebido de MailerLite (Forms > Embedded forms). Si están vacíos, no se envía nada. */
+const ML={account:"",form:""};
+const toML=em=>{if(!ML.account||!ML.form)return;const d=new FormData();d.append("fields[email]",em);d.append("ml-submit","1");d.append("anticsrf","true");
+  fetch("https://assets.mailerlite.com/jsonp/"+ML.account+"/forms/"+ML.form+"/subscribe",{method:"POST",body:d,mode:"no-cors"}).catch(()=>{})};
 const RE=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
 const showDone=()=>{document.querySelectorAll("[data-form]").forEach(f=>{f.replaceChildren(document.getElementById("okTpl").content.cloneNode(true))});
   document.querySelectorAll("[data-share]").forEach(b=>b.onclick=async()=>{const d={title:"Primeros Alimentos",text:"Mira esta app para planificar los primeros alimentos del bebé. Sale el 1 de diciembre y regalan una guía para empezar.",url:"https://www.primerosalimentos.com/"};
@@ -552,7 +557,7 @@ document.querySelectorAll("[data-form]").forEach(f=>f.addEventListener("submit",
   if(!RE.test(em)){er.textContent="Revisa el email, parece que falta algo.";f.email.focus();return}
   if(!f.ok.checked){er.textContent="Marca la casilla para que podamos escribirte.";return}
   bt.disabled=true;const tx=bt.textContent;bt.textContent="Guardando…";
-  try{const {db,fs}=await getDB();await fs.addDoc(fs.collection(db,"lista_espera"),{email:em,fecha:fs.serverTimestamp(),origen:ORIGEN});
+  try{toML(em);const {db,fs}=await getDB();await fs.addDoc(fs.collection(db,"lista_espera"),{email:em,fecha:fs.serverTimestamp(),origen:ORIGEN});
     try{localStorage.setItem("pa_wl","1")}catch(e){}showDone()}
   catch(err){console.error(err);er.textContent="No se ha podido guardar. Prueba otra vez en un momento.";bt.disabled=false;bt.textContent=tx}}));
 </script>
