@@ -746,7 +746,8 @@ def receta(a):
     if i < 0 or j < 0: return body
     ings = [_ing_icon(x) for x in a["ing"]]
     li = "".join(f'<li><span class="bx"></span>{_svg(P[n]() if n in P else F(n, 2, 2, .94), cls="ii")}<span>{x}</span></li>' for n, x in zip(ings, a["ing"]))
-    pasos = "".join(f'<li><span class="nn">{k}</span>{_paso_pic(p, ings)}<p>{p}</p></li>' for k, p in enumerate(a["steps"], 1))
+    import pasos as _ps
+    pasos = "".join(f'<li><span class="nn">{k}</span>{_ps.escena(a["slug"], k-1) or _paso_pic(p, ings)}<p>{p}</p></li>' for k, p in enumerate(a["steps"], 1))
     serve = []
     for k, s in enumerate(a["serve"]):
         lab = re.sub(r"<[^>]+>", "", s.split("</strong>")[0]).rstrip(":") if "</strong>" in s else ""
@@ -839,7 +840,7 @@ CSS = r"""
 .nb-steps li::marker{content:""}
 .nb-steps li:nth-child(odd){transform:rotate(-.8deg)}.nb-steps li:nth-child(even){transform:rotate(.8deg)}
 .nb-steps .nn{position:absolute;top:-12px;left:-8px;width:40px;height:40px;border-radius:50%;background:var(--terra);color:#fff;font:700 1.7rem/40px Caveat,cursive;text-align:center;box-shadow:0 3px 0 #a24f30}
-.nb-steps .sc{display:block;width:100%;max-width:250px;height:auto;aspect-ratio:96/66;margin:4px auto 8px;overflow:visible}
+.nb-steps .sc{display:block;width:100%;max-width:300px;height:auto;aspect-ratio:120/84;margin:4px auto 8px;overflow:visible}
 .nb-steps p{margin:0;font-size:.95rem;line-height:1.5}
 .nb-serve{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .nb-serve .pi{padding:20px 18px 18px;border-radius:4px;box-shadow:0 10px 20px rgba(0,0,0,.08);text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
