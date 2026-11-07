@@ -4,14 +4,15 @@ from guides2 import G2
 from recipes import R
 from guides3 import G3
 from recipes2 import R2
+from guides4 import G4,R3
 import illus
 for a in A1: a.setdefault('cat','guia')
-ARTICLES=A1+G2+G3+R+R2
+ARTICLES=A1+G2+G3+G4+R+R2+R3
 import os as _os
 _PUB=_os.environ.get('PUB')
 if _PUB: ARTICLES=[a for a in ARTICLES if a['slug'] in _PUB.split(',')]
 OUT=_os.environ.get('OUT','/home/claude/landing/out')
-for a in R+R2: a.setdefault('mins',3); a.setdefault('faq',[])
+for a in R+R2+R3: a.setdefault('mins',3); a.setdefault('faq',[])
 for a in ARTICLES:
     if 'body' in a: a['body']=illus.apply(a['body'])
 BASE="https://www.primerosalimentos.com"
