@@ -89,10 +89,11 @@ HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{BASE}/blog/blog.css">
-{extra}</head><body>
+{extra}<script src="{BASE}/consent.js" defer></script>
+</head><body>
 <header class="top"><a class="lg" href="{BASE}/" aria-label="Primeros Alimentos">{LOGO}</a><nav><a href="{BASE}/blog/">Blog</a><a class="btn" href="{BASE}/?o=blog">Lista de espera</a></nav></header>
 '''
-FOOT=f'''<footer><div class="links"><a href="{BASE}/">Primeros Alimentos</a><a href="{BASE}/blog/">Blog</a><a href="https://www.instagram.com/sunsies.studio/" rel="noopener">Instagram</a><a href="{BASE}/privacy.html">Privacidad</a></div>
+FOOT=f'''<footer><div class="links"><a href="{BASE}/">Primeros Alimentos</a><a href="{BASE}/blog/">Blog</a><a href="https://www.instagram.com/sunsies.studio/" rel="noopener">Instagram</a><a href="{BASE}/privacy.html">Privacidad</a><a href="{BASE}/privacy.html#cookies" data-cookies>Cookies</a></div>
 <p>Información orientativa basada en las recomendaciones de la <a href="{U_AEP}" rel="noopener">AEP</a>. No sustituye la consulta con tu pediatra.</p></footer></body></html>'''
 ic=lambda n:F.get(n) or F['Plátano']
 os.makedirs(f"{OUT}/blog",exist_ok=True)
