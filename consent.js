@@ -1,0 +1,64 @@
+/* Aviso de cookies + Microsoft Clarity.
+   Clarity solo se carga si la persona acepta. La elección se guarda en localStorage ("pa_consent").
+   Cualquier enlace con el atributo data-cookies vuelve a abrir el aviso. */
+(function () {
+  var CLARITY_ID = "z9unz2wa1b";
+  var KEY = "pa_consent";
+
+  function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  var loaded = false;
+  function loadClarity() {
+    if (loaded) return; loaded = true;
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", CLARITY_ID);
+    window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "granted" });
+  }
+
+  var css =
+    ".pa-ck{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin:0 auto;" +
+    "background:var(--card,#f7f4e8);color:var(--ink,#262626);border:1.5px solid var(--line,#d8d3bc);border-radius:20px;" +
+    "padding:18px 20px;box-shadow:0 14px 40px rgba(0,0,0,.18);font:500 14.5px/1.5 Montserrat,system-ui,sans-serif}" +
+    ".pa-ck p{margin:0 0 14px}.pa-ck a{color:var(--green,#4a8760);font-weight:700}" +
+    ".pa-ck .b{display:flex;gap:10px;flex-wrap:wrap}" +
+    ".pa-ck button{flex:1 1 140px;min-height:44px;border-radius:14px;cursor:pointer;font:800 .92rem Montserrat,system-ui,sans-serif;border:1.5px solid var(--line,#d8d3bc);background:transparent;color:var(--ink,#262626)}" +
+    ".pa-ck button.y{background:var(--terra,#c96a47);border-color:transparent;color:#fff;box-shadow:0 4px 0 #a24f30}";
+
+  var box;
+  function show() {
+    if (box) return;
+    if (!document.getElementById("pa-ck-css")) {
+      var s = document.createElement("style"); s.id = "pa-ck-css"; s.textContent = css;
+      document.head.appendChild(s);
+    }
+    box = document.createElement("div");
+    box.className = "pa-ck"; box.setAttribute("role", "dialog"); box.setAttribute("aria-label", "Cookies");
+    box.innerHTML =
+      "<p>Usamos cookies de analítica (Microsoft Clarity) para ver cómo se usa la web y mejorarla. " +
+      "Solo se activan si aceptas. <a href=\"/privacy.html#cookies\">Más información</a></p>" +
+      "<div class=\"b\"><button type=\"button\" class=\"n\">Rechazar</button><button type=\"button\" class=\"y\">Aceptar</button></div>";
+    box.querySelector(".y").onclick = function () { set("yes"); hide(); loadClarity(); };
+    box.querySelector(".n").onclick = function () {
+      var was = get() === "yes"; set("no"); hide();
+      if (was) location.reload(); // si retira el consentimiento, recargamos para descargar Clarity
+    };
+    document.body.appendChild(box);
+  }
+  function hide() { if (box) { box.remove(); box = null; } }
+
+  function init() {
+    var c = get();
+    if (c === "yes") loadClarity();
+    else if (c !== "no") show();
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("[data-cookies]");
+      if (a) { e.preventDefault(); show(); }
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
