@@ -51,7 +51,7 @@ article .wlb{margin:30px 0}
 }
 """
 CSS=r"""
-h1,h2,h3,.disp{-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:10 4 4}
+h1,h2,h3,.disp{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
 h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
 :root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--gold:#c9962f}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
@@ -127,7 +127,7 @@ footer .links{margin-bottom:14px;max-width:36em;margin-left:auto!important;margi
 """+illus.CSS+illus2.CSS+FIXES
 def BANNER(v,o):
     if v==1:
-        return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bi">{ic("Aguacate")}</span><span class="bt"><span class="bk">Gratis</span>'
+        return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bi">{ic("Mandarina")}</span><span class="bt"><span class="bk">Gratis</span>'
                 f'<span class="bh">La guía para empezar</span><span class="bp">Apúntate a la lista de espera de la app y te la mandamos al email.</span></span>'
                 f'<span class="btn">Quiero la guía</span></a>')
     return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><span class="bi">{ic("Fresas")}</span><span class="bt"><span class="bk">Muy pronto</span>'
