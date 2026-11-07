@@ -1,6 +1,6 @@
 import json,random
 I=json.load(open('/tmp/pdfic.json'))
-t=open('guia_template.html').read()
+t=open('guia_template.html').read().replace('file:///home/claude/landing/capturas/','file:///home/claude/primerosalimentos-web/capturas/')
 random.seed(4)
 pos=[(8,8),(30,20),(52,6),(74,18),(96,7),(118,16),(14,40),(124,42),(62,30),(37,182.7),(108.3,164.7),(82.4,187.8),(126.9,186.6),(57.1,169.4),(12.2,161.3)]
 names=['Plátano','Fresas','Brócoli','Mandarina','Kiwi','Aguacate','Guisantes','Uvas','Pera','Zanahoria','Calabaza','Manzana','Fresas','Brócoli','Pera']
