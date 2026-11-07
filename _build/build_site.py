@@ -24,7 +24,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.7 Montserrat
 a{color:var(--green)}
 .disp,h1,h2.t{font-family:"Luckiest Guy","Arial Rounded MT Bold",sans-serif;font-weight:400;letter-spacing:.02em}
 .top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;width:min(1080px,100% - 40px);margin:0 auto;padding:22px 0}
-.top .lg{display:block;width:clamp(120px,30vw,170px);flex:none}.top .lg svg{display:block;width:100%;overflow:visible}
+.top .lg{display:block;width:clamp(170px,46vw,250px);flex:none}.top .lg svg{display:block;width:100%;overflow:visible}
 .top nav{display:flex;gap:18px;align-items:center;font-weight:700;font-size:.92rem}
 .top nav a{color:var(--ink);text-decoration:none}
 .top .lg{grid-column:2}.top nav{grid-column:3;justify-self:end}
@@ -65,7 +65,9 @@ article li::marker{color:var(--terra);font-weight:800}
 .faq summary::after{content:"+";float:right;color:var(--terra);font-weight:800}
 .faq details[open] summary::after{content:"–"}
 .faq details p{margin:10px 0 0;color:var(--mute)}
-.cta{margin:52px 0 0;padding:32px;border-radius:24px;background:var(--green);color:#fff;text-align:center}
+.cta{margin:70px 0 0;padding:28px 32px 28px 12px;border-radius:24px;background:var(--green);color:#fff;text-align:left;display:grid;grid-template-columns:46% 1fr;gap:18px;align-items:center}
+.cta .mk{display:block;width:100%;height:auto;margin:-64px 0 -36px}
+@media(max-width:640px){.cta{grid-template-columns:1fr;text-align:center;padding:0 24px 30px;margin-top:90px}.cta .mk{width:min(300px,82%);margin:-70px auto 0}}
 .cta .t{font-size:1.7rem;line-height:1.1;margin:0 0 10px}
 .cta p{margin:0 0 20px;color:rgba(255,255,255,.88)}
 .rel{margin:52px 0 0}.rel h2{margin-top:0}
@@ -141,7 +143,7 @@ for a in ARTICLES:
 <p class="lead">{a['lead']}</p></header>
 {a['body']}
 {('<section class="faq"><h2>Preguntas frecuentes</h2>'+faq+'</section>') if faq else ""}
-<section class="cta"><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale el 1 de diciembre.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></section>
+<section class="cta"><img class="mk" src="{BASE}/capturas/mockup-app.webp" width="640" height="652" loading="lazy" alt="Dos pantallas de la app Primeros Alimentos: el menú del día y los alimentos que ha probado"><div><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale el 1 de diciembre.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></div></section>
 <section class="rel"><h2>Sigue leyendo</h2>{rel}</section>
 <p class="note">Fuente: <a href="{U_AEP}" rel="noopener">Recomendaciones de la Asociación Española de Pediatría sobre la alimentación complementaria</a>. Información orientativa: ante cualquier duda, consulta con tu pediatra.</p>
 </article></main>'''+FOOT
