@@ -20,10 +20,12 @@ CSS=r"""
 body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.7 Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--green)}
 .disp,h1,h2.t{font-family:"Luckiest Guy","Arial Rounded MT Bold",sans-serif;font-weight:400;letter-spacing:.02em}
-.top{display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(1080px,100% - 40px);margin:0 auto;padding:22px 0}
+.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;width:min(1080px,100% - 40px);margin:0 auto;padding:22px 0}
 .top .lg{display:block;width:clamp(120px,30vw,170px);flex:none}.top .lg svg{display:block;width:100%;overflow:visible}
 .top nav{display:flex;gap:18px;align-items:center;font-weight:700;font-size:.92rem}
 .top nav a{color:var(--ink);text-decoration:none}
+.top .lg{grid-column:2}.top nav{grid-column:3;justify-self:end}
+@media(max-width:640px){.top{grid-template-columns:1fr;justify-items:center;gap:14px;padding:18px 0 0}.top .lg,.top nav{grid-column:1;justify-self:center}.top nav{order:-1}}
 .btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:14px;background:var(--terra);color:#fff!important;font:800 .95rem Montserrat,sans-serif;text-decoration:none;box-shadow:0 4px 0 #a24f30}
 .wrap{width:min(1080px,100% - 40px);margin:0 auto}
 .hero{padding:56px 0 40px}
