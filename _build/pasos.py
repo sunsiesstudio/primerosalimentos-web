@@ -21,6 +21,22 @@ def _sc(rng, cx, cy, rx, ry, n, f, margin=.78):
     return "".join(out)
 
 # ---------------------------------------------------------------- piezas (centradas en x,y)
+def p_fork(x, y, ang=-145, L=30, s=1):
+    """Tenedor con las puntas en (x,y) y el mango hacia arriba a la derecha."""
+    c, hl = "#a9a9a9", "#d6d6d6"
+    tines = "".join(f'<rect x="{-5.6+i*3.2:.1f}" y="0" width="1.7" height="10" rx=".85" fill="{c}"/>' for i in range(4))
+    return (f'<g transform="translate({x} {y}) rotate({ang}) scale({s})">{tines}'
+            f'<path d="M-5.6 8.5h11.2v2.5a2 2 0 0 1-.6 1.4L1.9 18h-3.8l-3.1-5.6a2 2 0 0 1-.6-1.4z" fill="{c}"/>'
+            f'<rect x="-1.9" y="17" width="3.8" height="{L}" rx="1.9" fill="{c}"/><rect x="-.6" y="20" width="1.1" height="{L-6}" rx=".5" fill="{hl}"/></g>')
+
+def p_banana(x, y, s=1, r=0):
+    """Plátano pelado."""
+    return (f'<g transform="translate({x} {y}) rotate({r}) scale({s})">'
+            f'<path d="M-19 -7C-13 7 11 9 19 -3c1.5-2 4.5-1 3.6 1.6C14 15-13 15-22.6-1.6c-1-2.4 2.6-5 3.6-5.4z" fill="#f6e39a"/>'
+            f'<path d="M-16 -2c7 8 22 9 33-1" stroke="#e8cf6e" stroke-width="1.4" fill="none" stroke-linecap="round"/>'
+            f'<path d="M-14 3c8 6 20 6 30-2" stroke="#fff6cf" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>'
+            f'<ellipse cx="-20.5" cy="-4.5" rx="2.2" ry="2" fill="#ead27a"/></g>')
+
 def p_mash(x, y, c="#f3d36b", w=22):
     return (f'<path d="M{x-w} {y}c2-6 9-8 14-6s8-4 14-2 10 4 9 8-6 6-14 5-10 2-15 0-9-2-8-5z" fill="{c}"/>'
             f'<path d="M{x-w*.5} {y-2}q4-2 8 0M{x+2} {y+1}q4-2 7 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".55" stroke-linecap="round"/>')
@@ -116,7 +132,7 @@ def bowl(content="", base="#f3e2b4", tool="whisk", side=()):
     elif tool == "spoon":
         t = f'<path d="M64 40L86 10" stroke="#c9962f" stroke-width="4" stroke-linecap="round"/><ellipse cx="62" cy="42" rx="5" ry="3" fill="#c9962f" transform="rotate(-50 62 42)"/>'
     elif tool == "fork":
-        t = f'<path d="M66 38L86 8" stroke="#a7a7a7" stroke-width="3" stroke-linecap="round"/><path d="M60 34l4-6M63 36l4-6M66 38l4-6" stroke="#a7a7a7" stroke-width="1.6" stroke-linecap="round"/>'
+        t = p_fork(62, 40, -150, 30)
     return (f'{clip}<ellipse cx="54" cy="78" rx="34" ry="4" fill="#000" opacity=".06"/>'
             f'<path d="M14 40h80a40 36 0 0 1-80 0z" fill="{TERRA}"/><path d="M22 52q10 14 30 16" stroke="#fff" stroke-width="2.4" fill="none" opacity=".25" stroke-linecap="round"/>'
             f'<ellipse cx="54" cy="40" rx="40" ry="11" fill="#b55a39"/><ellipse cx="54" cy="40" rx="37" ry="9.5" fill="{base}"/>'
@@ -125,8 +141,7 @@ def bowl(content="", base="#f3e2b4", tool="whisk", side=()):
 def plate(content="", side=(), tool=None, steam=False):
     t = ""
     if tool == "fork":
-        t = (f'<path d="M80 50L102 14" stroke="#a7a7a7" stroke-width="3.4" stroke-linecap="round"/>'
-             f'<path d="M74 46l4-8M78 48l4-8M82 50l4-8" stroke="#a7a7a7" stroke-width="1.8" stroke-linecap="round"/>')
+        t = p_fork(74, 52, -148, 34)
     return (f'<ellipse cx="56" cy="62" rx="48" ry="17" fill="#000" opacity=".05"/><ellipse cx="56" cy="58" rx="48" ry="17" fill="#fff" stroke="{LINE}" stroke-width="2"/>'
             f'<ellipse cx="56" cy="57" rx="34" ry="11" fill="#f6f1e2"/>{content}{p_steam(56, 36) if steam else ""}{t}' + _side(side))
 
@@ -216,7 +231,7 @@ def _side(items, pos=None):
     out = ""
     pos = pos or ([(104, 26), (104, 58)] if len(items) > 1 else [(104, 34)])
     for (n, (x, y)) in zip(items, pos):
-        out += f'<circle cx="{x}" cy="{y}" r="15" fill="#fff" opacity=".9"/>' + _ic(n, x, y, 26)
+        out += f'<circle cx="{x}" cy="{y}" r="15" fill="#fff" opacity=".9"/>' + (p_banana(x + 1, y, .55, -20) if n == "Plátano" else _ic(n, x, y, 26))
     return out
 
 # ---------------------------------------------------------------- escenas de cada receta (una por paso)
@@ -229,7 +244,7 @@ PLATE5 = [(40, 56), (56, 53), (72, 57), (48, 61), (64, 61)]
 
 ESC = {
 "tortitas-platano-avena-bebe": [
-    lambda: plate(p_mash(60, 57, "#f3d36b", 18) + _ic("Plátano", 34, 50, 34), tool="fork"),
+    lambda: plate(p_mash(58, 58, "#f3d36b", 16) + p_banana(36, 53, .9, -8), tool="fork"),
     lambda: bowl(p_mash(46, 40, "#f3d36b", 18) + p_egg(60, 38) + p_oats(42, 41, 8), side=("Huevo", "Avena")),
     lambda: pan(p_oil(46, 48) + p_oil(62, 51)),
     lambda: pan(_many(lambda x, y, i: p_pancake(x, y, .85, cooked=i % 2 == 0), PAN5[:4])),
