@@ -36,18 +36,23 @@ def _figure(inner, caption, label, extra_cls=""):
 # ---------- Artículo: cuándo empezar ----------
 
 def edad():
-    stops = [
-        ("0", "", ""),
-        ("4 m", "Nunca antes", "bad"),
-        ("6 m", "Hacia aquí", "good"),
-        ("+6 m", "No retrasarlo mucho: baja el hierro", "warn"),
-    ]
-    star = _svg('<polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#fff"/>', "0 0 24 24", "st")
-    li = "".join(
-        f'<li class="{c}"><span class="dot">{star if c=="good" else ""}</span><b>{m}</b><span>{t}</span></li>'
-        for m, t, c in stops)
-    return _figure(f'<ol class="tl">{li}</ol>', None,
-                   "Línea de tiempo: nunca antes de los 4 meses, hacia los 6 meses es lo recomendado, y no retrasarlo mucho más.")
+    x = f'<circle cx="54" cy="10" r="8" fill="{TERRA}"/><path d="M50.5 6.5l7 7M57.5 6.5l-7 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>'
+    star = f'<circle cx="54" cy="10" r="9" fill="{GREEN}"/><polygon transform="translate(46.5 2.5) scale(.62)" points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#fff"/>'
+    clock = (f'<circle cx="52" cy="40" r="10" fill="#fff" stroke="{GOLD}" stroke-width="3"/>'
+             f'<path d="M52 34v6l4 3" stroke="{GOLD}" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    bottle = (f'<rect x="43" y="30" width="12" height="24" rx="5" fill="#fff" stroke="#d8d3bc" stroke-width="1.8"/>'
+              f'<rect x="43.9" y="40" width="10.2" height="13" rx="4" fill="#fbf3dc"/>'
+              f'<rect x="44" y="25" width="10" height="5" rx="1.5" fill="{TERRA}"/><path d="M46 25c0-4 6-4 6 0" fill="{GOLD}"/>')
+    p1 = _svg(_face(26, 38, 12, "o") + bottle + x)
+    p2 = _svg(_face(25, 36, 15) + f'<g transform="translate(36 34) scale(.5)">{food("Plátano")}</g>'
+              f'<g transform="translate(2 44) scale(.42)">{food("Brócoli")}</g>' + star)
+    p3 = _svg(_face(26, 36, 16) + clock)
+    items = [("", p1, "Antes de los 4 meses", "Nunca antes", "Solo leche"),
+             ("on", p2, "Hacia los 6 meses", "El momento recomendado", "Si ya muestra las señales"),
+             ("", p3, "Más allá de los 6", "No lo retrases mucho", "Sus reservas de hierro empiezan a bajar")]
+    li = "".join(f'<li class="{c}">{pic}<span class="m">{m}</span><b>{h}</b><span>{d}</span></li>' for c, pic, m, h, d in items)
+    return _figure(f'<ol class="ages">{li}</ol>', None,
+                   "Cuándo empezar: nunca antes de los 4 meses, hacia los 6 meses es lo recomendado, y no conviene retrasarlo mucho más.")
 
 def senales():
     # 1. Sentado en la trona
@@ -62,9 +67,13 @@ def senales():
           + f'<g transform="translate(40 26) scale(.42)">{food("Brócoli")}</g>'
           + f'<path d="M38 12l3-4M44 16l4-2M34 10l0-5" stroke="{GOLD}" stroke-width="2.2" stroke-linecap="round"/>')
     # 3. Coge cosas y se las lleva a la boca
-    s3 = (_face(26, 30, 13, "open")
-          + f'<g transform="translate(30 12) rotate(25) scale(.55)">{food("Plátano")}</g>'
-          + f'<circle cx="44" cy="40" r="6.5" fill="{SKIN}"/><path d="M39 36q-2-4 1-6M42 34q-1-4 2-5" stroke="{SKIN}" stroke-width="3.2" fill="none" stroke-linecap="round"/>')
+    s3 = (_face(22, 36, 14, "o")
+          + f'<path d="M44 22L31 41" stroke="{GOLD}" stroke-width="4.5" stroke-linecap="round"/>'
+          + f'<circle cx="30" cy="42.5" r="4" fill="none" stroke="{GREEN}" stroke-width="3"/>'
+          + f'<circle cx="49" cy="15" r="10" fill="{TERRA}"/><path d="M40 13a9 9 0 0 1 18 0" fill="none" stroke="#fff" stroke-width="2.4" opacity=".9"/>'
+          + f'<circle cx="45" cy="18" r="1.8" fill="#fff"/><circle cx="52" cy="20" r="1.8" fill="#fff"/><circle cx="49" cy="9" r="1.6" fill="#fff" opacity=".8"/>'
+          + f'<path d="M58 26l4 2M56 30l3 4M60 18h4" stroke="{GOLD}" stroke-width="2" stroke-linecap="round"/>'
+          + f'<ellipse cx="38" cy="32" rx="6" ry="5.2" fill="{SKIN}"/><path d="M34 29.5h7M34.5 32.5h7" stroke="#e0a983" stroke-width="1.2" stroke-linecap="round"/>')
     # 4. Ya no empuja con la lengua
     s4 = (_face(24, 32, 13, "open")
           + f'<path d="M36 37l20-10" stroke="{GOLD}" stroke-width="3.4" stroke-linecap="round"/>'
@@ -85,9 +94,10 @@ def leche():
         f'<path d="M19 30h26v21a8 8 0 0 1-8 8H27a8 8 0 0 1-8-8z" fill="#fbf3dc"/>'
         f'<path d="M37 24v4M37 34v4M37 44v4" stroke="#d8d3bc" stroke-width="2" stroke-linecap="round"/>', cls="pic big")
     bowl = _svg(
-        f'<path d="M14 36h36a18 18 0 0 1-36 0z" fill="{GREEN}"/>'
-        f'<ellipse cx="32" cy="36" rx="18" ry="4" fill="#f2b630"/>'
-        f'<path d="M40 30l10-16" stroke="{GOLD}" stroke-width="3" stroke-linecap="round"/>', cls="pic sm")
+        f'<path d="M42 28l12-22" stroke="{GOLD}" stroke-width="4" stroke-linecap="round"/>'
+        f'<path d="M4 32h56a28 28 0 0 1-56 0z" fill="{GREEN}"/>'
+        f'<ellipse cx="32" cy="32" rx="28" ry="5.5" fill="#f2b630"/>'
+        f'<path d="M14 42q6 8 16 9" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".35"/>', cls="pic big")
     inner = (f'<div class="vs"><div class="side main">{bottle}<b>Leche materna o de fórmula</b><span>Su alimento principal hasta el año, a demanda</span></div>'
              f'<div class="plus">+</div>'
              f'<div class="side">{bowl}<b>La comida</b><span>Complementa. Al principio, muy poquito</span></div></div>')
@@ -161,7 +171,17 @@ def cortes():
     li = "".join(f'<li><b>{t}</b><div class="pair">{_svg(a)}<span class="ar">→</span>{_svg(b)}</div><span>{d}</span></li>' for t, a, b, d in rows)
     return _figure(f'<ul class="cuts">{li}</ul>', None, "Cómo ofrecer uvas, frutos secos y manzana o zanahoria de forma segura.")
 
-IL = {"edad": edad, "senales": senales, "leche": leche, "plato": plato,
+def agua():
+    glass = _svg(
+        f'<path d="M14 12h36l-4 44a5 5 0 0 1-5 4.5H23a5 5 0 0 1-5-4.5z" fill="#fff" stroke="#d8d3bc" stroke-width="2"/>'
+        f'<path d="M16.5 30q8 4 15.5 0t15.5 0l-2.5 26a3.5 3.5 0 0 1-3.5 3H22.5a3.5 3.5 0 0 1-3.5-3z" fill="#9fc7e6"/>'
+        f'<path d="M22 36l1.6 16" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".7"/>'
+        f'<path d="M56 18c3 4 4 6 4 8a4 4 0 0 1-8 0c0-2 1-4 4-8z" fill="#7ab0d9"/>', cls="pic big")
+    inner = (f'<div class="wt">{glass}<div><b>En vaso, con las comidas</b>'
+             f'<span>Desde que empieza a comer. Sin forzar: él decide cuánto bebe.</span></div></div>')
+    return _figure(inner, None, "Un vaso de agua: se ofrece con las comidas, sin forzar.")
+
+IL = {"edad": edad, "agua": agua, "senales": senales, "leche": leche, "plato": plato,
       "arcada_vs": arcada_vs, "pasos": pasos, "cortes": cortes}
 
 def apply(body):
@@ -178,20 +198,22 @@ figure.il svg.fd{overflow:visible}
 .il .pic{display:block;width:72px;height:72px;margin:0 auto 10px;overflow:visible}
 .il .pic.big{width:96px;height:96px}.il .pic.sm{width:60px;height:60px}
 .il .n{position:absolute;top:10px;left:12px;width:24px;height:24px;border-radius:50%;background:var(--terra);color:#fff;font:800 .8rem/24px Montserrat,sans-serif;text-align:center}
-.tl{display:grid;grid-template-columns:repeat(4,1fr);position:relative;padding-top:4px}
-.tl::before{content:"";position:absolute;left:12.5%;right:12.5%;top:17px;height:6px;border-radius:3px;background:linear-gradient(90deg,#d9cdb8 0 33%,var(--terra) 33% 34%,#e9c98a 34% 66%,var(--green) 66%)}
-.tl li{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;font-size:.85rem;line-height:1.35;color:var(--mute);padding:0 4px}
-.tl .dot{width:32px;height:32px;border-radius:50%;background:#fff;border:3px solid #d9cdb8;display:grid;place-items:center;margin-bottom:6px}
-.tl .bad .dot{border-color:var(--terra)}.tl .warn .dot{border-color:var(--gold)}
-.tl .good .dot{width:44px;height:44px;margin-top:-6px;background:var(--green);border-color:var(--green)}
-.tl .st{width:22px;height:22px}
-.tl b{color:var(--ink);font-size:1rem}.tl .bad span{color:var(--terra);font-weight:700}.tl .good span{color:var(--green);font-weight:700}
+.ages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:center}
+.ages li{position:relative;background:#fff;border-radius:20px;padding:18px 12px 18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.85rem;line-height:1.4;color:var(--mute)}
+.ages li:not(:last-child)::after{content:"";position:absolute;right:-11px;top:50%;width:10px;height:10px;border-top:2.5px solid var(--line);border-right:2.5px solid var(--line);transform:translate(0,-50%) rotate(45deg);z-index:1}
+.ages .m{font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.ages b{color:var(--terra);font-size:1rem}
+.ages .on{border:2.5px solid var(--green);padding:24px 12px;box-shadow:0 10px 24px rgba(74,135,96,.14)}
+.ages .on b{color:var(--green);font-size:1.08rem}.ages li:last-child b{color:#a5781e}
+.ages .pic{margin-bottom:6px}.ages .on .pic{width:84px;height:84px}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .tiles li{position:relative;background:#fff;border-radius:18px;padding:22px 10px 16px;text-align:center;font-weight:700;font-size:.85rem;line-height:1.35}
 .vs{display:flex;align-items:center;justify-content:center;gap:16px}
 .vs .side{flex:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
 .vs .side span{color:var(--mute);font-size:.88rem;line-height:1.4;max-width:15em}
 .vs .side.main b{color:var(--green)}
+.wt{display:flex;align-items:center;justify-content:center;gap:20px}.wt .pic{margin:0;flex:none}
+.wt b{display:block;font-size:1.05rem;color:var(--green);margin:0 0 4px}.wt span{color:var(--mute);font-size:.92rem;line-height:1.45}
 .vs .plus{font:400 2rem "Luckiest Guy",sans-serif;color:var(--terra)}
 .plate{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}
 .plate>div{border-radius:20px;padding:16px;text-align:center}
@@ -217,11 +239,12 @@ figure.il svg.fd{overflow:visible}
 @media(max-width:640px){
 figure.il{padding:16px;margin:24px -6px 28px}
 .tiles{grid-template-columns:repeat(2,1fr)}
+.ages{grid-template-columns:1fr}.ages li{display:grid;grid-template-columns:64px 1fr;grid-template-areas:"p m" "p b" "p d";text-align:left;column-gap:14px;align-items:center;padding:14px 16px}.ages .on{padding:16px}.ages li .pic{grid-area:p;width:64px!important;height:64px!important;margin:0}.ages .m{grid-area:m}.ages b{grid-area:b}.ages li>span:last-child{grid-area:d}.ages li:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-11px;transform:translate(-50%,0) rotate(135deg)}
+
 .cuts{grid-template-columns:1fr}.cuts li{display:grid;grid-template-columns:1fr auto;grid-template-areas:"t p" "d p";text-align:left;align-items:center;column-gap:8px;padding:12px 14px}
 .cuts b{grid-area:t}.cuts li>span{grid-area:d}.cuts .pair{grid-area:p}
 .plate{grid-template-columns:1fr}.plate .ics{grid-template-columns:repeat(4,1fr)}
 .cmp{grid-template-columns:1fr}
-.tl li{font-size:.75rem}.tl b{font-size:.9rem}
 .vs{gap:8px}.vs .pic.big{width:76px;height:76px}
 }
 """

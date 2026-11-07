@@ -28,13 +28,13 @@ a{color:var(--green)}
 .top nav{display:flex;gap:18px;align-items:center;font-weight:700;font-size:.92rem}
 .top nav a{color:var(--ink);text-decoration:none}
 .top .lg{grid-column:2}.top nav{grid-column:3;justify-self:end}
-@media(max-width:640px){.top{grid-template-columns:1fr;justify-items:center;gap:14px;padding:18px 0 0}.top .lg,.top nav{grid-column:1;justify-self:center}.top nav{order:-1}}
+@media(max-width:640px){.top{display:flex;justify-content:space-between;gap:12px;padding:18px 0 0}}
 .btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:14px;background:var(--terra);color:#fff!important;font:800 .95rem Montserrat,sans-serif;text-decoration:none;box-shadow:0 4px 0 #a24f30}
 .wrap{width:min(1080px,100% - 40px);margin:0 auto}
 .hero{padding:56px 0 40px}
 .hero .kick{display:block;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
 .hero h1{color:var(--green);font-size:clamp(2.2rem,7vw,3.4rem);line-height:1.04;margin:0 0 14px}
-.hero p{color:var(--mute);max-width:34em;margin:0}
+.hero p{color:var(--ink);font-size:1.12rem;line-height:1.65;max-width:32em;margin:0}
 .grid{display:grid;gap:22px;padding:20px 0 90px}
 .card{display:flex;flex-direction:column;gap:12px;padding:26px;border-radius:24px;background:var(--card);border:1.5px solid var(--line);text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .2s}
 .card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(38,38,38,.08)}
@@ -101,7 +101,7 @@ HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 <link rel="stylesheet" href="{BASE}/blog/blog.css">
 {extra}<script src="{BASE}/consent.js" defer></script>
 </head><body>
-<header class="top"><a class="lg" href="{BASE}/" aria-label="Primeros Alimentos">{LOGO}</a><nav><a href="{BASE}/blog/">Blog</a><a class="btn" href="{BASE}/?o=blog">Lista de espera</a></nav></header>
+<header class="top"><a class="lg" href="{BASE}/" aria-label="Primeros Alimentos">{LOGO}</a><nav><a class="btn" href="{BASE}/?o=blog">Lista de espera</a></nav></header>
 '''
 FOOT=f'''<footer><div class="soc"><a href="https://www.instagram.com/primeros.alimentos/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>Instagram</a><a href="https://www.tiktok.com/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3c.4 2.6 2 4.3 4.5 4.6v3.2c-1.7 0-3.2-.5-4.5-1.4v6.3A5.6 5.6 0 1 1 9.9 10v3.3a2.4 2.4 0 1 0 2.4 2.4V3z" fill="currentColor"/></svg>TikTok</a></div><div class="links"><a href="{BASE}/">Primeros Alimentos</a><a href="{BASE}/blog/">Blog</a><a href="{BASE}/privacy.html">Privacidad</a><a href="{BASE}/privacy.html#cookies" data-cookies>Cookies</a></div>
 <p>Información orientativa basada en las recomendaciones de la <a href="{U_AEP}" rel="noopener">AEP</a>. No sustituye la consulta con tu pediatra.</p></footer></body></html>'''
@@ -152,7 +152,7 @@ card=lambda a:f'<a class="card" href="{BASE}/blog/{a["slug"]}/"><div class="ic">
 _g=[a for a in ARTICLES if a['cat']=='guia'];_r=[a for a in ARTICLES if a['cat']=='receta']
 cards=(('<h2 class="sec" id="guias">Guías</h2><section class="grid">'+"".join(card(a) for a in _g)+'</section>') if _g else '')+(('<h2 class="sec" id="recetas">Recetas</h2><section class="grid">'+"".join(card(a) for a in _r)+'</section>') if _r else '')
 ld={"@context":"https://schema.org","@type":"Blog","name":"Blog de Primeros Alimentos","url":f"{BASE}/blog/","inLanguage":"es-ES"}
-idx=HEAD("Blog de alimentación complementaria y BLW | Primeros Alimentos","Artículos sobre alimentación complementaria y BLW: cuándo empezar, qué darle, cómo cortarlo y qué evitar. Según las recomendaciones de la AEP.",f"{BASE}/blog/",f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>')+f'''<main class="wrap"><section class="hero"><h1>Sus primeros alimentos, paso a paso</h1><p>Lo que nos preguntamos todas cuando empiezan a comer, explicado claro y según las recomendaciones de la AEP. Y recetas sin sal ni azúcar para hacer en casa.</p>''' + ('<p class="jump"><a href="#guias">Guías</a><a href="#recetas">Recetas</a></p>' if _r and _g else '') + f'''</section>
+idx=HEAD("Blog de alimentación complementaria y BLW | Primeros Alimentos","Artículos sobre alimentación complementaria y BLW: cuándo empezar, qué darle, cómo cortarlo y qué evitar. Según las recomendaciones de la AEP.",f"{BASE}/blog/",f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>')+f'''<main class="wrap"><section class="hero"><h1>Sus primeros alimentos, paso a paso</h1><p>Las dudas de cuando empiezan a comer, resueltas de forma clara y según las recomendaciones de la Asociación Española de Pediatría.'''+(' Y recetas sin sal ni azúcar para hacer en casa.' if _r else '')+'''</p>''' + ('<p class="jump"><a href="#guias">Guías</a><a href="#recetas">Recetas</a></p>' if _r and _g else '') + f'''</section>
 {cards}</main>'''+FOOT
 open(f"{OUT}/blog/index.html","w").write(idx)
 # sitemap
