@@ -145,7 +145,7 @@ for a in ARTICLES:
 <p class="lead">{a['lead']}</p></header>
 {a['body']}
 {('<section class="faq"><h2>Preguntas frecuentes</h2>'+faq+'</section>') if faq else ""}
-<section class="cta"><img class="mk" src="{BASE}/capturas/mockup-app.webp" width="640" height="652" loading="lazy" alt="Dos pantallas de la app Primeros Alimentos: el menú del día y los alimentos que ha probado"><div><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale el 1 de diciembre.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></div></section>
+<section class="cta"><img class="mk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="652" loading="lazy" alt="Dos pantallas de la app Primeros Alimentos: el menú del día y los alimentos que ha probado"><div><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale el 1 de diciembre.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></div></section>
 <section class="rel"><h2>Sigue leyendo</h2>{rel}</section>
 <p class="note">Fuente: <a href="{U_AEP}" rel="noopener">Recomendaciones de la Asociación Española de Pediatría sobre la alimentación complementaria</a>. Información orientativa: ante cualquier duda, consulta con tu pediatra.</p>
 </article></main>'''+FOOT
