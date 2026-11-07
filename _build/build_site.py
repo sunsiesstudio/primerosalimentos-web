@@ -130,7 +130,7 @@ def BANNER(v,o):
         return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bi">{ic("Aguacate")}</span><span class="bt"><span class="bk">Gratis</span>'
                 f'<span class="bh">La guía para empezar</span><span class="bp">Apúntate a la lista de espera de la app y te la mandamos al email.</span></span>'
                 f'<span class="btn">Quiero la guía</span></a>')
-    return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><span class="bi">{ic("Fresas")}</span><span class="bt"><span class="bk">Sale el 1 de diciembre</span>'
+    return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><span class="bi">{ic("Fresas")}</span><span class="bt"><span class="bk">Muy pronto</span>'
             f'<span class="bh">Todo esto, en una app</span><span class="bp">Qué darle cada día y lo que ya ha probado. Apúntate y te avisamos el primer día.</span></span>'
             f'<span class="btn">Apuntarme</span></a>')
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
@@ -188,7 +188,7 @@ for a in ARTICLES:
 {BANNER(1,'blog-art')}
 {a['body']}
 {('<section class="faq"><h2>Preguntas frecuentes</h2>'+faq+'</section>') if faq else ""}
-<section class="cta"><img class="mk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="652" loading="lazy" alt="Dos pantallas de la app Primeros Alimentos: el menú del día y los alimentos que ha probado"><div><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale el 1 de diciembre.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></div></section>
+<section class="cta"><img class="mk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="652" loading="lazy" alt="Dos pantallas de la app Primeros Alimentos: el menú del día y los alimentos que ha probado"><div><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale muy pronto.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></div></section>
 <section class="rel"><h2>Sigue leyendo</h2>{rel}</section>
 <p class="note">Fuente: <a href="{U_AEP}" rel="noopener">Recomendaciones de la Asociación Española de Pediatría sobre la alimentación complementaria</a>. Información orientativa: ante cualquier duda, consulta con tu pediatra.</p>
 </article></main>'''+FOOT

@@ -6,7 +6,7 @@
 <title>Primeros Alimentos · Lista de espera</title>
 <meta name="description" content="La app para planificar los primeros alimentos de tu bebé, en español y con las recomendaciones de la AEP. Apúntate a la lista de espera y descárgate gratis la guía para empezar.">
 <meta property="og:title" content="Primeros Alimentos">
-<meta property="og:description" content="Planifica los primeros alimentos de tu bebé. Sale el 1 de diciembre. Apúntate y llévate la guía gratis.">
+<meta property="og:description" content="Planifica los primeros alimentos de tu bebé. Sale muy pronto. Apúntate y llévate la guía gratis.">
 <meta property="og:image" content="../icon-512.png">
 <meta name="theme-color" content="#eeead8">
 <link rel="icon" href="../icon-192.png">
@@ -271,7 +271,7 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
   <div class="bag" id="bag" aria-hidden="true"></div>
 
   <div class="hc">
-    <span class="soon" data-obs><i></i>Sale el 1 de diciembre</span>
+    <span class="soon" data-obs><i></i>Sale muy pronto</span>
     <svg class="logo" data-obs viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos"><defs><path id="arc" d="M10,185 Q320,10 630,185"/></defs><text class="disp" text-anchor="middle" style="font-size:56px;fill:var(--green)"><textPath href="#arc" startOffset="50%">Primeros alimentos</textPath></text><g transform="translate(279 112) scale(3.4)" style="fill:var(--terra)"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" style="stroke:var(--bg);fill:none;stroke-width:.9;stroke-linecap:round"/></g></svg>
     <h1 data-obs>Planifica lo&nbsp;que&nbsp;come tu&nbsp;bebé</h1>
     <p class="lead" data-obs>Lo que me habría encantado tener cuando mi bebé empezó a comer.</p>
@@ -364,7 +364,7 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
       
       <h2>Por&nbsp;qué&nbsp;hice esta app</h2>
       <p>Soy Martina, diseñadora de producto y madre de Pol. Cuando empezó a comer probé las apps que había y ninguna me servía para lo de cada día: saber qué le tocaba, qué había probado ya y cómo se lo había dado.</p>
-      <p>Así que me hice la mía. Estas semanas la han probado otras mamás, la hemos ido mejorando con lo que nos decían, y el 1 de diciembre la abro para todas. Y para todos: los papás también sois más que bienvenidos.</p>
+      <p>Así que me hice la mía. Estas semanas la han probado otras mamás, la hemos ido mejorando con lo que nos decían, y muy pronto la abro para todas. Y para todos: los papás también sois más que bienvenidos.</p>
       <p class="sig">Martina</p>
       <a class="meli" href="https://www.linkedin.com/in/martinasoles" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="4" fill="currentColor"/><path d="M7 10v7M7 7v.01M11 17v-7M11 13c0-2 1.3-3 3-3s3 1 3 3v4" stroke="#c96a47" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>Mi LinkedIn</a>
       </div>
@@ -424,7 +424,7 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
   <div class="done">
     __CHECKICON__
     <h3 class="disp">¡Ya&nbsp;estás dentro!</h3>
-    <p>Te avisamos el 1 de diciembre. Mientras, aquí tienes tu guía.</p>
+    <p>Tu guía ya va de camino a tu email.</p>
     <div class="btns">
       <a class="btn" href="/guia-primeros-alimentos.pdf" target="_blank" rel="noopener">Abrir la guía (PDF)</a>
       <button class="btn ghost" type="button" data-share>Pásasela a otra mamá (o papá)</button>
@@ -541,7 +541,7 @@ const getDB=()=>fb||(fb=(async()=>{const {initializeApp}=await import("https://w
   const fs=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");return{db:fs.getFirestore(initializeApp(CFG)),fs}})());
 const RE=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
 const showDone=()=>{document.querySelectorAll("[data-form]").forEach(f=>{f.replaceChildren(document.getElementById("okTpl").content.cloneNode(true))});
-  document.querySelectorAll("[data-share]").forEach(b=>b.onclick=async()=>{const d={title:"Primeros Alimentos",text:"Mira esta app para planificar los primeros alimentos del bebé. Sale el 1 de diciembre y regalan una guía para empezar.",url:location.origin+location.pathname};
+  document.querySelectorAll("[data-share]").forEach(b=>b.onclick=async()=>{const d={title:"Primeros Alimentos",text:"Mira esta app para planificar los primeros alimentos del bebé. Sale muy pronto y regalan una guía para empezar.",url:location.origin+location.pathname};
     try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.text+" "+d.url);b.textContent="Enlace copiado"}}catch(e){}})};
 try{if(localStorage.getItem("pa_wl"))showDone()}catch(e){}
 document.querySelectorAll("[data-form]").forEach(f=>f.addEventListener("submit",async e=>{e.preventDefault();
