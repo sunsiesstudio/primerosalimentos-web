@@ -21,6 +21,23 @@ MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septie
 fecha=lambda d:f"{int(d[8:])} de {MESES[int(d[5:7])-1]} de {d[:4]}"
 LOGO='<svg viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos"><defs><path id="arc" d="M10,185 Q320,10 630,185"/></defs><text text-anchor="middle" style="font:400 56px \'Luckiest Guy\',sans-serif;letter-spacing:.03em;fill:#4a8760"><textPath href="#arc" startOffset="50%">Primeros alimentos</textPath></text><g transform="translate(279 112) scale(3.4)" style="fill:#c96a47"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/></g></svg>'
 FIXES=r"""
+/* cabecera: solo el logo, centrado */
+.top{display:flex!important;justify-content:center!important;padding:26px 0 0!important}
+.top .lg{width:clamp(200px,58vw,280px)!important}
+/* banners de lista de espera */
+.wlb{display:flex;align-items:center;gap:22px;margin:8px 0 34px;padding:24px 28px;border-radius:24px;background:var(--green);color:#fff;text-decoration:none;position:relative;overflow:hidden}
+.wlb .bi{flex:none;width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center}
+.wlb .bi svg{width:46px;height:46px}
+.wlb .bt{flex:1;min-width:0}
+.wlb .bk{display:block;font:800 .74rem Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin:0 0 6px}
+.wlb .bh{display:block;font-family:"Luckiest Guy",sans-serif;font-weight:400;letter-spacing:.02em;font-size:1.55rem;line-height:1.1;margin:0 0 6px}
+.wlb .bp{display:block;font-size:.98rem;line-height:1.5;color:rgba(255,255,255,.9)}
+.wlb .btn{flex:none}
+.wlb.t2{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.wlb.t2 .bi{background:color-mix(in srgb,var(--terra) 14%,var(--card))}
+.wlb.t2 .bk{color:var(--terra)}.wlb.t2 .bh{color:var(--green)}.wlb.t2 .bp{color:var(--mute)}
+article .wlb{margin:30px 0}
+@media(max-width:640px){.wlb{flex-direction:column;text-align:center;gap:14px;padding:26px 22px 24px}.wlb .btn{width:100%}}
 /* ajustes nov 2026 */
 .faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .faq summary::after{float:none;flex:none;width:1em;text-align:center;font-size:1.2em;line-height:1}
@@ -108,6 +125,14 @@ footer .soc svg{width:19px;height:19px}
 footer .links{margin-bottom:14px;max-width:36em;margin-left:auto!important;margin-right:auto!important;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
 @media(max-width:480px){.top nav{gap:12px}.top .btn{min-height:40px;padding:0 14px;font-size:.85rem}footer .links{flex-wrap:wrap;gap:12px 20px}}
 """+illus.CSS+illus2.CSS+FIXES
+def BANNER(v,o):
+    if v==1:
+        return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bi">{ic("Aguacate")}</span><span class="bt"><span class="bk">Gratis</span>'
+                f'<span class="bh">La guía para empezar</span><span class="bp">Apúntate a la lista de espera de la app y te la mandamos al email.</span></span>'
+                f'<span class="btn">Quiero la guía</span></a>')
+    return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><span class="bi">{ic("Fresas")}</span><span class="bt"><span class="bk">Sale el 1 de diciembre</span>'
+            f'<span class="bh">Todo esto, en una app</span><span class="bp">Qué darle cada día y lo que ya ha probado. Apúntate y te avisamos el primer día.</span></span>'
+            f'<span class="btn">Apuntarme</span></a>')
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
@@ -121,7 +146,7 @@ HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 <link rel="stylesheet" href="{BASE}/blog/blog.css">
 {extra}<script src="{BASE}/consent.js" defer></script>
 </head><body>
-<header class="top"><a class="lg" href="{BASE}/" aria-label="Primeros Alimentos">{LOGO}</a><nav><a class="btn" href="{BASE}/?o=blog">Lista de espera</a></nav></header>
+<header class="top"><a class="lg" href="{BASE}/" aria-label="Primeros Alimentos">{LOGO}</a></header>
 '''
 FOOT=f'''<footer><div class="soc"><a href="https://www.instagram.com/primeros.alimentos/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>Instagram</a></div><div class="links"><a href="{BASE}/">Inicio</a><a href="{BASE}/blog/">Blog</a><a href="{BASE}/privacy.html">Privacidad</a><a href="{BASE}/privacy.html#cookies" data-cookies>Cookies</a></div>
 <p>Información orientativa basada en las recomendaciones de la <a href="{U_AEP}" rel="noopener">AEP</a>. No sustituye la consulta con tu pediatra.</p></footer></body></html>'''
@@ -160,6 +185,7 @@ for a in ARTICLES:
 <header><div class="ic">{ic(a['icon'])}</div><h1>{html.escape(a.get('h1',a['title']))}</h1>
 <div class="meta">Por Martina Solés · {fecha(a['date'])} · {a['mins']} min de lectura</div>
 <p class="lead">{a['lead']}</p></header>
+{BANNER(1,'blog-art')}
 {a['body']}
 {('<section class="faq"><h2>Preguntas frecuentes</h2>'+faq+'</section>') if faq else ""}
 <section class="cta"><img class="mk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="652" loading="lazy" alt="Dos pantallas de la app Primeros Alimentos: el menú del día y los alimentos que ha probado"><div><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale el 1 de diciembre.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></div></section>
@@ -173,8 +199,10 @@ card=lambda a:f'<a class="card" href="{BASE}/blog/{a["slug"]}/"><div class="ic">
 _g=[a for a in ARTICLES if a['cat']=='guia'];_r=[a for a in ARTICLES if a['cat']=='receta']
 cards=(('<h2 class="sec" id="guias">Guías</h2><section class="grid">'+"".join(card(a) for a in _g)+'</section>') if _g else '')+(('<h2 class="sec" id="recetas">Recetas</h2><section class="grid">'+"".join(card(a) for a in _r)+'</section>') if _r else '')
 ld={"@context":"https://schema.org","@type":"Blog","name":"Blog de Primeros Alimentos","url":f"{BASE}/blog/","inLanguage":"es-ES"}
-idx=HEAD("Blog de alimentación complementaria y BLW | Primeros Alimentos","Artículos sobre alimentación complementaria y BLW: cuándo empezar, qué darle, cómo cortarlo y qué evitar. Según las recomendaciones de la AEP.",f"{BASE}/blog/",f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>')+f'''<main class="wrap"><section class="hero"><h1>Sus primeros alimentos, paso a paso</h1><p>Las dudas de cuando empiezan a comer, resueltas de forma clara y según las recomendaciones de la Asociación Española de Pediatría.'''+(' Y recetas sin sal ni azúcar para hacer en casa.' if _r else '')+'''</p>''' + ('<p class="jump"><a href="#guias">Guías</a><a href="#recetas">Recetas</a></p>' if _r and _g else '') + f'''</section>
-{cards}</main>'''+FOOT
+idx=HEAD("Blog de alimentación complementaria y BLW | Primeros Alimentos","Artículos sobre alimentación complementaria y BLW: cuándo empezar, qué darle, cómo cortarlo y qué evitar. Según las recomendaciones de la AEP.",f"{BASE}/blog/",f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>')+f'''<main class="wrap"><section class="hero"><h1>Sus primeros bocados</h1><p>Guías para empezar con la alimentación complementaria paso a paso, según las recomendaciones de la Asociación Española de Pediatría.'''+(' Y recetas sin sal ni azúcar para hacer en casa.' if _r else '')+'''</p>''' + ('<p class="jump"><a href="#guias">Guías</a><a href="#recetas">Recetas</a></p>' if _r and _g else '') + f'''</section>
+{BANNER(1,'blog')}
+{cards}
+{BANNER(2,'blog')}</main>'''+FOOT
 open(f"{OUT}/blog/index.html","w").write(nbsp.titulos(idx))
 # sitemap
 urls=[(f"{BASE}/","2026-11-06"),(f"{BASE}/blog/",max(a['date'] for a in ARTICLES))]+[(f"{BASE}/blog/{a['slug']}/",a.get('updated',a['date'])) for a in ARTICLES]

@@ -1,6 +1,6 @@
+
 h1,h2,h3,.disp{-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:10 4 4}
 h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
-
 :root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--gold:#c9962f}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.7 Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -208,6 +208,24 @@ figure.il{padding:16px;margin:24px -6px 28px}
 .nb-steps,.nb-serve{grid-template-columns:1fr}
 .nb-steps li{transform:none!important}
 }
+
+/* cabecera: solo el logo, centrado */
+.top{display:flex!important;justify-content:center!important;padding:26px 0 0!important}
+.top .lg{width:clamp(200px,58vw,280px)!important}
+/* banners de lista de espera */
+.wlb{display:flex;align-items:center;gap:22px;margin:8px 0 34px;padding:24px 28px;border-radius:24px;background:var(--green);color:#fff;text-decoration:none;position:relative;overflow:hidden}
+.wlb .bi{flex:none;width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center}
+.wlb .bi svg{width:46px;height:46px}
+.wlb .bt{flex:1;min-width:0}
+.wlb .bk{display:block;font:800 .74rem Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin:0 0 6px}
+.wlb .bh{display:block;font-family:"Luckiest Guy",sans-serif;font-weight:400;letter-spacing:.02em;font-size:1.55rem;line-height:1.1;margin:0 0 6px}
+.wlb .bp{display:block;font-size:.98rem;line-height:1.5;color:rgba(255,255,255,.9)}
+.wlb .btn{flex:none}
+.wlb.t2{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.wlb.t2 .bi{background:color-mix(in srgb,var(--terra) 14%,var(--card))}
+.wlb.t2 .bk{color:var(--terra)}.wlb.t2 .bh{color:var(--green)}.wlb.t2 .bp{color:var(--mute)}
+article .wlb{margin:30px 0}
+@media(max-width:640px){.wlb{flex-direction:column;text-align:center;gap:14px;padding:26px 22px 24px}.wlb .btn{width:100%}}
 /* ajustes nov 2026 */
 .faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .faq summary::after{float:none;flex:none;width:1em;text-align:center;font-size:1.2em;line-height:1}
