@@ -75,6 +75,7 @@ input[type=email]:focus{border-color:var(--green)}
 .err{margin:10px 0 0;min-height:0;color:#b3322a;font-size:.86rem;font-weight:600}
 .err:empty{display:none}
 .done{text-align:center}
+.step .txt>p.sd{font-weight:400;color:var(--mute);font-size:1.02rem;line-height:1.65;max-width:30em;margin:0}
 .guide .wl{max-width:none;margin-left:0;margin-right:0}
 .done>svg{width:40px;height:40px;margin:0 auto 14px!important}
 .done h3{margin:4px 0 8px;font-size:1.7rem;color:var(--green);line-height:1.1}
@@ -137,13 +138,13 @@ footer p{margin:0 auto;max-width:36em}
 
 @media (min-width:760px){
   body{font-size:18px}
-  .hc{padding-top:48px}
-  .soon{margin-bottom:10px}
-  .wl{padding:20px}.wl .gift{font-size:.92rem}.cons{font-size:.78rem}.lead{margin-bottom:26px}
+  .hc{padding-top:24px}
+  .soon{margin-bottom:6px}
+  .wl{padding:20px}.wl .gift{font-size:.92rem}.cons{font-size:.78rem}.lead{margin-bottom:20px}
   .game{margin-top:22px}
   .hero{padding-bottom:120px}
-  .logo{width:min(380px,92%)}
-  h1{margin-top:32px}
+  .logo{width:min(330px,92%)}
+  h1{margin-top:16px}
   .lead{font-size:1.05rem}
   .row{flex-direction:row}.row input{flex:1}.row .btn{width:auto;flex:none}
   .step{grid-template-columns:1fr 1fr;gap:56px}
@@ -244,6 +245,16 @@ footer .soc svg{width:19px;height:19px}
 footer .links{max-width:36em;margin-left:auto!important;margin-right:auto!important;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
 @media (prefers-reduced-motion:reduce){.mq,.stk{animation:none}}
 
+@media (min-width:760px) and (max-height:820px){
+  .hc{padding-top:16px}.logo{width:min(270px,80%)}h1{font-size:2.9rem;margin:10px 0 8px}.lead{margin-bottom:14px}.wl{padding:16px}.wl .gift{margin-bottom:10px}
+}
+@media (max-width:759px) and (max-height:900px){
+  .hc{padding-top:calc(10px + env(safe-area-inset-top,0px))}.soon{font-size:.76rem;padding:5px 12px}.logo{width:min(190px,55%);margin-bottom:0}h1{font-size:2rem;margin:8px 0 6px}.lead{margin-bottom:12px;font-size:.88rem}.wl{padding:14px}.wl .gift{margin-bottom:10px;font-size:.84rem}.hero{padding-bottom:118px}.done>svg{margin-bottom:8px!important}.done p{margin-bottom:12px}
+}
+@media (min-width:760px) and (max-height:640px){
+  .soon{display:none}.done .btns{flex-direction:row}.done .btns>*{flex:1}.done h3{font-size:1.4rem}.done p{margin-bottom:12px}
+  .hc{padding-top:14px}.logo{width:min(200px,60%)}h1{font-size:2.3rem;margin:6px 0 6px;max-width:none}.lead{margin-bottom:10px}.hero{padding-bottom:100px}.wl{padding:14px}
+}
 </style>
 <script src="/consent.js" defer></script>
 </head>
@@ -277,43 +288,31 @@ footer .links{max-width:36em;margin-left:auto!important;margin-right:auto!import
   <section id="como">
     <div class="wrap">
       
-      <h2>Qué le doy hoy, resuelto</h2>
-      <p class="intro">Todo lo de sus primeras comidas, en una sola app.</p>
+      <h2>La alimentación complementaria, día a día</h2>
+      <p class="intro">Primeros Alimentos es una app para planificar la alimentación complementaria de tu bebé desde los 6 meses: qué alimentos introducir, en qué orden y con qué textura, con puré, BLW o mezcla. Basada en las recomendaciones de la Asociación Española de Pediatría (AEP).</p>
 
       <div class="steps">
         <div class="step">
           <div class="txt">
             <span class="num">1</span>
-            <h3>Apunta lo que va probando</h3>
-            <ul class="tk">
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>179 alimentos, con buscador</span></li>
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>Cuándo lo probó, cómo se lo diste y si le gustó</span></li>
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>Si le sienta mal, deja de salir en el menú</span></li>
-            </ul>
+            <h3>Registro de alimentos del bebé</h3>
+            <p class="sd">Apunta cada alimento nuevo que prueba: cuándo, cómo se lo diste (puré, tiras o trozos) y si le gustó. Tienes 179 alimentos en 7 categorías, con buscador, y si algo le sienta mal deja de salir en el menú.</p>
           </div>
           <div class="pw" style="--c:#c96a47"><figure class="phone"><img src="capturas/captura-1.jpg" alt="Pantalla de alimentos por probar, probando y probado"><div class="ph">__PH1__Captura 1<br>capturas/captura-1.jpg</div></figure></div>
         </div>
         <div class="step">
           <div class="txt">
             <span class="num">2</span>
-            <h3>Su menú de cada día</h3>
-            <ul class="tk">
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>Hecho para su edad y para cómo coméis en casa</span></li>
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>Un alimento nuevo cada 1, 2 o 3 días, a tu ritmo</span></li>
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>Sin que falte hierro ni zinc en la semana</span></li>
-            </ul>
+            <h3>Menú semanal para bebés</h3>
+            <p class="sd">Un menú hecho para su edad y para cómo coméis en casa: de todo, vegetariano o vegano, con puré, BLW o mezcla. Introduce un alimento nuevo cada 1, 2 o 3 días, a tu ritmo, sin que falte hierro ni zinc en la semana.</p>
           </div>
           <div class="pw" style="--c:#3e4cd0"><figure class="phone"><img src="capturas/captura-2.jpg" alt="Pantalla del menú de la semana"><div class="ph">__PH2__Captura 2<br>capturas/captura-2.jpg</div></figure></div>
         </div>
         <div class="step">
           <div class="txt">
             <span class="num">3</span>
-            <h3>Tus dudas, resueltas</h3>
-            <ul class="tk">
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>Qué textura toca y cómo cortar cada alimento</span></li>
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>Arcada o atragantamiento, y qué hacer</span></li>
-              <li><i class="tki"><svg viewBox="0 0 24 24"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4" fill="#c96a47"/></svg></i><span>Qué evitar, cómo conservar y cuándo consultar</span></li>
-            </ul>
+            <h3>Guía de alimentación complementaria</h3>
+            <p class="sd">Las dudas de cada día, resueltas: qué textura toca según la edad, cómo cortar cada alimento, qué hacer si hace una arcada o se atraganta, qué alimentos evitar antes del año, cómo conservarlos y cuándo consultar con el pediatra.</p>
           </div>
           <div class="pw" style="--c:#c9962f"><figure class="phone"><img src="capturas/captura-3.jpg" alt="Pantalla de la guía de información"><div class="ph">__PH3__Captura 3<br>capturas/captura-3.jpg</div></figure></div>
         </div>
