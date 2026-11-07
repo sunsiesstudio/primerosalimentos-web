@@ -82,7 +82,9 @@ input[type=email]:focus{border-color:var(--green)}
 .done>svg{width:40px;height:40px;margin:0 auto 14px!important}
 .done h3{margin:4px 0 8px;font-size:1.7rem;color:var(--green);line-height:1.1}
 .done p{margin:0 0 18px;color:var(--mute);font-size:.95rem}
-.done .btns{display:flex;flex-direction:column;gap:10px}
+.done .btns{display:flex;flex-direction:column;align-items:center;gap:6px}.done .btns .btn{width:100%}
+.done .share{background:none;border:0;padding:10px;color:var(--green);font:700 .92rem Montserrat,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+body.wl-done .lead{display:none}body.wl-done h1{margin-bottom:22px!important}
 
 .game{position:relative;z-index:2;margin:16px 0 0;display:inline-flex;align-items:center;gap:10px;padding:7px 16px;line-height:1.35;border-radius:99px;background:color-mix(in srgb,var(--card) 88%,transparent);border:1.5px solid var(--line);font-size:.85rem;font-weight:600;pointer-events:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .game b{color:var(--green);font-weight:800}
@@ -409,7 +411,7 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
 <section class="blogs">
   <div class="wrap">
     
-    <h2>Para&nbsp;leer mientras tanto, en&nbsp;el&nbsp;blog</h2>
+    <h2>Del blog</h2>
     <div class="bgrid">
       <a class="bcard" href="/blog/cuando-empezar-alimentacion-complementaria/"><i><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M9 8c3-1 5 1 5 4 0 15 9 22 25 20 3 0 4 4 1 6C21 42 5 34 5 14c0-3 2-5 4-6z" fill="#f2cf4a" /><path class="o" d="M7 7l4-2 3 4-4 2z" fill="#7a5a2d" /><path d="M16 20c3 8 9 13 17 15-9-1-16-6-17-15z" fill="#fff" opacity=".45" stroke="none"/></svg></i><b>Cuándo empezar con la alimentación complementaria</b><span>Las 4 señales de que tu bebé está listo</span></a>
       <a class="bcard" href="/blog/arcada-o-atragantamiento-bebe/"><i><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><ellipse class="o" cx="14" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="24" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="34" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="19" cy="30" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="29" cy="30" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="24" cy="40" rx="7.5" ry="7.5" fill="#8a5ac8" /><path class="o" d="M24 12V4" fill="none"/><path class="o" d="M0 0c4-7 13-7 16-3-1 7-9 10-16 3z" fill="#6aa86f" transform="translate(24 6) rotate(-10) scale(0.9)"/></svg></i><b>Arcada o atragantamiento</b><span>Cómo distinguirlos y qué hacer</span></a>
@@ -427,10 +429,10 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
   <div class="done">
     <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" style="display:block;margin:0 auto"><circle cx="32" cy="32" r="30" fill="#4a8760"/><path d="M19 33l9 9 17-18" stroke="#fff" stroke-width="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <h3 class="disp">¡Ya&nbsp;estás dentro!</h3>
-    <p>Te avisamos el 1 de diciembre. Mientras, aquí tienes tu guía (y&nbsp;te la mandamos también por email).</p>
+    <p>Tu guía ya va de camino a tu email.</p>
     <div class="btns">
       <a class="btn" href="/guia-primeros-alimentos.pdf" target="_blank" rel="noopener">Abrir la guía (PDF)</a>
-      <button class="btn ghost" type="button" data-share>Pásasela a otra mamá o papá</button>
+      <button class="share" type="button" data-share>Pásasela a otra mamá o papá</button>
     </div>
   </div>
 </template>
@@ -548,7 +550,7 @@ const ML={account:"2776979",form:"203501696413861774"};
 const toML=em=>{if(!ML.account||!ML.form)return;const d=new FormData();d.append("fields[email]",em);d.append("ml-submit","1");d.append("anticsrf","true");
   fetch("https://assets.mailerlite.com/jsonp/"+ML.account+"/forms/"+ML.form+"/subscribe",{method:"POST",body:d,mode:"no-cors"}).catch(()=>{})};
 const RE=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
-const showDone=()=>{document.querySelectorAll("[data-form]").forEach(f=>{f.replaceChildren(document.getElementById("okTpl").content.cloneNode(true))});
+const showDone=()=>{document.body.classList.add("wl-done");document.querySelectorAll("[data-form]").forEach(f=>{f.replaceChildren(document.getElementById("okTpl").content.cloneNode(true))});
   document.querySelectorAll("[data-share]").forEach(b=>b.onclick=async()=>{const d={title:"Primeros Alimentos",text:"Mira esta app para planificar los primeros alimentos del bebé. Sale el 1 de diciembre y regalan una guía para empezar.",url:"https://www.primerosalimentos.com/"};
     try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.text+" "+d.url);b.textContent="Enlace copiado"}}catch(e){}})};
 try{if(localStorage.getItem("pa_wl"))showDone()}catch(e){}
