@@ -544,7 +544,7 @@ const getDB=()=>fb||(fb=(async()=>{const {initializeApp}=await import("https://w
   const fs=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");return{db:fs.getFirestore(initializeApp(CFG)),fs}})());
 /* MailerLite: además de guardarlo en Firestore, apunta el email al grupo de MailerLite (envía la guía por email y luego el aviso del lanzamiento).
    Rellena con los IDs del formulario embebido de MailerLite (Forms > Embedded forms). Si están vacíos, no se envía nada. */
-const ML={account:"",form:""};
+const ML={account:"2776979",form:"203501696413861774"};
 const toML=em=>{if(!ML.account||!ML.form)return;const d=new FormData();d.append("fields[email]",em);d.append("ml-submit","1");d.append("anticsrf","true");
   fetch("https://assets.mailerlite.com/jsonp/"+ML.account+"/forms/"+ML.form+"/subscribe",{method:"POST",body:d,mode:"no-cors"}).catch(()=>{})};
 const RE=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
