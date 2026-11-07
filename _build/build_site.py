@@ -81,6 +81,11 @@ article li::marker{color:var(--terra);font-weight:800}
 footer{background:var(--green);color:rgba(255,255,255,.85);text-align:center;padding:44px 24px 50px;font-size:.85rem}
 footer a{color:#fff}footer .links{display:flex;justify-content:center;gap:22px;font-weight:700;margin:0 0 14px}
 footer p{max-width:36em;margin:0 auto}
+footer .soc{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:0 0 26px}
+footer .soc a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);color:#fff;text-decoration:none;font-weight:700;font-size:.92rem}
+footer .soc a:hover{background:rgba(255,255,255,.12)}
+footer .soc svg{width:19px;height:19px}
+footer .links{margin-bottom:14px;max-width:36em;margin-left:auto!important;margin-right:auto!important;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
 @media(max-width:480px){.top nav{gap:12px}.top .btn{min-height:40px;padding:0 14px;font-size:.85rem}footer .links{flex-wrap:wrap;gap:12px 20px}}
 """+illus.CSS
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
@@ -98,7 +103,7 @@ HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 </head><body>
 <header class="top"><a class="lg" href="{BASE}/" aria-label="Primeros Alimentos">{LOGO}</a><nav><a href="{BASE}/blog/">Blog</a><a class="btn" href="{BASE}/?o=blog">Lista de espera</a></nav></header>
 '''
-FOOT=f'''<footer><div class="links"><a href="{BASE}/">Primeros Alimentos</a><a href="{BASE}/blog/">Blog</a><a href="https://www.instagram.com/sunsies.studio/" rel="noopener">Instagram</a><a href="{BASE}/privacy.html">Privacidad</a><a href="{BASE}/privacy.html#cookies" data-cookies>Cookies</a></div>
+FOOT=f'''<footer><div class="soc"><a href="https://www.instagram.com/sunsies.studio/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>Instagram</a><a href="https://www.tiktok.com/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3c.4 2.6 2 4.3 4.5 4.6v3.2c-1.7 0-3.2-.5-4.5-1.4v6.3A5.6 5.6 0 1 1 9.9 10v3.3a2.4 2.4 0 1 0 2.4 2.4V3z" fill="currentColor"/></svg>TikTok</a></div><div class="links"><a href="{BASE}/">Primeros Alimentos</a><a href="{BASE}/blog/">Blog</a><a href="{BASE}/privacy.html">Privacidad</a><a href="{BASE}/privacy.html#cookies" data-cookies>Cookies</a></div>
 <p>Información orientativa basada en las recomendaciones de la <a href="{U_AEP}" rel="noopener">AEP</a>. No sustituye la consulta con tu pediatra.</p></footer></body></html>'''
 ic=lambda n:F.get(n) or F['Plátano']
 os.makedirs(f"{OUT}/blog",exist_ok=True)
