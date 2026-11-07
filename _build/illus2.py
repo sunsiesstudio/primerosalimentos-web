@@ -9,7 +9,7 @@ LINE = "#d8d3bc"; BLUE = "#7ab0d9"; LBLUE = "#dcecf7"; PURPLE = "#8a5ac8"; CREAM
 
 def F(n, x=4, y=4, s=.875):
     """Icono de alimento dentro de un dibujo de 64x64."""
-    return f'<g transform="translate({x} {y}) scale({s})">{food(n)}</g>'
+    return f'<g transform="translate({x} {y}) scale({s})">{food(n).replace("<svg ", '<svg width="64" height="64" ', 1)}</g>'
 
 NO = lambda x=54, y=10: f'<circle cx="{x}" cy="{y}" r="8" fill="{TERRA}"/><path d="M{x-3.5} {y-3.5}l7 7M{x+3.5} {y-3.5}l-7 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>'
 SI = lambda x=54, y=10: f'<circle cx="{x}" cy="{y}" r="8" fill="{GREEN}"/><path d="M{x-4} {y}l3 3 5-6" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
@@ -728,9 +728,9 @@ def _paso_pic(texto, ings):
     if not found and temp:
         body += (f'<circle cx="75" cy="20" r="18" fill="{TERRA}"/>' + TXT(75, 24, temp.group(1) + "°", 12, "#fff"))
     for i, n in enumerate(found):
-        x, y = 58, 2 + i * 31
-        body += f'<circle cx="{x+17}" cy="{y+16}" r="17" fill="#fff" stroke="{LINE}" stroke-width="1.5"/>'
-        body += (f'<g transform="translate({x+3} {y+2}) scale(.44)">{P[n]()}</g>' if n in P else F(n, x + 3, y + 2, .44))
+        cx, cy = 77, (33 if len(found) == 1 else 17 + i * 32)
+        body += f'<circle cx="{cx}" cy="{cy}" r="15.5" fill="#fff" stroke="{LINE}" stroke-width="1.5"/>'
+        body += (f'<g transform="translate({cx-13} {cy-13}) scale(.406)">{P[n]()}</g>' if n in P else F(n, cx - 13, cy - 13, .406))
     return _svg(body, vb="0 0 96 66", cls="sc")
 
 def _corto(paso):
@@ -750,6 +750,24 @@ def receta(a):
         txt = s.split("</strong>", 1)[1].strip() if "</strong>" in s else s
         n = "mano_tira" if re.search(r"\b6\b|6-", lab) else "pinza" if re.search(r"9", lab) else "tenedor_bocado"
         serve.append(f'<div class="pi p{k%2}">{ic(n)}<b>{lab}</b><span>{txt}</span></div>')
+    # pastillas con iconos
+    mini = lambda body: _svg(body, cls="mi")
+    pills = [(P["bebe"](), a["age"]), (P["cuchillo"](), f'Preparación {a["prep"]} min')]
+    if a["cook"]: pills.append((P["horno"]() if re.search(r"horno|hornea", " ".join(a["steps"]).lower()) else P["sarten"]() if "sartén" in " ".join(a["steps"]).lower() else P["olla"]() if any(w in " ".join(a["steps"]).lower() for w in ("cuece", "olla", "cazo")) else P["reloj"](), f'Cocción {a["cook"]} min'))
+    else: pills.append((P["reloj"](), "Sin cocción"))
+    pills.append((P["servir"](), a["yld"]))
+    nueva = '<div class="pills pi2">' + "".join(f"<span>{mini(b)}{t}</span>" for b, t in pills) + "</div>"
+    k = body.find('<div class="pills">')
+    if k >= 0:
+        body = body[:k] + nueva + body[body.find("</div>", k) + 6:]
+    ALG = {"Huevo": "Huevo", "Gluten": "Pan", "Leche": "yogur", "Pescado": "Merluza", "Sésamo": "especias", "Frutos secos": "Almendra"}
+    def alg_ic(x):
+        n = next((v for k2, v in ALG.items() if x.startswith(k2)), None)
+        return (mini(P[n]() if n in P else F(n, 2, 2, .94)) if n else "") + x
+    k = body.find('<p class="alg">')
+    if k >= 0 and a["alg"]:
+        body = body[:k] + '<p class="alg alg2"><strong>Alérgenos:</strong> ' + "".join(f"<span>{alg_ic(x)}</span>" for x in a["alg"]) + "</p>" + body[body.find("</p>", k) + 4:]
+    i, j = body.find("<h2>Ingredientes</h2>"), body.find("<h2>Conservar</h2>")
     nb = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap">'
           '<section class="nb"><span class="tape t1"></span><span class="tape t2"></span>'
           f'<h2>Ingredientes</h2><ul class="nb-ing">{li}</ul></section>'
@@ -794,6 +812,12 @@ CSS = r"""
 .i2l .lab b{display:block;margin:0 0 6px}.i2l .lab p{margin:0}
 .i2l mark{background:#f6d8cb;color:#a24f30;font-weight:800;border-radius:4px;padding:0 3px}
 .i2l .ex{display:flex;gap:10px;align-items:center}.i2l .ex .pic{width:56px;height:56px;margin:0;flex:none}.i2l .ex p{margin:0;font-size:.9rem;line-height:1.45}
+/* recetas: pastillas con iconos */
+.pi2 span{display:inline-flex;align-items:center;gap:8px;padding:6px 16px 6px 8px!important}
+.pi2 .mi,.alg2 .mi{width:28px;height:28px;flex:none;overflow:visible}
+.alg2{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.alg2 span{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:600}
+.alg2 .mi{width:24px;height:24px}
 /* recetas: libreta */
 .nb{position:relative;margin:34px 0 10px;padding:30px 22px 22px 64px;background-color:#fffdf6;
  background-image:linear-gradient(90deg,transparent 46px,#f2b1a6 46px,#f2b1a6 48px,transparent 48px),repeating-linear-gradient(transparent 0 39px,#d6e6f2 39px 40px),radial-gradient(circle at 20px 22px,var(--bg) 6px,transparent 7px);

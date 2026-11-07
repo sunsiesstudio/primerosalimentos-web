@@ -165,6 +165,12 @@ figure.il{padding:16px;margin:24px -6px 28px}
 .i2l .lab b{display:block;margin:0 0 6px}.i2l .lab p{margin:0}
 .i2l mark{background:#f6d8cb;color:#a24f30;font-weight:800;border-radius:4px;padding:0 3px}
 .i2l .ex{display:flex;gap:10px;align-items:center}.i2l .ex .pic{width:56px;height:56px;margin:0;flex:none}.i2l .ex p{margin:0;font-size:.9rem;line-height:1.45}
+/* recetas: pastillas con iconos */
+.pi2 span{display:inline-flex;align-items:center;gap:8px;padding:6px 16px 6px 8px!important}
+.pi2 .mi,.alg2 .mi{width:28px;height:28px;flex:none;overflow:visible}
+.alg2{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.alg2 span{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:600}
+.alg2 .mi{width:24px;height:24px}
 /* recetas: libreta */
 .nb{position:relative;margin:34px 0 10px;padding:30px 22px 22px 64px;background-color:#fffdf6;
  background-image:linear-gradient(90deg,transparent 46px,#f2b1a6 46px,#f2b1a6 48px,transparent 48px),repeating-linear-gradient(transparent 0 39px,#d6e6f2 39px 40px),radial-gradient(circle at 20px 22px,var(--bg) 6px,transparent 7px);
