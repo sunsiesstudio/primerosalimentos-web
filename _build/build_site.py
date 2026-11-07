@@ -20,6 +20,19 @@ F={**json.load(open('/tmp/foods2.json')),**json.load(open('/tmp/extra.json')),**
 MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
 fecha=lambda d:f"{int(d[8:])} de {MESES[int(d[5:7])-1]} de {d[:4]}"
 LOGO='<svg viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos"><defs><path id="arc" d="M10,185 Q320,10 630,185"/></defs><text text-anchor="middle" style="font:400 56px \'Luckiest Guy\',sans-serif;letter-spacing:.03em;fill:#4a8760"><textPath href="#arc" startOffset="50%">Primeros alimentos</textPath></text><g transform="translate(279 112) scale(3.4)" style="fill:#c96a47"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/></g></svg>'
+FIXES=r"""
+/* ajustes nov 2026 */
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.faq summary::after{float:none;flex:none;width:1em;text-align:center;font-size:1.2em;line-height:1}
+.vs{align-items:flex-start}
+.vs .side.main b{color:inherit}
+.vs .plus{align-self:flex-start;height:96px;display:flex;align-items:center;line-height:1}
+@media(max-width:640px){
+.vs .plus{height:76px;font-size:1.6rem}
+.ages{gap:34px}
+.ages li:not(:last-child)::after{bottom:-25px}
+}
+"""
 CSS=r"""
 :root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--gold:#c9962f}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
@@ -92,7 +105,7 @@ footer .soc a:hover{background:rgba(255,255,255,.12)}
 footer .soc svg{width:19px;height:19px}
 footer .links{margin-bottom:14px;max-width:36em;margin-left:auto!important;margin-right:auto!important;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
 @media(max-width:480px){.top nav{gap:12px}.top .btn{min-height:40px;padding:0 14px;font-size:.85rem}footer .links{flex-wrap:wrap;gap:12px 20px}}
-"""+illus.CSS+illus2.CSS
+"""+illus.CSS+illus2.CSS+FIXES
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
@@ -108,7 +121,7 @@ HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 </head><body>
 <header class="top"><a class="lg" href="{BASE}/" aria-label="Primeros Alimentos">{LOGO}</a><nav><a class="btn" href="{BASE}/?o=blog">Lista de espera</a></nav></header>
 '''
-FOOT=f'''<footer><div class="soc"><a href="https://www.instagram.com/primeros.alimentos/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>Instagram</a></div><div class="links"><a href="{BASE}/">Primeros Alimentos</a><a href="{BASE}/blog/">Blog</a><a href="{BASE}/privacy.html">Privacidad</a><a href="{BASE}/privacy.html#cookies" data-cookies>Cookies</a></div>
+FOOT=f'''<footer><div class="soc"><a href="https://www.instagram.com/primeros.alimentos/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>Instagram</a></div><div class="links"><a href="{BASE}/">Inicio</a><a href="{BASE}/blog/">Blog</a><a href="{BASE}/privacy.html">Privacidad</a><a href="{BASE}/privacy.html#cookies" data-cookies>Cookies</a></div>
 <p>Información orientativa basada en las recomendaciones de la <a href="{U_AEP}" rel="noopener">AEP</a>. No sustituye la consulta con tu pediatra.</p></footer></body></html>'''
 ic=lambda n:F.get(n) or F['Plátano']
 os.makedirs(f"{OUT}/blog",exist_ok=True)
