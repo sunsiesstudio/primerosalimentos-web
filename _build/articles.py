@@ -1,7 +1,8 @@
 U_AEP="https://enfamilia.aeped.es/noticias/recomendaciones-asociacion-espanola-pediatria-sobre-alimentacion"
 ARTICLES=[
 dict(slug="cuando-empezar-alimentacion-complementaria",
- title="Cuándo empezar con la alimentación complementaria: señales de que tu bebé está listo",
+ title="Cuándo empezar con la alimentación complementaria: las 4 señales",
+ h1="Cuándo empezar con la alimentación complementaria",
  short="Cuándo empezar a comer",
  desc="Cuándo empezar con la alimentación complementaria, las 4 señales de que tu bebé está listo y qué pasa con la leche. Según las recomendaciones de la AEP.",
  date="2026-11-06", icon="Plátano", mins=4,
@@ -41,6 +42,7 @@ dict(slug="cuando-empezar-alimentacion-complementaria",
 
 dict(slug="arcada-o-atragantamiento-bebe",
  title="Arcada o atragantamiento en el bebé: cómo distinguirlos y qué hacer",
+ h1="Arcada o atragantamiento en el bebé",
  short="Arcada o atragantamiento",
  desc="Cómo distinguir una arcada de un atragantamiento cuando tu bebé empieza a comer, qué hacer paso a paso y cómo prevenirlo. Con puré o BLW.",
  date="2026-11-06", icon="Uvas", mins=4,

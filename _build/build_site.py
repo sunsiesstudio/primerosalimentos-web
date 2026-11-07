@@ -141,7 +141,7 @@ for a in ARTICLES:
     rel="".join(f'<a class="r" href="{BASE}/blog/{b["slug"]}/">{ic(b["icon"])}<span>{html.escape(b["title"])}</span></a>' for b in pool)
     page=HEAD(f"{a['title']} | Primeros Alimentos",a['desc'],url,extra)+f'''<main><article>
 <p class="crumbs"><a href="{BASE}/blog/">Blog</a> / {html.escape(a['short'])}</p>
-<header><div class="ic">{ic(a['icon'])}</div><h1>{html.escape(a['title'])}</h1>
+<header><div class="ic">{ic(a['icon'])}</div><h1>{html.escape(a.get('h1',a['title']))}</h1>
 <div class="meta">Por Martina Solés · {fecha(a['date'])} · {a['mins']} min de lectura</div>
 <p class="lead">{a['lead']}</p></header>
 {a['body']}
@@ -153,7 +153,7 @@ for a in ARTICLES:
     os.makedirs(f"{OUT}/blog/{a['slug']}",exist_ok=True)
     open(f"{OUT}/blog/{a['slug']}/index.html","w").write(page)
 # portada
-card=lambda a:f'<a class="card" href="{BASE}/blog/{a["slug"]}/"><div class="ic">{ic(a["icon"])}</div><small>{(a["age"]+" · "+str(a["prep"]+a["cook"])+" min") if a["cat"]=="receta" else str(a["mins"])+" min de lectura"}</small><h2>{html.escape(a["title"])}</h2><p>{html.escape(a["desc"])}</p></a>'
+card=lambda a:f'<a class="card" href="{BASE}/blog/{a["slug"]}/"><div class="ic">{ic(a["icon"])}</div><small>{(a["age"]+" · "+str(a["prep"]+a["cook"])+" min") if a["cat"]=="receta" else str(a["mins"])+" min de lectura"}</small><h2>{html.escape(a.get("h1",a["title"]))}</h2><p>{html.escape(a["desc"])}</p></a>'
 _g=[a for a in ARTICLES if a['cat']=='guia'];_r=[a for a in ARTICLES if a['cat']=='receta']
 cards=(('<h2 class="sec" id="guias">Guías</h2><section class="grid">'+"".join(card(a) for a in _g)+'</section>') if _g else '')+(('<h2 class="sec" id="recetas">Recetas</h2><section class="grid">'+"".join(card(a) for a in _r)+'</section>') if _r else '')
 ld={"@context":"https://schema.org","@type":"Blog","name":"Blog de Primeros Alimentos","url":f"{BASE}/blog/","inLanguage":"es-ES"}
