@@ -10,6 +10,7 @@ dict(slug="cuando-empezar-alimentacion-complementaria",
 <h2>¿A qué edad se empieza?</h2>
 <p>La Asociación Española de Pediatría (AEP) recomienda empezar con la alimentación complementaria <strong>hacia los 6 meses</strong>. Antes de los 4 meses no se recomienda en ningún caso, y tampoco conviene retrasarlo mucho más allá de los 6, porque a partir de esa edad las reservas de hierro del bebé empiezan a bajar.</p>
 <p>Cada bebé tiene su ritmo, así que la fecha exacta importa menos que estas señales.</p>
+<!--il:edad-->
 
 <h2>Las 4 señales de que está listo</h2>
 <ol>
@@ -18,16 +19,19 @@ dict(slug="cuando-empezar-alimentacion-complementaria",
 <li><strong>Coge cosas con la mano y se las lleva a la boca.</strong></li>
 <li><strong>Ya no empuja la comida hacia fuera con la lengua</strong> (el reflejo de extrusión ha desaparecido).</li>
 </ol>
+<!--il:senales-->
 <p>Si tu bebé cumple estas señales hacia los 6 meses, es buen momento para empezar. Si tienes dudas, coméntalo con tu pediatra.</p>
 
 <h2>La leche sigue siendo lo principal</h2>
 <p>Se llama <em>complementaria</em> porque complementa, no sustituye. Hasta el año, la leche materna o de fórmula sigue siendo su alimento principal, a demanda. Al principio comerá muy poco, y es completamente normal: está aprendiendo sabores, texturas y a masticar.</p>
+<!--il:leche-->
 
 <h2>¿Y el agua?</h2>
 <p>Desde que empieza a comer puedes ofrecerle agua en vaso con las comidas, sin forzar. Él decide cuánto bebe.</p>
 
 <h2>¿Por qué alimento empiezo?</h2>
 <p>No hay un orden obligatorio. Lo que sí importa es que desde el principio haya <strong>alimentos ricos en hierro y zinc</strong> casi a diario: carne, pescado, huevo o legumbres, bien cocinados. Alrededor, verdura, fruta y cereales, mejor integrales.</p>
+<!--il:plato-->
 <p>Los alérgenos (huevo, pescado, frutos secos en crema, gluten, lácteos) se pueden introducir pronto y en poca cantidad: retrasarlos más allá de los 6 meses no previene la alergia.</p>
 """,
  faq=[("¿Puedo empezar a los 4 meses?","La AEP recomienda empezar hacia los 6 meses y nunca antes de los 4. Si te planteas empezar antes de los 6, consúltalo con tu pediatra."),
@@ -59,6 +63,7 @@ dict(slug="arcada-o-atragantamiento-bebe",
 <li>Hace un ruido agudo o está en silencio.</li>
 </ul>
 <p>Aquí hay que <strong>actuar ya</strong>.</p>
+<!--il:arcada_vs-->
 
 <h2>Qué hacer si se atraganta (menores de 1 año)</h2>
 <ol>
@@ -67,6 +72,7 @@ dict(slug="arcada-o-atragantamiento-bebe",
 <li><strong>5 compresiones en el pecho</strong>: boca arriba, con dos dedos en el centro del pecho.</li>
 <li><strong>Repite</strong> hasta que expulse el objeto. Si pierde el conocimiento, empieza la reanimación (RCP).</li>
 </ol>
+<!--il:pasos-->
 <p>Hacer un curso de primeros auxilios pediátricos es la mejor forma de estar preparada, sea cual sea el método que uses.</p>
 
 <h2>Cómo prevenirlo</h2>
@@ -77,6 +83,7 @@ dict(slug="arcada-o-atragantamiento-bebe",
 <li><strong>Frutos secos</strong>: nunca enteros antes de los 5 años, solo en crema o molidos muy finos.</li>
 <li><strong>Manzana y zanahoria</strong>: cocinadas hasta que estén blandas, o ralladas muy finas.</li>
 </ul>
+<!--il:cortes-->
 """,
  faq=[("¿Es normal que mi bebé haga muchas arcadas?","Sí. Al principio el reflejo de arcada está más adelantado y le protege. Suele disminuir a medida que aprende a comer."),
       ("¿El BLW aumenta el riesgo de atragantamiento?","Si se ofrece de forma segura (alimentos blandos, con la forma adecuada y el bebé sentado y vigilado), los estudios no han encontrado más atragantamientos que con el puré."),

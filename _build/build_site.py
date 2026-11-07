@@ -2,6 +2,7 @@ import json,os,html,shutil
 from articles import ARTICLES as A1,U_AEP
 from guides2 import G2
 from recipes import R
+import illus
 for a in A1: a.setdefault('cat','guia')
 ARTICLES=A1+G2+R
 import os as _os
@@ -9,6 +10,8 @@ _PUB=_os.environ.get('PUB')
 if _PUB: ARTICLES=[a for a in ARTICLES if a['slug'] in _PUB.split(',')]
 OUT=_os.environ.get('OUT','/home/claude/landing/out')
 for a in R: a.setdefault('mins',3); a.setdefault('faq',[])
+for a in ARTICLES:
+    if 'body' in a: a['body']=illus.apply(a['body'])
 BASE="https://www.primerosalimentos.com"
 F={**json.load(open('/tmp/foods2.json')),**json.load(open('/tmp/extra.json')),**json.load(open('/tmp/pdfic.json'))}
 MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
@@ -79,7 +82,7 @@ footer{background:var(--green);color:rgba(255,255,255,.85);text-align:center;pad
 footer a{color:#fff}footer .links{display:flex;justify-content:center;gap:22px;font-weight:700;margin:0 0 14px}
 footer p{max-width:36em;margin:0 auto}
 @media(max-width:480px){.top nav{gap:12px}.top .btn{min-height:40px;padding:0 14px;font-size:.85rem}footer .links{flex-wrap:wrap;gap:12px 20px}}
-"""
+"""+illus.CSS
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
