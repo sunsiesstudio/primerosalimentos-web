@@ -5,7 +5,7 @@ from recipes import R
 from guides3 import G3
 from recipes2 import R2
 from guides4 import G4,R3
-import illus,illus2
+import illus,illus2,nbsp
 for a in A1: a.setdefault('cat','guia')
 ARTICLES=A1+G2+G3+G4+R+R2+R3
 import os as _os
@@ -34,6 +34,8 @@ FIXES=r"""
 }
 """
 CSS=r"""
+h1,h2,h3,.disp{-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:10 4 4}
+h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
 :root{--bg:#eeead8;--card:#f7f4e8;--ink:#262626;--mute:#6b6a5c;--line:#d8d3bc;--green:#4a8760;--terra:#c96a47;--blue:#3e4cd0;--gold:#c9962f}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.7 Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -165,7 +167,7 @@ for a in ARTICLES:
 <p class="note">Fuente: <a href="{U_AEP}" rel="noopener">Recomendaciones de la Asociación Española de Pediatría sobre la alimentación complementaria</a>. Información orientativa: ante cualquier duda, consulta con tu pediatra.</p>
 </article></main>'''+FOOT
     os.makedirs(f"{OUT}/blog/{a['slug']}",exist_ok=True)
-    open(f"{OUT}/blog/{a['slug']}/index.html","w").write(page)
+    open(f"{OUT}/blog/{a['slug']}/index.html","w").write(nbsp.titulos(page))
 # portada
 card=lambda a:f'<a class="card" href="{BASE}/blog/{a["slug"]}/"><div class="ic">{ic(a["icon"])}</div><small>{(a["age"]+" · "+str(a["prep"]+a["cook"])+" min") if a["cat"]=="receta" else str(a["mins"])+" min de lectura"}</small><h2>{html.escape(a.get("h1",a["title"]))}</h2><p>{html.escape(a["desc"])}</p></a>'
 _g=[a for a in ARTICLES if a['cat']=='guia'];_r=[a for a in ARTICLES if a['cat']=='receta']
@@ -173,7 +175,7 @@ cards=(('<h2 class="sec" id="guias">Guías</h2><section class="grid">'+"".join(c
 ld={"@context":"https://schema.org","@type":"Blog","name":"Blog de Primeros Alimentos","url":f"{BASE}/blog/","inLanguage":"es-ES"}
 idx=HEAD("Blog de alimentación complementaria y BLW | Primeros Alimentos","Artículos sobre alimentación complementaria y BLW: cuándo empezar, qué darle, cómo cortarlo y qué evitar. Según las recomendaciones de la AEP.",f"{BASE}/blog/",f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>')+f'''<main class="wrap"><section class="hero"><h1>Sus primeros alimentos, paso a paso</h1><p>Las dudas de cuando empiezan a comer, resueltas de forma clara y según las recomendaciones de la Asociación Española de Pediatría.'''+(' Y recetas sin sal ni azúcar para hacer en casa.' if _r else '')+'''</p>''' + ('<p class="jump"><a href="#guias">Guías</a><a href="#recetas">Recetas</a></p>' if _r and _g else '') + f'''</section>
 {cards}</main>'''+FOOT
-open(f"{OUT}/blog/index.html","w").write(idx)
+open(f"{OUT}/blog/index.html","w").write(nbsp.titulos(idx))
 # sitemap
 urls=[(f"{BASE}/","2026-11-06"),(f"{BASE}/blog/",max(a['date'] for a in ARTICLES))]+[(f"{BASE}/blog/{a['slug']}/",a.get('updated',a['date'])) for a in ARTICLES]
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u,d in urls)+'</urlset>\n')
