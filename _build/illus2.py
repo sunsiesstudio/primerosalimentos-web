@@ -113,9 +113,12 @@ def _(): return (f'<rect x="28" y="4" width="11" height="40" rx="5.5" fill="#f2b
 @pic("pinza")
 def _(): return (f'<path d="M8 50c4-14 14-22 26-22l10 2" stroke="{SKIN}" stroke-width="12" fill="none" stroke-linecap="round"/>'
                  f'<path d="M36 22l14 6M36 38l14-4" stroke="{SKIN}" stroke-width="7" stroke-linecap="round"/><circle cx="53" cy="31" r="4.5" fill="#6db35a"/>')
+@pic("tiras")
+def _(): return (f'<ellipse cx="32" cy="36" rx="31" ry="21" fill="#fff" stroke="{LINE}" stroke-width="2"/><ellipse cx="32" cy="36" rx="22" ry="14" fill="#f6f1e2"/>'
+                 + "".join(f'<rect x="{x}" y="{y}" width="40" height="9" rx="4.5" fill="{c}" transform="rotate({r} {x+20} {y+4.5})"/>' for x, y, c, r in [(12, 22, "#f2b630", -8), (12, 32, "#e8892a", 5), (12, 42, "#6db35a", -3)]))
 @pic("trocitos")
-def _(): return (f'<ellipse cx="32" cy="42" rx="27" ry="12" fill="#fff" stroke="{LINE}" stroke-width="2"/>'
-                 + "".join(f'<rect x="{x}" y="{y}" width="7" height="7" rx="2" fill="{c}"/>' for x, y, c in [(16, 36, "#f2b630"), (26, 40, "#6db35a"), (36, 36, "#e86f4a"), (44, 42, "#f2b630"), (22, 45, "#e86f4a"), (34, 46, "#6db35a")]))
+def _(): return (f'<ellipse cx="32" cy="36" rx="31" ry="21" fill="#fff" stroke="{LINE}" stroke-width="2"/><ellipse cx="32" cy="36" rx="22" ry="14" fill="#f6f1e2"/>'
+                 + "".join(f'<rect x="{x}" y="{y}" width="9" height="9" rx="2.5" fill="{c}" transform="rotate({r} {x+4.5} {y+4.5})"/>' for x, y, c, r in [(16, 26, "#f2b630", 10), (28, 24, "#6db35a", -8), (40, 28, "#e86f4a", 15), (20, 38, "#e86f4a", -12), (32, 36, "#f2b630", 6), (43, 40, "#6db35a", -5)]))
 @pic("tenedor_bocado")
 def _(): return (f'<path d="M40 60V30" stroke="{GREY}" stroke-width="4" stroke-linecap="round"/><path d="M32 6v16q0 8 8 8t8-8V6M40 6v18" stroke="{GREY}" stroke-width="3" fill="none" stroke-linecap="round"/>'
                  f'<rect x="8" y="34" width="16" height="14" rx="4" fill="#e86f4a"/><rect x="12" y="20" width="12" height="11" rx="3" fill="#6db35a"/>')
@@ -425,8 +428,8 @@ def g_senales_hambre():
                "Señales de hambre y señales de que ya ha comido suficiente.")
 
 def g_cortes_edad():
-    return ages([(False, "mano_tira", "6 a 8 meses", "Tamaño dedo", "Tiras largas que asomen del puño"),
-                 (True, "pinza", "9 a 12 meses", "Trocitos", "Del tamaño de un garbanzo, para la pinza"),
+    return ages([(False, "tiras", "6 a 8 meses", "Tamaño dedo", "Tiras largas que asomen del puño"),
+                 (True, "trocitos", "9 a 12 meses", "Trocitos", "Del tamaño de un garbanzo, para la pinza"),
                  (False, "tenedor_bocado", "Desde 12 meses", "Bocados", "Casi como el resto de la familia")],
                 "Cómo cortar la comida según la edad: tiras, trocitos y bocados.", caption="Siempre blando: que se aplaste entre tus dedos.")
 
@@ -449,7 +452,7 @@ def g_semana():
 def g_causas():
     it = [("biberon", "No tiene hambre", "Quizá tomó leche hace poco"), ("diente", "Le salen los dientes", None),
           ("bebe_sueno", "Está cansado", None), ("repetir", "Es nuevo", "Necesita probarlo 8-15 veces"),
-          ("mano_tira", "Quiere hacerlo él", "El rechazo es a la cuchara"), ("grumos", "La textura", "Demasiado fina o difícil")]
+          ("cuchara", "Quiere hacerlo él", "El rechazo es a la cuchara"), ("grumos", "La textura", "Demasiado fina o difícil")]
     return tiles(it, "Causas habituales de que un bebé no quiera comer.")
 
 def g_ayuda():
@@ -539,7 +542,7 @@ def g_sodio():
                    None, "Para saber la sal, multiplica el sodio por 2,5.")
 
 def g_guarde():
-    return checklist([("olla", "¿Cocinan allí o es catering?"), ("sal", "¿Usan sal o azúcar?"), ("mano_tira", "¿Ofrecen trozos o solo purés?"),
+    return checklist([("olla", "¿Cocinan allí o es catering?"), ("sal", "¿Usan sal o azúcar?"), ("tiras", "¿Ofrecen trozos o solo purés?"),
                       ("trona", "¿Cómo se sientan a comer?"), ("bebe", "¿Qué hacen si no quiere comer?")],
                      "Preguntas para la escuela infantil sobre la comida.", title="Antes de empezar, pregunta")
 
@@ -748,7 +751,7 @@ def receta(a):
     for k, s in enumerate(a["serve"]):
         lab = re.sub(r"<[^>]+>", "", s.split("</strong>")[0]).rstrip(":") if "</strong>" in s else ""
         txt = s.split("</strong>", 1)[1].strip() if "</strong>" in s else s
-        n = "mano_tira" if re.search(r"\b6\b|6-", lab) else "pinza" if re.search(r"9", lab) else "tenedor_bocado"
+        n = "tiras" if re.search(r"\b6\b|6-", lab) else "trocitos" if re.search(r"9", lab) else "tenedor_bocado"
         serve.append(f'<div class="pi p{k%2}">{ic(n)}<b>{lab}</b><span>{txt}</span></div>')
     # pastillas con iconos
     mini = lambda body: _svg(body, cls="mi")
@@ -842,7 +845,7 @@ CSS = r"""
 .nb-serve .pi{padding:20px 18px 18px;border-radius:4px;box-shadow:0 10px 20px rgba(0,0,0,.08);text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
 .nb-serve .p0{background:#fbe7a6;transform:rotate(-1.5deg)}.nb-serve .p1{background:#d4ead2;transform:rotate(1.2deg)}
 .nb-serve b{font:700 1.7rem/1.1 Caveat,cursive;color:var(--ink)}.nb-serve span{font-size:.92rem;line-height:1.45}
-.nb-serve .pic{width:68px;height:68px;margin:0 0 4px}
+.nb-serve .pic{width:110px;height:90px;margin:0 0 6px}
 @media(max-width:640px){
 .i2t li,.i2t.c3 li,.i2t.c5 li{flex-basis:calc(50% - 6px)}
 .i2w{grid-template-columns:1fr}.i2w li{display:grid;grid-template-columns:44px 1fr 1fr;align-items:center;text-align:left;padding:10px 12px}
