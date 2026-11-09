@@ -29,6 +29,13 @@
     "border:1px solid rgba(245,241,228,.55);background:transparent;color:#f5f1e4}" +
     ".pa-ck button:hover{background:rgba(245,241,228,.12)}";
 
+  // Textos según el idioma de la página (la home puede estar en castellano, catalán o inglés)
+  var TXT = {
+    es: ["Usamos cookies de analítica (Microsoft Clarity) para mejorar la web.", "Más info", "Rechazar", "Aceptar"],
+    ca: ["Fem servir galetes d'analítica (Microsoft Clarity) per millorar la web.", "Més info", "Rebutjar", "Acceptar"],
+    en: ["We use analytics cookies (Microsoft Clarity) to improve the site.", "More info", "Reject", "Accept"]
+  };
+
   var box;
   function show() {
     if (box) return;
@@ -38,9 +45,10 @@
     }
     box = document.createElement("div");
     box.className = "pa-ck"; box.setAttribute("role", "dialog"); box.setAttribute("aria-label", "Cookies");
+    var t = TXT[document.documentElement.lang] || TXT.es;
     box.innerHTML =
-      "<p>Usamos cookies de analítica (Microsoft Clarity) para mejorar la web. <a href=\"/privacy.html#cookies\">Más info</a></p>" +
-      "<div class=\"b\"><button type=\"button\" class=\"n\">Rechazar</button><button type=\"button\" class=\"y\">Aceptar</button></div>";
+      "<p>" + t[0] + " <a href=\"/privacy.html#cookies\">" + t[1] + "</a></p>" +
+      "<div class=\"b\"><button type=\"button\" class=\"n\">" + t[2] + "</button><button type=\"button\" class=\"y\">" + t[3] + "</button></div>";
     box.querySelector(".y").onclick = function () { set("yes"); hide(); loadClarity(); };
     box.querySelector(".n").onclick = function () {
       var was = get() === "yes"; set("no"); hide();
@@ -54,6 +62,8 @@
     var c = get();
     if (c === "yes") loadClarity();
     else if (c !== "no") show();
+    // si cambian el idioma con el aviso abierto, se vuelve a pintar en el idioma nuevo
+    document.addEventListener("pa:lang", function () { if (box) { hide(); show(); } });
     document.addEventListener("click", function (e) {
       var a = e.target.closest && e.target.closest("[data-cookies]");
       if (a) { e.preventDefault(); show(); }

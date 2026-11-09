@@ -118,6 +118,9 @@ shutil.copytree(f"{out}/blog/{slug}",f"{ROOT}/blog/{slug}",dirs_exist_ok=True)
 shutil.copy(f"{out}/blog/index.html",f"{ROOT}/blog/index.html")
 shutil.copy(f"{out}/blog/blog.css",f"{ROOT}/blog/blog.css")
 shutil.copy(f"{out}/sitemap.xml",f"{ROOT}/sitemap.xml")
-# 4. Borradores al día
+# 4. Catalán e inglés: genera /ca/blog y /en/blog con lo que ya esté traducido
+#    (si el artículo nuevo no tiene traducción en _build/traducciones, sale solo en castellano y avisa)
+subprocess.run([sys.executable,f"{B}/idiomas.py"],check=True)
+# 5. Borradores al día
 borradores(hoy,True)
 print(f"PUBLICADO: {slug} ({hoy}). Quedan {len(pend)-1}.")

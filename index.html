@@ -72,8 +72,8 @@ input[type=email]:focus{border-color:var(--green)}
 .btn[disabled]{opacity:.6;cursor:wait}
 .btn.g{background:var(--green);box-shadow:0 5px 0 #33603f}
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
-.cons{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:.72rem;line-height:1.45;color:var(--mute);cursor:pointer}
-.cons input{flex:none;width:20px;height:20px;margin:1px 0 0;accent-color:var(--green)}
+.cons{display:flex;gap:10px;align-items:center;margin:12px 0 0;font-size:.72rem;line-height:1.45;color:var(--mute);cursor:pointer}
+.cons input{flex:none;width:20px;height:20px;margin:0;accent-color:var(--green)}
 .err{margin:10px 0 0;min-height:0;color:#b3322a;font-size:.86rem;font-weight:600}
 .err:empty{display:none}
 .done{text-align:center}
@@ -159,7 +159,12 @@ footer p{margin:0 auto;max-width:36em}
 }
 @media (prefers-reduced-motion:reduce){.bub,.soon i{display:none}.star{animation:none}}
 /* ---------- color y juego ---------- */
-.tnav{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:20px;z-index:4}
+.tnav{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:20px;z-index:4;display:flex;align-items:center;gap:10px}
+.lang{display:inline-flex;padding:3px;border-radius:99px;background:var(--card);border:1.5px solid var(--line)}
+.lang button{min-width:38px;min-height:30px;padding:0 9px;border:0;border-radius:99px;background:transparent;color:var(--mute);font:800 .78rem Montserrat,system-ui,sans-serif;letter-spacing:.04em;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--green);color:#fff}
+.lang button:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.lnote{margin:-4px 0 14px;color:var(--mute);font-size:.88rem}.lnote:empty{display:none}
 .tnav a{display:inline-block;padding:7px 16px;border-radius:99px;background:var(--terra);border:0;box-shadow:0 3px 0 #a24f30;font-weight:800;font-size:.88rem;text-decoration:none;color:#fff}
 .blogs{padding-top:90px}
 .bgrid{display:grid;gap:16px;margin:8px 0 28px}
@@ -280,23 +285,23 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
 <body>
 
 <header class="hero" id="top">
-  <nav class="tnav"><a href="/blog/">Blog</a></nav>
+  <nav class="tnav"><div class="lang" role="group" aria-label="Idioma" data-i18n-aria="lang_l"><button type="button" data-lang="es" lang="es" aria-label="Español">ES</button><button type="button" data-lang="ca" lang="ca" aria-label="Català">CA</button><button type="button" data-lang="en" lang="en" aria-label="English">EN</button></div><a href="/blog/">Blog</a></nav>
   <div class="bag" id="bag" aria-hidden="true"></div>
 
   <div class="hc">
-    <span class="soon" data-obs><i></i>Sale muy pronto</span>
+    <span class="soon" data-obs data-i18n="soon"><i></i>Sale muy pronto</span>
     <svg class="logo" data-obs viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos"><defs><path id="arc" d="M10,185 Q320,10 630,185"/></defs><text class="disp" text-anchor="middle" style="font-size:56px;fill:var(--green)"><textPath href="#arc" startOffset="50%">Primeros alimentos</textPath></text><g transform="translate(279 112) scale(3.4)" style="fill:var(--terra)"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0" style="stroke:var(--bg);fill:none;stroke-width:.9;stroke-linecap:round"/></g></svg>
-    <h1 data-obs>Planifica lo&nbsp;que&nbsp;come tu&nbsp;bebé</h1>
-    <p class="lead" data-obs>Lo que me habría encantado tener cuando mi bebé empezó a comer.</p>
+    <h1 data-obs data-i18n="h1">Planifica lo&nbsp;que&nbsp;come tu&nbsp;bebé</h1>
+    <p class="lead" data-obs data-i18n="lead">Lo que me habría encantado tener cuando mi bebé empezó a comer.</p>
 
     <form class="wl" data-obs data-form novalidate>
-      <p class="gift"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="5" width="26" height="31" rx="4" fill="#4a8760"/><rect x="11" y="10" width="18" height="3" rx="1.5" fill="#f7f4e8"/><rect x="11" y="16" width="13" height="3" rx="1.5" fill="#f7f4e8" opacity=".7"/><circle cx="27" cy="29" r="7" fill="#c96a47"/><path d="M27 25.5v6M24.5 29.5l2.5 2.5 2.5-2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Apúntate y te regalo la <b>guía para empezar</b>.</span></p>
+      <p class="gift"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="5" width="26" height="31" rx="4" fill="#4a8760"/><rect x="11" y="10" width="18" height="3" rx="1.5" fill="#f7f4e8"/><rect x="11" y="16" width="13" height="3" rx="1.5" fill="#f7f4e8" opacity=".7"/><circle cx="27" cy="29" r="7" fill="#c96a47"/><path d="M27 25.5v6M24.5 29.5l2.5 2.5 2.5-2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="gift">Apúntate y te regalo la <b>guía para empezar</b>.</span></p>
       <div class="row">
-        <label class="sr" for="em1">Tu email</label>
-        <input id="em1" type="email" name="email" required autocomplete="email" inputmode="email" placeholder="tu@email.com">
-        <button class="btn" type="submit">Apuntarme</button>
+        <label class="sr" for="em1" data-i18n="email_l">Tu email</label>
+        <input id="em1" type="email" name="email" required autocomplete="email" inputmode="email" placeholder="tu@email.com" data-i18n-ph="ph">
+        <button class="btn" type="submit" data-i18n="join">Apuntarme</button>
       </div>
-      <label class="cons"><input type="checkbox" name="ok" required><span>Acepto recibir emails sobre la app. <a href="/privacy.html">Privacidad</a></span></label>
+      <label class="cons"><input type="checkbox" name="ok" required><span data-i18n="consent">Acepto recibir emails sobre la app. <a href="/privacy.html">Privacidad</a></span></label>
       <p class="err" aria-live="polite"></p>
     </form>
   </div>
@@ -307,53 +312,53 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
   <section id="como">
     <div class="wrap">
       
-      <h2>La&nbsp;alimentación complementaria, sin&nbsp;agobios</h2>
-      <p class="intro">Cuando empiezan a comer te surgen mil dudas, lo sé: qué le doy primero, en qué orden, con qué textura, ¿puré o BLW? Primeros Alimentos te ayuda a organizarlo todo desde los 6 meses, a vuestro ritmo y siguiendo las recomendaciones de la Asociación Española de Pediatría.</p>
+      <h2 data-i18n="como_h">La&nbsp;alimentación complementaria, sin&nbsp;agobios</h2>
+      <p class="intro" data-i18n="como_p">Cuando empiezan a comer te surgen mil dudas, lo sé: qué le doy primero, en qué orden, con qué textura, ¿puré o BLW? Primeros Alimentos te ayuda a organizarlo todo desde los 6 meses, a vuestro ritmo y siguiendo las recomendaciones de la Asociación Española de Pediatría.</p>
 
       <div class="steps">
         <div class="step">
           <div class="txt">
             <span class="num">1</span>
-            <h3>Su&nbsp;menú de&nbsp;la&nbsp;semana, ya&nbsp;pensado</h3>
-            <p class="sd">Olvídate de pensar cada día qué le pones en el plato. Un menú hecho para su edad y para cómo coméis en casa: de todo, vegetariano o vegano, con puré, BLW o mezcla. Un alimento nuevo cada 1, 2 o 3 días, como te vaya mejor, y sin que le falte hierro ni zinc.</p>
+            <h3 data-i18n="s1_h">Su&nbsp;menú de&nbsp;la&nbsp;semana, ya&nbsp;pensado</h3>
+            <p class="sd" data-i18n="s1_p">Olvídate de pensar cada día qué le pones en el plato. Un menú hecho para su edad y para cómo coméis en casa: de todo, vegetariano o vegano, con puré, BLW o mezcla. Un alimento nuevo cada 1, 2 o 3 días, como te vaya mejor, y sin que le falte hierro ni zinc.</p>
           </div>
-          <div class="pw" style="--c:#3e4cd0"><figure class="phone"><img src="capturas/captura-2.jpg" alt="Pantalla del menú de la semana"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><rect class="o" x="20" y="28" width="9" height="16" rx="3" fill="#8bbf7a" /><ellipse class="o" cx="14" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="34" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="16" rx="10" ry="10" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="26" rx="8" ry="8" fill="#4a8a4a" /><path d="M16 12c2-3 5-4 8-4-4 1-6 3-8 4z" fill="#fff" opacity=".45" stroke="none"/></svg>Captura 2<br>capturas/captura-2.jpg</div></figure></div>
+          <div class="pw" style="--c:#3e4cd0"><figure class="phone"><img src="capturas/captura-2.jpg" alt="Pantalla del menú de la semana" data-i18n-alt="s1_alt"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><rect class="o" x="20" y="28" width="9" height="16" rx="3" fill="#8bbf7a" /><ellipse class="o" cx="14" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="34" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="16" rx="10" ry="10" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="26" rx="8" ry="8" fill="#4a8a4a" /><path d="M16 12c2-3 5-4 8-4-4 1-6 3-8 4z" fill="#fff" opacity=".45" stroke="none"/></svg>Captura 2<br>capturas/captura-2.jpg</div></figure></div>
         </div>
         <div class="step">
           <div class="txt">
             <span class="num">2</span>
-            <h3>Apunta todo lo&nbsp;que&nbsp;va probando</h3>
-            <p class="sd">Adiós a las notas sueltas en el móvil. Cada alimento nuevo, en un toque: cuándo lo probó, cómo se lo diste (puré, tiras o trozos) y si le gustó. Hay 179 alimentos en 7 categorías, y si algo le sienta mal, deja de aparecer en su menú.</p>
+            <h3 data-i18n="s2_h">Apunta todo lo&nbsp;que&nbsp;va probando</h3>
+            <p class="sd" data-i18n="s2_p">Adiós a las notas sueltas en el móvil. Cada alimento nuevo, en un toque: cuándo lo probó, cómo se lo diste (puré, tiras o trozos) y si le gustó. Hay 179 alimentos en 7 categorías, y si algo le sienta mal, deja de aparecer en su menú.</p>
           </div>
-          <div class="pw" style="--c:#c96a47"><figure class="phone"><img src="capturas/captura-1.jpg" alt="Pantalla de alimentos por probar, probando y probado"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M13 15c0-5 22-5 22 0L26 44c-1 3-3 3-4 0z" fill="#ee8a2e" /><path class="o" d="M17 22h5M26 28h5M20 34h4" fill="none"/><path class="o" d="M24 12c-2-5-6-8-10-8 0 5 4 9 10 8zM24 12c2-5 6-8 10-8 0 5-4 9-10 8z" fill="#6aa86f" /></svg>Captura 1<br>capturas/captura-1.jpg</div></figure></div>
+          <div class="pw" style="--c:#c96a47"><figure class="phone"><img src="capturas/captura-1.jpg" alt="Pantalla de alimentos por probar, probando y probado" data-i18n-alt="s2_alt"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M13 15c0-5 22-5 22 0L26 44c-1 3-3 3-4 0z" fill="#ee8a2e" /><path class="o" d="M17 22h5M26 28h5M20 34h4" fill="none"/><path class="o" d="M24 12c-2-5-6-8-10-8 0 5 4 9 10 8zM24 12c2-5 6-8 10-8 0 5-4 9-10 8z" fill="#6aa86f" /></svg>Captura 1<br>capturas/captura-1.jpg</div></figure></div>
         </div>
         <div class="step">
           <div class="txt">
             <span class="num">3</span>
-            <h3>Tus dudas, a&nbsp;mano</h3>
-            <p class="sd">¿Qué textura le toca? ¿Cómo le corto esto? ¿Es una arcada o se está atragantando? Las mismas preguntas que me hacía yo, con la respuesta en la app, junto con qué alimentos evitar antes del año, cómo conservarlos y cuándo consultar con tu pediatra.</p>
+            <h3 data-i18n="s3_h">Tus dudas, a&nbsp;mano</h3>
+            <p class="sd" data-i18n="s3_p">¿Qué textura le toca? ¿Cómo le corto esto? ¿Es una arcada o se está atragantando? Las mismas preguntas que me hacía yo, con la respuesta en la app, junto con qué alimentos evitar antes del año, cómo conservarlos y cuándo consultar con tu pediatra.</p>
           </div>
-          <div class="pw" style="--c:#c9962f"><figure class="phone"><img src="capturas/captura-3.jpg" alt="Pantalla de la guía de información"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M24 4c6 0 9 8 9 14 0 4 8 8 8 17 0 6-7 10-17 10S7 41 7 35c0-9 8-13 8-17 0-6 3-14 9-14z" fill="#4a7a3c" /><path class="o" d="M24 12c4 0 6 6 6 10 0 3 6 6 6 12 0 5-5 8-12 8s-12-3-12-8c0-6 6-9 6-12 0-4 2-10 6-10z" fill="#d9e08a" stroke="none"/><ellipse class="o" cx="24" cy="32" rx="6" ry="6" fill="#8a5a34" /></svg>Captura 3<br>capturas/captura-3.jpg</div></figure></div>
+          <div class="pw" style="--c:#c9962f"><figure class="phone"><img src="capturas/captura-3.jpg" alt="Pantalla de la guía de información" data-i18n-alt="s3_alt"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M24 4c6 0 9 8 9 14 0 4 8 8 8 17 0 6-7 10-17 10S7 41 7 35c0-9 8-13 8-17 0-6 3-14 9-14z" fill="#4a7a3c" /><path class="o" d="M24 12c4 0 6 6 6 10 0 3 6 6 6 12 0 5-5 8-12 8s-12-3-12-8c0-6 6-9 6-12 0-4 2-10 6-10z" fill="#d9e08a" stroke="none"/><ellipse class="o" cx="24" cy="32" rx="6" ry="6" fill="#8a5a34" /></svg>Captura 3<br>capturas/captura-3.jpg</div></figure></div>
         </div>
       </div>
 
-      <div class="fhead"><h2>Menos cosas en&nbsp;la&nbsp;cabeza</h2></div>
+      <div class="fhead"><h2 data-i18n="f_h">Menos cosas en&nbsp;la&nbsp;cabeza</h2></div>
       <div class="fgrid">
         <div class="fcard" style="--c:#4a8760">
           <div class="fic"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="6" width="24" height="30" rx="4" fill="#fffdf6" stroke="#c9b99a" stroke-width="1.5"/><rect x="14" y="3" width="12" height="7" rx="3" fill="#4a8760"/><rect x="13" y="16" width="14" height="2.6" rx="1.3" fill="#e2703a"/><rect x="13" y="22" width="14" height="2.6" rx="1.3" fill="#f0b429"/><rect x="13" y="28" width="7" height="2.6" rx="1.3" fill="#3e4cd0"/><path d="M28 30.4c-2.2-1.5-3.2-2.5-3.2-3.7a1.9 1.9 0 013.2-1.2 1.9 1.9 0 013.2 1.2c0 1.2-1 2.2-3.2 3.7z" fill="#d94a4a"/></svg></div>
-          <div><h3>Un&nbsp;resumen para&nbsp;el&nbsp;pediatra</h3><p>Lo que ha probado, sus alergias y reacciones, y lo que tienes apuntado para preguntar. Para la consulta, o para pasárselo a la abuela o a la escuela infantil.</p></div>
+          <div><h3 data-i18n="f1_h">Un&nbsp;resumen para&nbsp;el&nbsp;pediatra</h3><p data-i18n="f1_p">Lo que ha probado, sus alergias y reacciones, y lo que tienes apuntado para preguntar. Para la consulta, o para pasárselo a la abuela o a la escuela infantil.</p></div>
         </div>
         <div class="fcard" style="--c:#c96a47">
           <div class="fic"><svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-35 32 32)"><path d="M32 6c-8 0-13 6-13 13 0 5 3 8 3 13s-3 8-3 13c0 7 5 13 13 13s13-6 13-13c0-5-3-8-3-13s3-8 3-13c0-7-5-13-13-13z" fill="#d9a35f"/><g fill="#b9823f"><circle cx="27" cy="16" r="1.6"/><circle cx="36" cy="20" r="1.6"/><circle cx="29" cy="24" r="1.6"/><circle cx="35" cy="42" r="1.6"/><circle cx="28" cy="46" r="1.6"/><circle cx="36" cy="51" r="1.6"/></g></g></svg></div>
-          <div><h3>Alérgenos, en<h3>Alérgenos, en&nbsp;orden</h3>nbsp;orden</h3><p>Uno a uno, tres días seguidos y entre semana. Ves de un vistazo cuáles le faltan.</p></div>
+          <div><h3 data-i18n="f2_h">Alérgenos, en&nbsp;orden</h3><p data-i18n="f2_p">Uno a uno, tres días seguidos y entre semana. Ves de un vistazo cuáles le faltan.</p></div>
         </div>
         <div class="fcard" style="--c:#c9962f">
           <div class="fic"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><ellipse class="o" cx="24" cy="29" rx="19" ry="14" fill="#ee8a2e" /><path class="o" d="M24 15c-6 4-8 20 0 28M24 15c6 4 8 20 0 28M14 18c-4 6-3 16 3 22M34 18c4 6 3 16-3 22" fill="none"/><rect class="o" x="21" y="6" width="6" height="9" rx="2" fill="#6a8a3c" /></svg></div>
-          <div><h3>Recetas con&nbsp;lo&nbsp;que&nbsp;ya&nbsp;conoce</h3><p>Ideas con lo que ya ha probado, para no caer siempre en lo mismo.</p></div>
+          <div><h3 data-i18n="f3_h">Recetas con&nbsp;lo&nbsp;que&nbsp;ya&nbsp;conoce</h3><p data-i18n="f3_p">Ideas con lo que ya ha probado, para no caer siempre en lo mismo.</p></div>
         </div>
         <div class="fcard" style="--c:#3e4cd0">
           <div class="fic"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M13 15c0-5 22-5 22 0L26 44c-1 3-3 3-4 0z" fill="#ee8a2e" /><path class="o" d="M17 22h5M26 28h5M20 34h4" fill="none"/><path class="o" d="M24 12c-2-5-6-8-10-8 0 5 4 9 10 8zM24 12c2-5 6-8 10-8 0 5-4 9-10 8z" fill="#6aa86f" /></svg></div>
-          <div><h3>La&nbsp;lista de&nbsp;la&nbsp;compra, hecha</h3><p>Todo lo de la semana, con cantidades pensadas para tu bebé. Una cosa menos.</p></div>
+          <div><h3 data-i18n="f4_h">La&nbsp;lista de&nbsp;la&nbsp;compra, hecha</h3><p data-i18n="f4_p">Todo lo de la semana, con cantidades pensadas para tu bebé. Una cosa menos.</p></div>
         </div>
       </div>
     </div>
@@ -364,14 +369,14 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
     <div class="mefr" aria-hidden="true"><span style="left:4%;top:12%;--s:52px"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M7 15c11-5 23-5 34 0-1 14-9 27-17 29C16 42 8 29 7 15z" fill="#e2493f" /><path class="o" d="M24 14l-9-4 5 4-7 2 8 2 3 5 3-5 8-2-7-2 5-4z" fill="#6aa86f" /><circle cx="16" cy="22" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="24" cy="24" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="32" cy="22" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="20" cy="30" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="28" cy="31" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="24" cy="37" r="1.6" fill="#ffe9a8" stroke="none"/></svg></span><span style="left:38%;top:6%;--s:40px;--d:-3s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M5 31C8 17 22 8 41 10c-1 17-13 29-34 25z" fill="#6aa84a" /><circle cx="14" cy="27" r="3.4" fill="#bfe08a" stroke="none"/><circle cx="22" cy="23" r="3.4" fill="#bfe08a" stroke="none"/><circle cx="30" cy="19" r="3.4" fill="#bfe08a" stroke="none"/><circle cx="36" cy="15" r="3.4" fill="#bfe08a" stroke="none"/><path class="o" d="M5 31c-2 3-3 5-3 7" fill="none"/></svg></span><span style="right:6%;top:10%;--s:56px;--d:-5s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M9 8c3-1 5 1 5 4 0 15 9 22 25 20 3 0 4 4 1 6C21 42 5 34 5 14c0-3 2-5 4-6z" fill="#f2cf4a" /><path class="o" d="M7 7l4-2 3 4-4 2z" fill="#7a5a2d" /><path d="M16 20c3 8 9 13 17 15-9-1-16-6-17-15z" fill="#fff" opacity=".45" stroke="none"/></svg></span><span style="left:7%;bottom:10%;--s:46px;--d:-2s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><rect class="o" x="20" y="28" width="9" height="16" rx="3" fill="#8bbf7a" /><ellipse class="o" cx="14" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="34" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="16" rx="10" ry="10" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="26" rx="8" ry="8" fill="#4a8a4a" /><path d="M16 12c2-3 5-4 8-4-4 1-6 3-8 4z" fill="#fff" opacity=".45" stroke="none"/></svg></span><span style="left:33%;bottom:5%;--s:38px;--d:-6s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><ellipse class="o" cx="15" cy="32" rx="10" ry="10" fill="#4a5ab0" /><ellipse class="o" cx="33" cy="32" rx="10" ry="10" fill="#4a5ab0" /><ellipse class="o" cx="24" cy="20" rx="10" ry="10" fill="#4a5ab0" /><path class="o" d="M0 0c4-7 13-7 16-3-1 7-9 10-16 3z" fill="#6aa86f" transform="translate(22 8) rotate(-30) scale(0.8)"/><circle cx="12" cy="29" r="1.6" fill="#fff" stroke="none"/><circle cx="30" cy="29" r="1.6" fill="#fff" stroke="none"/><circle cx="21" cy="17" r="1.6" fill="#fff" stroke="none"/></svg></span><span style="right:9%;bottom:14%;--s:50px;--d:-4s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M24 4c6 0 9 8 9 14 0 4 8 8 8 17 0 6-7 10-17 10S7 41 7 35c0-9 8-13 8-17 0-6 3-14 9-14z" fill="#4a7a3c" /><path class="o" d="M24 12c4 0 6 6 6 10 0 3 6 6 6 12 0 5-5 8-12 8s-12-3-12-8c0-6 6-9 6-12 0-4 2-10 6-10z" fill="#d9e08a" stroke="none"/><ellipse class="o" cx="24" cy="32" rx="6" ry="6" fill="#8a5a34" /></svg></span><span style="right:30%;bottom:4%;--s:36px;--d:-1s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M24 9c5 0 6 5 6 9 0 4 9 7 9 16 0 7-7 11-15 11S9 41 9 34c0-9 9-12 9-16 0-4 1-9 6-9z" fill="#b9d05a" /><path class="o" d="M24 9c0-3 1-5 3-6" fill="none"/><path class="o" d="M0 0c4-7 13-7 16-3-1 7-9 10-16 3z" fill="#6aa86f" transform="translate(26 6) rotate(-20) scale(0.9)"/><path d="M13 33c0-4 2-6 4-8-1 3-1 6 0 9z" fill="#fff" opacity=".45" stroke="none"/></svg></span></div>
     <div class="wrap">
       <div class="mewrap">
-      <figure class="mephoto"><img src="capturas/martina.jpg" alt="Martina con Pol" onerror="this.parentElement.classList.add('empty')"><span>Tu foto aquí<br><small>capturas/martina.jpg</small></span></figure>
+      <figure class="mephoto"><img src="capturas/martina.jpg" alt="Martina con Pol" data-i18n-alt="me_alt" onerror="this.parentElement.classList.add('empty')"><span>Tu foto aquí<br><small>capturas/martina.jpg</small></span></figure>
       <div>
       
-      <h2>Por&nbsp;qué&nbsp;hice esta app</h2>
-      <p>Soy Martina, diseñadora de producto y madre de Pol. Cuando empezó a comer probé las apps que había y ninguna me servía para lo de cada día: saber qué le tocaba, qué había probado ya y cómo se lo había dado.</p>
-      <p>Así que me hice la mía. Estas semanas la han probado otras mamás, la hemos ido mejorando con lo que nos decían, y muy pronto la abro para todas. Y para todos: los papás también sois más que bienvenidos.</p>
+      <h2 data-i18n="me_h">Por&nbsp;qué&nbsp;hice esta app</h2>
+      <p data-i18n="me_p1">Soy Martina, diseñadora de producto y madre de Pol. Cuando empezó a comer probé las apps que había y ninguna me servía para lo de cada día: saber qué le tocaba, qué había probado ya y cómo se lo había dado.</p>
+      <p data-i18n="me_p2">Así que me hice la mía. Estas semanas la han probado otras mamás, la hemos ido mejorando con lo que nos decían, y muy pronto la abro para todas. Y para todos: los papás también sois más que bienvenidos.</p>
       <p class="sig">Martina</p>
-      <a class="meli" href="https://www.linkedin.com/in/martinasoles" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="4" fill="currentColor"/><path d="M7 10v7M7 7v.01M11 17v-7M11 13c0-2 1.3-3 3-3s3 1 3 3v4" stroke="#c96a47" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>Mi LinkedIn</a>
+      <a class="meli" href="https://www.linkedin.com/in/martinasoles" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="4" fill="currentColor"/><path d="M7 10v7M7 7v.01M11 17v-7M11 13c0-2 1.3-3 3-3s3 1 3 3v4" stroke="#c96a47" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg><span data-i18n="me_li">Mi LinkedIn</span></a>
       </div>
       </div>
     </div>
@@ -385,21 +390,22 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
       <div class="pages" aria-hidden="true"><img class="pg2" src="capturas/guia-2.jpg" alt=""><img class="pg1" src="capturas/guia-1.jpg" alt=""></div>
       <div>
         
-        <h2>Tu&nbsp;guía gratis para&nbsp;empezar</h2>
+        <h2 data-i18n="g_h">Tu&nbsp;guía gratis para&nbsp;empezar</h2>
         <ul class="toc">
-          <li>Cuándo empezar y las señales de que está listo</li>
-          <li>Qué ofrecer primero y cómo meter los alérgenos</li>
-          <li>Texturas: de puré a trozos, y puré o BLW</li>
-          <li>Arcada o atragantamiento, y qué hacer</li>
-          <li>Qué evitar y hasta cuándo</li>
+          <li data-i18n="g1">Cuándo empezar y las señales de que está listo</li>
+          <li data-i18n="g2">Qué ofrecer primero y cómo meter los alérgenos</li>
+          <li data-i18n="g3">Texturas: de puré a trozos, y puré o BLW</li>
+          <li data-i18n="g4">Arcada o atragantamiento, y qué hacer</li>
+          <li data-i18n="g5">Qué evitar y hasta cuándo</li>
         </ul>
+        <p class="lnote" data-i18n="g_note"></p>
         <form class="wl" data-form novalidate>
           <div class="row">
-            <label class="sr" for="em2">Tu email</label>
-            <input id="em2" type="email" name="email" required autocomplete="email" inputmode="email" placeholder="tu@email.com">
-            <button class="btn" type="submit">Quiero la guía</button>
+            <label class="sr" for="em2" data-i18n="email_l">Tu email</label>
+            <input id="em2" type="email" name="email" required autocomplete="email" inputmode="email" placeholder="tu@email.com" data-i18n-ph="ph">
+            <button class="btn" type="submit" data-i18n="get_guide">Quiero la guía</button>
           </div>
-          <label class="cons"><input type="checkbox" name="ok" required><span>Acepto recibir emails sobre la app. <a href="/privacy.html">Privacidad</a></span></label>
+          <label class="cons"><input type="checkbox" name="ok" required><span data-i18n="consent">Acepto recibir emails sobre la app. <a href="/privacy.html">Privacidad</a></span></label>
           <p class="err" aria-live="polite"></p>
         </form>
       </div>
@@ -411,32 +417,207 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
 <section class="blogs">
   <div class="wrap">
     
-    <h2>Del blog</h2>
+    <h2 data-i18n="b_h">Del blog</h2>
     <div class="bgrid">
-      <a class="bcard" href="/blog/cuando-empezar-alimentacion-complementaria/"><i><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M9 8c3-1 5 1 5 4 0 15 9 22 25 20 3 0 4 4 1 6C21 42 5 34 5 14c0-3 2-5 4-6z" fill="#f2cf4a" /><path class="o" d="M7 7l4-2 3 4-4 2z" fill="#7a5a2d" /><path d="M16 20c3 8 9 13 17 15-9-1-16-6-17-15z" fill="#fff" opacity=".45" stroke="none"/></svg></i><b>Cuándo empezar con la alimentación complementaria</b><span>Las 4 señales de que tu bebé está listo</span></a>
-      <a class="bcard" href="/blog/arcada-o-atragantamiento-bebe/"><i><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><ellipse class="o" cx="14" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="24" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="34" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="19" cy="30" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="29" cy="30" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="24" cy="40" rx="7.5" ry="7.5" fill="#8a5ac8" /><path class="o" d="M24 12V4" fill="none"/><path class="o" d="M0 0c4-7 13-7 16-3-1 7-9 10-16 3z" fill="#6aa86f" transform="translate(24 6) rotate(-10) scale(0.9)"/></svg></i><b>Arcada o atragantamiento</b><span>Cómo distinguirlos y qué hacer</span></a>
+      <a class="bcard" href="/blog/cuando-empezar-alimentacion-complementaria/"><i><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M9 8c3-1 5 1 5 4 0 15 9 22 25 20 3 0 4 4 1 6C21 42 5 34 5 14c0-3 2-5 4-6z" fill="#f2cf4a" /><path class="o" d="M7 7l4-2 3 4-4 2z" fill="#7a5a2d" /><path d="M16 20c3 8 9 13 17 15-9-1-16-6-17-15z" fill="#fff" opacity=".45" stroke="none"/></svg></i><b data-i18n="b1_t">Cuándo empezar con la alimentación complementaria</b><span data-i18n="b1_s">Las 4 señales de que tu bebé está listo</span></a>
+      <a class="bcard" href="/blog/arcada-o-atragantamiento-bebe/"><i><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><ellipse class="o" cx="14" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="24" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="34" cy="20" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="19" cy="30" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="29" cy="30" rx="7.5" ry="7.5" fill="#8a5ac8" /><ellipse class="o" cx="24" cy="40" rx="7.5" ry="7.5" fill="#8a5ac8" /><path class="o" d="M24 12V4" fill="none"/><path class="o" d="M0 0c4-7 13-7 16-3-1 7-9 10-16 3z" fill="#6aa86f" transform="translate(24 6) rotate(-10) scale(0.9)"/></svg></i><b data-i18n="b2_t">Arcada o atragantamiento</b><span data-i18n="b2_s">Cómo distinguirlos y qué hacer</span></a>
     </div>
-    <a class="btn ghost bmore" href="/blog/">Ver todos los artículos</a>
+    <a class="btn ghost bmore" href="/blog/" data-i18n="b_more">Ver todos los artículos</a>
   </div>
 </section>
 <footer>
   <div class="soc"><a href="https://www.instagram.com/primeros.alimentos/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></svg>Instagram</a></div>
-  <div class="links"><a href="/blog/">Blog</a><a href="/privacy.html">Privacidad</a><a href="/privacy.html#cookies" data-cookies>Cookies</a><a href="https://app.primerosalimentos.com/">Entrar</a></div>
-  <p>Información orientativa basada en las recomendaciones de la <a href="https://enfamilia.aeped.es/noticias/recomendaciones-asociacion-espanola-pediatria-sobre-alimentacion" target="_blank" rel="noopener">AEP</a>. Esta aplicación no ofrece diagnóstico médico ni sustituye la consulta con tu pediatra.</p>
+  <div class="links"><a href="/blog/">Blog</a><a href="/privacy.html" data-i18n="privacy">Privacidad</a><a href="/privacy.html#cookies" data-cookies>Cookies</a><a href="https://app.primerosalimentos.com/" data-i18n="login">Entrar</a></div>
+  <p data-i18n="foot">Información orientativa basada en las recomendaciones de la <a href="https://enfamilia.aeped.es/noticias/recomendaciones-asociacion-espanola-pediatria-sobre-alimentacion" target="_blank" rel="noopener">AEP</a>. Esta aplicación no ofrece diagnóstico médico ni sustituye la consulta con tu pediatra.</p>
 </footer>
 
 <template id="okTpl">
   <div class="done">
     <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" style="display:block;margin:0 auto"><circle cx="32" cy="32" r="30" fill="#4a8760"/><path d="M19 33l9 9 17-18" stroke="#fff" stroke-width="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <h3 class="disp">¡Ya&nbsp;estás dentro!</h3>
-    <p>Tu guía ya va de camino a tu email.</p>
+    <h3 class="disp" data-i18n="ok_h">¡Ya&nbsp;estás dentro!</h3>
+    <p data-i18n="ok_p">Tu guía ya va de camino a tu email.</p>
     <div class="btns">
-      <a class="btn" href="/guia-primeros-alimentos.pdf" target="_blank" rel="noopener">Abrir la guía (PDF)</a>
-      <button class="share" type="button" data-share>Pásasela a otra mamá o papá</button>
+      <a class="btn" href="/guia-primeros-alimentos.pdf" target="_blank" rel="noopener" data-i18n="ok_pdf">Abrir la guía (PDF)</a>
+      <button class="share" type="button" data-share data-i18n="ok_share">Pásasela a otra mamá o papá</button>
     </div>
   </div>
 </template>
 
+<script>
+/* ======= Idiomas: castellano, catalán e inglés =======
+   El HTML está en castellano. Al cargar se elige el idioma guardado (pa_lang),
+   o el de ?lang=, o el del dispositivo. El selector de arriba lo cambia y lo guarda. */
+const LANGS=["es","ca","en"];
+const AEP='<a href="https://enfamilia.aeped.es/noticias/recomendaciones-asociacion-espanola-pediatria-sobre-alimentacion" target="_blank" rel="noopener">AEP</a>';
+const I18N={
+ ca:{
+  _title:"Primeros Alimentos · Llista d'espera",
+  _desc:"L'app per planificar els primers aliments del teu nadó, amb les recomanacions de l'AEP. Apunta't a la llista d'espera i descarrega't gratis la guia per començar.",
+  lang_l:"Idioma",
+  soon:"<i></i>Surt molt aviat",
+  h1:"Planifica el&nbsp;que&nbsp;menja el&nbsp;teu&nbsp;nadó",
+  lead:"El que m'hauria encantat tenir quan el meu nadó va començar a menjar.",
+  gift:"Apunta't i et regalo la <b>guia per començar</b> (en castellà).",
+  email_l:"El teu email",ph:"nom@email.com",join:"Apuntar-me",get_guide:"Vull la guia",
+  consent:'Accepto rebre emails sobre l\'app. <a href="/privacy.html">Privacitat</a>',
+  como_h:"L'alimentació complementària, sense&nbsp;maldecaps",
+  como_p:"Quan comencen a menjar et sorgeixen mil dubtes, ho sé: què li dono primer, en quin ordre, amb quina textura, puré o BLW? Primeros Alimentos t'ajuda a organitzar-ho tot des dels 6 mesos, al vostre ritme i seguint les recomanacions de l'Associació Espanyola de Pediatria.",
+  s1_h:"El&nbsp;seu menú de&nbsp;la&nbsp;setmana, ja&nbsp;pensat",
+  s1_p:"Oblida't de pensar cada dia què li poses al plat. Un menú fet per a la seva edat i per a com mengeu a casa: de tot, vegetarià o vegà, amb puré, BLW o barreja. Un aliment nou cada 1, 2 o 3 dies, com et vagi millor, i sense que li falti ferro ni zinc.",
+  s1_alt:"Pantalla del menú de la setmana",
+  s2_h:"Apunta tot el&nbsp;que&nbsp;va tastant",
+  s2_p:"Adeu a les notes soltes al mòbil. Cada aliment nou, amb un toc: quan el va tastar, com li vas donar (puré, tires o trossos) i si li va agradar. Hi ha 179 aliments en 7 categories, i si alguna cosa li cau malament, deixa d'aparèixer al seu menú.",
+  s2_alt:"Pantalla d'aliments per tastar, tastant i tastats",
+  s3_h:"Els teus dubtes, a&nbsp;mà",
+  s3_p:"Quina textura li toca? Com li tallo això? És una arcada o s'està ennuegant? Les mateixes preguntes que em feia jo, amb la resposta a l'app, juntament amb quins aliments evitar abans de l'any, com conservar-los i quan consultar el teu pediatre.",
+  s3_alt:"Pantalla de la guia d'informació",
+  f_h:"Menys coses al&nbsp;cap",
+  f1_h:"Un&nbsp;resum per&nbsp;al&nbsp;pediatre",
+  f1_p:"El que ha tastat, les seves al·lèrgies i reaccions, i el que tens apuntat per preguntar. Per a la consulta, o per passar-ho a l'àvia o a l'escola bressol.",
+  f2_h:"Al·lèrgens, en&nbsp;ordre",
+  f2_p:"Un a un, tres dies seguits i entre setmana. Veus d'un cop d'ull quins li falten.",
+  f3_h:"Receptes amb&nbsp;el&nbsp;que&nbsp;ja&nbsp;coneix",
+  f3_p:"Idees amb el que ja ha tastat, per no caure sempre en el mateix.",
+  f4_h:"La&nbsp;llista de&nbsp;la&nbsp;compra, feta",
+  f4_p:"Tot el de la setmana, amb quantitats pensades per al teu nadó. Una cosa menys.",
+  me_alt:"La Martina amb el Pol",
+  me_h:"Per&nbsp;què&nbsp;vaig fer aquesta app",
+  me_p1:"Soc la Martina, dissenyadora de producte i mare del Pol. Quan va començar a menjar vaig provar les apps que hi havia i cap no em servia per al dia a dia: saber què li tocava, què havia tastat ja i com li havia donat.",
+  me_p2:"Així que me'n vaig fer una. Aquestes setmanes l'han provada altres mames, l'hem anat millorant amb el que ens deien, i molt aviat l'obro per a totes. I per a tots: els papes també hi sou més que benvinguts.",
+  me_li:"El meu LinkedIn",
+  g_h:"La&nbsp;teva guia gratis per&nbsp;començar",
+  g1:"Quan començar i els senyals que està preparat",
+  g2:"Què oferir primer i com introduir els al·lèrgens",
+  g3:"Textures: de puré a trossos, i puré o BLW",
+  g4:"Arcada o ennuegament, i què fer",
+  g5:"Què evitar i fins quan",
+  g_note:"La guia és en castellà.",
+  b_h:"Del blog",
+  b1_t:"Quan començar amb l'alimentació complementària",b1_s:"Els 4 senyals que el teu nadó està preparat",
+  b2_t:"Arcada o ennuegament",b2_s:"Com distingir-los i què fer",
+  b_more:"Veure tots els articles",
+  privacy:"Privacitat",login:"Entrar",
+  foot:"Informació orientativa basada en les recomanacions de l'"+AEP+". Aquesta aplicació no ofereix diagnòstic mèdic ni substitueix la consulta amb el teu pediatre.",
+  ok_h:"Ja&nbsp;hi&nbsp;ets!",ok_p:"La teva guia ja va cap al teu email.",ok_pdf:"Obrir la guia (PDF)",ok_share:"Passa-la a una altra mama o papa",
+  err_email:"Revisa l'email, sembla que hi falta alguna cosa.",
+  err_ok:"Marca la casella perquè et puguem escriure.",
+  saving:"Desant…",
+  err_save:"No s'ha pogut desar. Torna-ho a provar d'aquí a un moment.",
+  share:"Mira aquesta app per planificar els primers aliments del nadó. Surt molt aviat i regalen una guia per començar.",
+  copied:"Enllaç copiat"
+ },
+ en:{
+  _title:"Primeros Alimentos · Waitlist",
+  _desc:"The app to plan your baby's first foods, following the recommendations of the Spanish Association of Pediatrics (AEP). Join the waitlist and get the free starter guide.",
+  lang_l:"Language",
+  soon:"<i></i>Coming very soon",
+  h1:"Plan what your&nbsp;baby&nbsp;eats",
+  lead:"What I wish I'd had when my baby started eating.",
+  gift:"Sign up and get my <b>starter guide</b> for free (in Spanish).",
+  email_l:"Your email",ph:"you@email.com",join:"Sign me up",get_guide:"Get the guide",
+  consent:'I agree to receive emails about the app. <a href="/privacy.html">Privacy</a>',
+  como_h:"Starting solids, without&nbsp;the&nbsp;stress",
+  como_p:"When they start eating you have a thousand questions, I know: what do I give first, in what order, what texture, purées or BLW? Primeros Alimentos helps you organise it all from 6 months, at your own pace and following the recommendations of the Spanish Association of Pediatrics.",
+  s1_h:"Their weekly&nbsp;menu, already&nbsp;planned",
+  s1_p:"Stop thinking every day about what to put on their plate. A menu made for their age and for how you eat at home: everything, vegetarian or vegan, with purées, BLW or a mix. A new food every 1, 2 or 3 days, whatever suits you, without missing out on iron or zinc.",
+  s1_alt:"Weekly menu screen",
+  s2_h:"Log everything they&nbsp;try",
+  s2_p:"Goodbye to scattered notes on your phone. Every new food in one tap: when they tried it, how you served it (purée, strips or pieces) and whether they liked it. There are 179 foods in 7 categories, and if something doesn't agree with them, it stops showing up in their menu.",
+  s2_alt:"Screen of foods to try, trying and tried",
+  s3_h:"Your questions, answered",
+  s3_p:"What texture is next? How do I cut this? Is it gagging or choking? The same questions I had, answered in the app, plus which foods to avoid before their first birthday, how to store them and when to check with your paediatrician.",
+  s3_alt:"Info guide screen",
+  f_h:"Less on&nbsp;your&nbsp;mind",
+  f1_h:"A&nbsp;summary for&nbsp;the&nbsp;paediatrician",
+  f1_p:"What they've tried, their allergies and reactions, and the questions you've noted down. For appointments, or to share with grandma or the nursery.",
+  f2_h:"Allergens, in&nbsp;order",
+  f2_p:"One at a time, three days in a row, on weekdays. See at a glance which ones are still to go.",
+  f3_h:"Recipes with&nbsp;what&nbsp;they&nbsp;already&nbsp;know",
+  f3_p:"Ideas using what they've already tried, so you don't always end up making the same thing.",
+  f4_h:"The&nbsp;shopping list, done",
+  f4_p:"Everything for the week, with amounts sized for your baby. One less thing.",
+  me_alt:"Martina with Pol",
+  me_h:"Why&nbsp;I&nbsp;made this app",
+  me_p1:"I'm Martina, a product designer and Pol's mum. When he started eating I tried the apps out there and none of them worked for the everyday: knowing what was next, what he'd already tried and how I'd served it.",
+  me_p2:"So I made my own. Over the past few weeks other mums have been testing it, we've improved it with their feedback, and very soon I'm opening it up to everyone. Dads, you're more than welcome too.",
+  me_li:"My LinkedIn",
+  g_h:"Your&nbsp;free starter&nbsp;guide",
+  g1:"When to start and the signs they're ready",
+  g2:"What to offer first and how to introduce allergens",
+  g3:"Textures: from purées to pieces, and purées or BLW",
+  g4:"Gagging or choking, and what to do",
+  g5:"What to avoid and until when",
+  g_note:"The guide is in Spanish.",
+  b_h:"From the blog",
+  b1_t:"When to start solids",b1_s:"The 4 signs your baby is ready",
+  b2_t:"Gagging or choking",b2_s:"How to tell them apart and what to do",
+  b_more:"See all articles",
+  privacy:"Privacy",login:"Log in",
+  foot:"General information based on the recommendations of the "+AEP+" (Spanish Association of Pediatrics). This app does not provide medical diagnosis or replace a visit to your paediatrician.",
+  ok_h:"You're&nbsp;in!",ok_p:"Your guide is on its way to your inbox.",ok_pdf:"Open the guide (PDF)",ok_share:"Share it with another parent",
+  err_email:"Check your email, something seems to be missing.",
+  err_ok:"Tick the box so we can email you.",
+  saving:"Saving…",
+  err_save:"We couldn't save it. Please try again in a moment.",
+  share:"Check out this app for planning a baby's first foods. It's coming very soon and there's a free starter guide.",
+  copied:"Link copied"
+ },
+ es:{
+  _title:document.title,
+  _desc:(document.querySelector('meta[name="description"]')||{}).content||"",
+  lang_l:"Idioma",
+  err_email:"Revisa el email, parece que falta algo.",
+  err_ok:"Marca la casilla para que podamos escribirte.",
+  saving:"Guardando…",
+  err_save:"No se ha podido guardar. Prueba otra vez en un momento.",
+  share:"Mira esta app para planificar los primeros alimentos del bebé. Sale muy pronto y regalan una guía para empezar.",
+  copied:"Enlace copiado"
+ }
+};
+const pickLang=()=>{
+  try{const q=new URLSearchParams(location.search).get("lang");if(LANGS.includes(q))return q}catch(e){}
+  try{const s=localStorage.getItem("pa_lang");if(LANGS.includes(s))return s}catch(e){}
+  for(const l of (navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||"es"])){
+    const b=String(l).toLowerCase().split("-")[0];
+    if(b==="ca"||b==="es"||b==="en")return b;
+    if(b==="gl"||b==="eu")return "es";
+  }
+  return "en";
+};
+let LANG="es";
+const T=k=>(I18N[LANG]&&I18N[LANG][k]!=null?I18N[LANG][k]:I18N.es[k])??"";
+const i18nRoots=()=>[document,...[...document.querySelectorAll("template")].map(t=>t.content)];
+/* El castellano de cada texto se guarda la primera vez, sacado del propio HTML */
+i18nRoots().forEach(r=>{
+  r.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(I18N.es[k]==null)I18N.es[k]=el.innerHTML});
+  r.querySelectorAll("[data-i18n-alt]").forEach(el=>{const k=el.dataset.i18nAlt;if(I18N.es[k]==null)I18N.es[k]=el.alt});
+  r.querySelectorAll("[data-i18n-ph]").forEach(el=>{const k=el.dataset.i18nPh;if(I18N.es[k]==null)I18N.es[k]=el.placeholder});
+});
+const setLang=(l,save)=>{
+  LANG=LANGS.includes(l)?l:"es";
+  document.documentElement.lang=LANG;
+  i18nRoots().forEach(r=>{
+    r.querySelectorAll("[data-i18n]").forEach(el=>{const v=T(el.dataset.i18n);if(el.innerHTML!==v)el.innerHTML=v});
+    r.querySelectorAll("[data-i18n-alt]").forEach(el=>el.alt=T(el.dataset.i18nAlt));
+    r.querySelectorAll("[data-i18n-ph]").forEach(el=>el.placeholder=T(el.dataset.i18nPh));
+    r.querySelectorAll("[data-i18n-aria]").forEach(el=>el.setAttribute("aria-label",T(el.dataset.i18nAria)));
+  });
+  document.title=T("_title");
+  const md=document.querySelector('meta[name="description"]');if(md)md.content=T("_desc");
+  document.querySelectorAll(".lang [data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===LANG?"true":"false"));
+  /* el blog también está en catalán e inglés (/ca/blog/, /en/blog/): cuidado, solo enlazar aquí artículos ya traducidos */
+  document.querySelectorAll('a[href^="/blog/"],a[data-href-es]').forEach(a=>{if(!a.dataset.hrefEs)a.dataset.hrefEs=a.getAttribute("href");a.setAttribute("href",LANG==="es"?a.dataset.hrefEs:"/"+LANG+a.dataset.hrefEs)});
+  if(save){try{localStorage.setItem("pa_lang",LANG)}catch(e){}}
+  document.dispatchEvent(new CustomEvent("pa:lang",{detail:LANG}));
+};
+document.querySelectorAll(".lang [data-lang]").forEach(b=>b.addEventListener("click",()=>{
+  if(b.dataset.lang===LANG)return;
+  setLang(b.dataset.lang,true);
+  /* el texto cambia de tamaño: los alimentos tienen que volver a esquivarlo */
+  dispatchEvent(new Event("resize"));
+}));
+setLang(pickLang(),false);
+</script>
 <script>
 /* ======= Alimentos (los mismos iconos que la app) ======= */
 const FOODS={"Aguacate": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 4c6 0 9 8 9 14 0 4 8 8 8 17 0 6-7 10-17 10S7 41 7 35c0-9 8-13 8-17 0-6 3-14 9-14z\" fill=\"#4a7a3c\" /><path class=\"o\" d=\"M24 12c4 0 6 6 6 10 0 3 6 6 6 12 0 5-5 8-12 8s-12-3-12-8c0-6 6-9 6-12 0-4 2-10 6-10z\" fill=\"#d9e08a\" stroke=\"none\"/><ellipse class=\"o\" cx=\"24\" cy=\"32\" rx=\"6\" ry=\"6\" fill=\"#8a5a34\" /></svg>", "Albaricoque": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 14C17 9 6 14 7 27c1 10 8 18 14 18 2 0 2-1 3-1s1 1 3 1c6 0 13-8 14-18 1-13-10-18-17-13z\" fill=\"#f4a640\" /><path class=\"o\" d=\"M24 14c0-4 1-7 3-9\" fill=\"none\"/><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(26 10) rotate(-15) scale(1)\"/><path d=\"M12 24c0-4 2-7 5-8-3 2-4 6-3 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Arándanos": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><ellipse class=\"o\" cx=\"15\" cy=\"32\" rx=\"10\" ry=\"10\" fill=\"#4a5ab0\" /><ellipse class=\"o\" cx=\"33\" cy=\"32\" rx=\"10\" ry=\"10\" fill=\"#4a5ab0\" /><ellipse class=\"o\" cx=\"24\" cy=\"20\" rx=\"10\" ry=\"10\" fill=\"#4a5ab0\" /><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(22 8) rotate(-30) scale(0.8)\"/><circle cx=\"12\" cy=\"29\" r=\"1.6\" fill=\"#fff\" stroke=\"none\"/><circle cx=\"30\" cy=\"29\" r=\"1.6\" fill=\"#fff\" stroke=\"none\"/><circle cx=\"21\" cy=\"17\" r=\"1.6\" fill=\"#fff\" stroke=\"none\"/></svg>", "Cerezas": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M16 36c0-12 4-22 10-28M32 34c0-10-2-20-6-26\" fill=\"none\"/><ellipse class=\"o\" cx=\"15\" cy=\"36\" rx=\"7\" ry=\"7\" fill=\"#c0273a\" /><ellipse class=\"o\" cx=\"33\" cy=\"34\" rx=\"7\" ry=\"7\" fill=\"#c0273a\" /><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(26 8) rotate(-10) scale(0.9)\"/><path d=\"M11 33c0-2 1-3 3-3-2 1-3 2-3 3z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Ciruela": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 14C17 9 6 14 7 27c1 10 8 18 14 18 2 0 2-1 3-1s1 1 3 1c6 0 13-8 14-18 1-13-10-18-17-13z\" fill=\"#7a4a9a\" /><path class=\"o\" d=\"M24 14c0-4 1-7 3-9\" fill=\"none\"/><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(26 10) rotate(-15) scale(1)\"/><path d=\"M12 24c0-4 2-7 5-8-3 2-4 6-3 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Frambuesas": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><ellipse class=\"o\" cx=\"15\" cy=\"32\" rx=\"10\" ry=\"10\" fill=\"#d9366a\" /><ellipse class=\"o\" cx=\"33\" cy=\"32\" rx=\"10\" ry=\"10\" fill=\"#d9366a\" /><ellipse class=\"o\" cx=\"24\" cy=\"20\" rx=\"10\" ry=\"10\" fill=\"#d9366a\" /><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(22 8) rotate(-30) scale(0.8)\"/><circle cx=\"12\" cy=\"29\" r=\"1.6\" fill=\"#fff\" stroke=\"none\"/><circle cx=\"30\" cy=\"29\" r=\"1.6\" fill=\"#fff\" stroke=\"none\"/><circle cx=\"21\" cy=\"17\" r=\"1.6\" fill=\"#fff\" stroke=\"none\"/></svg>", "Fresas": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M7 15c11-5 23-5 34 0-1 14-9 27-17 29C16 42 8 29 7 15z\" fill=\"#e2493f\" /><path class=\"o\" d=\"M24 14l-9-4 5 4-7 2 8 2 3 5 3-5 8-2-7-2 5-4z\" fill=\"#6aa86f\" /><circle cx=\"16\" cy=\"22\" r=\"1.6\" fill=\"#ffe9a8\" stroke=\"none\"/><circle cx=\"24\" cy=\"24\" r=\"1.6\" fill=\"#ffe9a8\" stroke=\"none\"/><circle cx=\"32\" cy=\"22\" r=\"1.6\" fill=\"#ffe9a8\" stroke=\"none\"/><circle cx=\"20\" cy=\"30\" r=\"1.6\" fill=\"#ffe9a8\" stroke=\"none\"/><circle cx=\"28\" cy=\"31\" r=\"1.6\" fill=\"#ffe9a8\" stroke=\"none\"/><circle cx=\"24\" cy=\"37\" r=\"1.6\" fill=\"#ffe9a8\" stroke=\"none\"/></svg>", "Higos": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 9c5 0 6 5 6 9 0 4 9 7 9 16 0 7-7 11-15 11S9 41 9 34c0-9 9-12 9-16 0-4 1-9 6-9z\" fill=\"#7a4a7a\" /><path class=\"o\" d=\"M24 9c0-3 1-5 3-6\" fill=\"none\"/><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(26 6) rotate(-20) scale(0.9)\"/><path d=\"M13 33c0-4 2-6 4-8-1 3-1 6 0 9z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Kiwi": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><ellipse class=\"o\" cx=\"24\" cy=\"26\" rx=\"18\" ry=\"18\" fill=\"#8bbf4a\" /><ellipse class=\"o\" cx=\"24\" cy=\"26\" rx=\"12.5\" ry=\"12.5\" fill=\"#d9e08a\" /><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(25 9) rotate(-20) scale(1)\"/><path class=\"o\" d=\"M24 9v4\" fill=\"none\"/><path d=\"M11 22c1-5 4-8 8-9-4 2-6 5-6 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Mandarina": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><ellipse class=\"o\" cx=\"24\" cy=\"26\" rx=\"18\" ry=\"18\" fill=\"#f59a2e\" /><ellipse class=\"o\" cx=\"24\" cy=\"26\" rx=\"12.5\" ry=\"12.5\" fill=\"#f59a2e\" /><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(25 9) rotate(-20) scale(1)\"/><path class=\"o\" d=\"M24 9v4\" fill=\"none\"/><path d=\"M11 22c1-5 4-8 8-9-4 2-6 5-6 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Mango": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M8 30c0-12 10-22 24-22 6 0 8 4 8 8 0 14-10 26-22 26-6 0-10-4-10-12z\" fill=\"#f08a2e\" /><path class=\"o\" d=\"M30 10c4 0 6 2 6 6 0 8-4 14-10 20 4-8 6-14 4-26z\" fill=\"#e2493f\" stroke=\"none\" opacity=\".5\"/><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(31 8) rotate(-30) scale(0.8)\"/></svg>", "Manzana": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 14C17 9 6 14 7 27c1 10 8 18 14 18 2 0 2-1 3-1s1 1 3 1c6 0 13-8 14-18 1-13-10-18-17-13z\" fill=\"#d9473f\" /><path class=\"o\" d=\"M24 14c0-4 1-7 3-9\" fill=\"none\"/><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(26 10) rotate(-15) scale(1)\"/><path d=\"M12 24c0-4 2-7 5-8-3 2-4 6-3 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Melocotón": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 14C17 9 6 14 7 27c1 10 8 18 14 18 2 0 2-1 3-1s1 1 3 1c6 0 13-8 14-18 1-13-10-18-17-13z\" fill=\"#f6a56a\" /><path class=\"o\" d=\"M24 14c0-4 1-7 3-9\" fill=\"none\"/><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(26 10) rotate(-15) scale(1)\"/><path d=\"M12 24c0-4 2-7 5-8-3 2-4 6-3 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Melón": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M3 22a21 21 0 0 0 42 0z\" fill=\"#9ac47a\" /><path class=\"o\" d=\"M7 22a17 17 0 0 0 34 0z\" fill=\"#f6c98a\" stroke=\"none\"/><circle cx=\"17\" cy=\"28\" r=\"1.8\" fill=\"#f6ecc8\" stroke=\"none\"/><circle cx=\"24\" cy=\"32\" r=\"1.8\" fill=\"#f6ecc8\" stroke=\"none\"/><circle cx=\"31\" cy=\"28\" r=\"1.8\" fill=\"#f6ecc8\" stroke=\"none\"/></svg>", "Naranja": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><ellipse class=\"o\" cx=\"24\" cy=\"26\" rx=\"18\" ry=\"18\" fill=\"#f08a2e\" /><ellipse class=\"o\" cx=\"24\" cy=\"26\" rx=\"12.5\" ry=\"12.5\" fill=\"#f08a2e\" /><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(25 9) rotate(-20) scale(1)\"/><path class=\"o\" d=\"M24 9v4\" fill=\"none\"/><path d=\"M11 22c1-5 4-8 8-9-4 2-6 5-6 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Papaya": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 36C4 22 14 6 28 6c10 0 14 8 10 18-4 12-20 20-28 12z\" fill=\"#f2a23a\" /><path class=\"o\" d=\"M16 30C14 22 20 14 28 12c-2 8-6 16-12 18z\" fill=\"#e2613a\" stroke=\"none\" opacity=\".6\"/><circle cx=\"22\" cy=\"22\" r=\"1.8\" fill=\"#2a2a2a\" stroke=\"none\"/><circle cx=\"26\" cy=\"17\" r=\"1.8\" fill=\"#2a2a2a\" stroke=\"none\"/><circle cx=\"20\" cy=\"27\" r=\"1.8\" fill=\"#2a2a2a\" stroke=\"none\"/></svg>", "Pera": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 9c5 0 6 5 6 9 0 4 9 7 9 16 0 7-7 11-15 11S9 41 9 34c0-9 9-12 9-16 0-4 1-9 6-9z\" fill=\"#b9d05a\" /><path class=\"o\" d=\"M24 9c0-3 1-5 3-6\" fill=\"none\"/><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(26 6) rotate(-20) scale(0.9)\"/><path d=\"M13 33c0-4 2-6 4-8-1 3-1 6 0 9z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Piña": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><ellipse class=\"o\" cx=\"24\" cy=\"31\" rx=\"13\" ry=\"14\" fill=\"#f0b43a\" /><path class=\"o\" d=\"M13 26l22 14M35 26L13 40M24 17v28\" fill=\"none\"/><path class=\"o\" d=\"M24 18c-2-6-6-9-9-10 1 4 3 7 9 10zM24 18c2-6 6-9 9-10-1 4-3 7-9 10zM24 17c0-5 0-9 0-13 2 4 2 9 0 13z\" fill=\"#6aa86f\" /></svg>", "Plátano": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M9 8c3-1 5 1 5 4 0 15 9 22 25 20 3 0 4 4 1 6C21 42 5 34 5 14c0-3 2-5 4-6z\" fill=\"#f2cf4a\" /><path class=\"o\" d=\"M7 7l4-2 3 4-4 2z\" fill=\"#7a5a2d\" /><path d=\"M16 20c3 8 9 13 17 15-9-1-16-6-17-15z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Sandía": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M3 22a21 21 0 0 0 42 0z\" fill=\"#4a9a5a\" /><path class=\"o\" d=\"M7 22a17 17 0 0 0 34 0z\" fill=\"#e2493f\" stroke=\"none\"/><circle cx=\"17\" cy=\"28\" r=\"1.8\" fill=\"#2a2a2a\" stroke=\"none\"/><circle cx=\"24\" cy=\"32\" r=\"1.8\" fill=\"#2a2a2a\" stroke=\"none\"/><circle cx=\"31\" cy=\"28\" r=\"1.8\" fill=\"#2a2a2a\" stroke=\"none\"/></svg>", "Uvas": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><ellipse class=\"o\" cx=\"14\" cy=\"20\" rx=\"7.5\" ry=\"7.5\" fill=\"#8a5ac8\" /><ellipse class=\"o\" cx=\"24\" cy=\"20\" rx=\"7.5\" ry=\"7.5\" fill=\"#8a5ac8\" /><ellipse class=\"o\" cx=\"34\" cy=\"20\" rx=\"7.5\" ry=\"7.5\" fill=\"#8a5ac8\" /><ellipse class=\"o\" cx=\"19\" cy=\"30\" rx=\"7.5\" ry=\"7.5\" fill=\"#8a5ac8\" /><ellipse class=\"o\" cx=\"29\" cy=\"30\" rx=\"7.5\" ry=\"7.5\" fill=\"#8a5ac8\" /><ellipse class=\"o\" cx=\"24\" cy=\"40\" rx=\"7.5\" ry=\"7.5\" fill=\"#8a5ac8\" /><path class=\"o\" d=\"M24 12V4\" fill=\"none\"/><path class=\"o\" d=\"M0 0c4-7 13-7 16-3-1 7-9 10-16 3z\" fill=\"#6aa86f\" transform=\"translate(24 6) rotate(-10) scale(0.9)\"/></svg>", "Berenjena": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M30 11c6 4 9 14 3 24-4 7-12 11-18 7S9 32 19 24c5-4 6-10 11-13z\" fill=\"#6b3f8c\" /><path class=\"o\" d=\"M26 8c4-3 9-1 11 4-4 3-9 3-13-1z\" fill=\"#6aa86f\" /><path d=\"M16 34c0-4 2-7 5-9-2 3-3 6-2 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Boniato": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M8 24c0-9 8-14 17-14 10 0 17 7 15 17-2 9-9 16-18 15C12 41 8 33 8 24z\" fill=\"#c97a4a\" /><circle cx=\"17\" cy=\"22\" r=\"2\" fill=\"#00000030\" stroke=\"none\"/><circle cx=\"28\" cy=\"17\" r=\"2\" fill=\"#00000030\" stroke=\"none\"/><circle cx=\"30\" cy=\"30\" r=\"2\" fill=\"#00000030\" stroke=\"none\"/><circle cx=\"20\" cy=\"33\" r=\"2\" fill=\"#00000030\" stroke=\"none\"/></svg>", "Brócoli": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><rect class=\"o\" x=\"20\" y=\"28\" width=\"9\" height=\"16\" rx=\"3\" fill=\"#8bbf7a\" /><ellipse class=\"o\" cx=\"14\" cy=\"24\" rx=\"9\" ry=\"9\" fill=\"#4a8a4a\" /><ellipse class=\"o\" cx=\"34\" cy=\"24\" rx=\"9\" ry=\"9\" fill=\"#4a8a4a\" /><ellipse class=\"o\" cx=\"24\" cy=\"16\" rx=\"10\" ry=\"10\" fill=\"#4a8a4a\" /><ellipse class=\"o\" cx=\"24\" cy=\"26\" rx=\"8\" ry=\"8\" fill=\"#4a8a4a\" /><path d=\"M16 12c2-3 5-4 8-4-4 1-6 3-8 4z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Calabacín": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><g transform=\"rotate(-35 24 24)\"><rect class=\"o\" x=\"4\" y=\"16\" width=\"40\" height=\"16\" rx=\"8\" fill=\"#6aa84a\" /><rect class=\"o\" x=\"2\" y=\"19\" width=\"6\" height=\"10\" rx=\"3\" fill=\"#3f7d52\" /></g><path d=\"M10 30c4-8 10-14 18-16-8 4-13 9-18 16z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Calabaza": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><ellipse class=\"o\" cx=\"24\" cy=\"29\" rx=\"19\" ry=\"14\" fill=\"#ee8a2e\" /><path class=\"o\" d=\"M24 15c-6 4-8 20 0 28M24 15c6 4 8 20 0 28M14 18c-4 6-3 16 3 22M34 18c4 6 3 16-3 22\" fill=\"none\"/><rect class=\"o\" x=\"21\" y=\"6\" width=\"6\" height=\"9\" rx=\"2\" fill=\"#6a8a3c\" /></svg>", "Champiñones": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><rect class=\"o\" x=\"17\" y=\"26\" width=\"14\" height=\"16\" rx=\"6\" fill=\"#f3e8d0\" /><path class=\"o\" d=\"M6 28c0-12 8-19 18-19s18 7 18 19c0 2-1.5 3-3.5 3h-29c-2 0-3.5-1-3.5-3z\" fill=\"#d8b48c\" /></svg>", "Coliflor": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><rect class=\"o\" x=\"20\" y=\"28\" width=\"9\" height=\"16\" rx=\"3\" fill=\"#8bbf7a\" /><ellipse class=\"o\" cx=\"14\" cy=\"24\" rx=\"9\" ry=\"9\" fill=\"#f3ecd6\" /><ellipse class=\"o\" cx=\"34\" cy=\"24\" rx=\"9\" ry=\"9\" fill=\"#f3ecd6\" /><ellipse class=\"o\" cx=\"24\" cy=\"16\" rx=\"10\" ry=\"10\" fill=\"#f3ecd6\" /><ellipse class=\"o\" cx=\"24\" cy=\"26\" rx=\"8\" ry=\"8\" fill=\"#f3ecd6\" /><path d=\"M16 12c2-3 5-4 8-4-4 1-6 3-8 4z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Espárragos": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path d=\"M15 44V12\" stroke=\"#7bb35a\" stroke-width=\"5\" stroke-linecap=\"round\"/><path class=\"o\" d=\"M15 44V12\" fill=\"none\" stroke-width=\"1.4\" opacity=\".35\"/><path class=\"o\" d=\"M11.8 17c0-4 1.6-6.5 3.2-7.5 1.6 1 3.2 3.5 3.2 7.5z\" fill=\"#4a7d34\" /><path d=\"M12 26l-2.5-2M18 34l2.5-2\" stroke=\"#4a7d34\" stroke-width=\"1.6\" stroke-linecap=\"round\"/><path d=\"M24 44V6\" stroke=\"#7bb35a\" stroke-width=\"5\" stroke-linecap=\"round\"/><path class=\"o\" d=\"M24 44V6\" fill=\"none\" stroke-width=\"1.4\" opacity=\".35\"/><path class=\"o\" d=\"M20.8 11c0-4 1.6-6.5 3.2-7.5 1.6 1 3.2 3.5 3.2 7.5z\" fill=\"#4a7d34\" /><path d=\"M21 20l-2.5-2M27 28l2.5-2\" stroke=\"#4a7d34\" stroke-width=\"1.6\" stroke-linecap=\"round\"/><path d=\"M33 44V12\" stroke=\"#7bb35a\" stroke-width=\"5\" stroke-linecap=\"round\"/><path class=\"o\" d=\"M33 44V12\" fill=\"none\" stroke-width=\"1.4\" opacity=\".35\"/><path class=\"o\" d=\"M29.8 17c0-4 1.6-6.5 3.2-7.5 1.6 1 3.2 3.5 3.2 7.5z\" fill=\"#4a7d34\" /><path d=\"M30 26l-2.5-2M36 34l2.5-2\" stroke=\"#4a7d34\" stroke-width=\"1.6\" stroke-linecap=\"round\"/><path d=\"M11 36h26\" stroke=\"#c96a47\" stroke-width=\"3.2\" stroke-linecap=\"round\"/></svg>", "Guisantes": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M5 31C8 17 22 8 41 10c-1 17-13 29-34 25z\" fill=\"#6aa84a\" /><circle cx=\"14\" cy=\"27\" r=\"3.4\" fill=\"#bfe08a\" stroke=\"none\"/><circle cx=\"22\" cy=\"23\" r=\"3.4\" fill=\"#bfe08a\" stroke=\"none\"/><circle cx=\"30\" cy=\"19\" r=\"3.4\" fill=\"#bfe08a\" stroke=\"none\"/><circle cx=\"36\" cy=\"15\" r=\"3.4\" fill=\"#bfe08a\" stroke=\"none\"/><path class=\"o\" d=\"M5 31c-2 3-3 5-3 7\" fill=\"none\"/></svg>", "Lechuga": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 44C7 37 5 18 24 4c19 14 17 33 0 40z\" fill=\"#8bc860\" /><path class=\"o\" d=\"M24 44V14M24 32l-8-8M24 26l8-8M24 36l8-7\" fill=\"none\"/><path d=\"M12 26c0-6 3-11 7-15-4 6-5 10-4 16z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Maíz tierno": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 4c8 6 10 18 8 30-1 6-4 10-8 10s-7-4-8-10C14 22 16 10 24 4z\" fill=\"#f2c94c\" /><path class=\"o\" d=\"M18 14h12M16 22h16M16 30h16M24 8v34\" fill=\"none\"/><path class=\"o\" d=\"M24 44c-8-2-13-8-14-18 5 4 10 6 14 6zM24 44c8-2 13-8 14-18-5 4-10 6-14 6z\" fill=\"#6aa86f\" /></svg>", "Patata": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M8 24c0-9 8-14 17-14 10 0 17 7 15 17-2 9-9 16-18 15C12 41 8 33 8 24z\" fill=\"#d9b070\" /><circle cx=\"17\" cy=\"22\" r=\"2\" fill=\"#00000030\" stroke=\"none\"/><circle cx=\"28\" cy=\"17\" r=\"2\" fill=\"#00000030\" stroke=\"none\"/><circle cx=\"30\" cy=\"30\" r=\"2\" fill=\"#00000030\" stroke=\"none\"/><circle cx=\"20\" cy=\"33\" r=\"2\" fill=\"#00000030\" stroke=\"none\"/></svg>", "Pimiento rojo": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 18c4-5 24-5 28 0 4 9 1 22-5 26-3 2-15 2-18 0-6-4-9-17-5-26z\" fill=\"#d9362f\" /><path class=\"o\" d=\"M24 14c0-4 1-6 5-8\" fill=\"#6aa86f\" fill=\"none\"/><rect class=\"o\" x=\"20\" y=\"9\" width=\"9\" height=\"5\" rx=\"2\" fill=\"#6aa86f\" /><path d=\"M13 24c0-3 1-5 3-6-1 4-1 8 0 12z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Pimiento amarillo": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 18c4-5 24-5 28 0 4 9 1 22-5 26-3 2-15 2-18 0-6-4-9-17-5-26z\" fill=\"#f2c94c\" /><path class=\"o\" d=\"M24 14c0-4 1-6 5-8\" fill=\"#6aa86f\" fill=\"none\"/><rect class=\"o\" x=\"20\" y=\"9\" width=\"9\" height=\"5\" rx=\"2\" fill=\"#6aa86f\" /><path d=\"M13 24c0-3 1-5 3-6-1 4-1 8 0 12z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Puerro": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M17 3c-6 6-7 13-4 20h8c-1-7-2-14-4-20z\" fill=\"#3f7d52\" /><path class=\"o\" d=\"M31 3c6 6 7 13 4 20h-8c1-7 2-14 4-20z\" fill=\"#4f9a5c\" /><path class=\"o\" d=\"M24 1c-3 7-4 14-4 22h8c0-8-1-15-4-22z\" fill=\"#6aa84a\" /><path class=\"o\" d=\"M16 21h16v9H16z\" fill=\"#c9e2a0\" /><path class=\"o\" d=\"M16 29h16v11c0 3-3 5-8 5s-8-2-8-5z\" fill=\"#f6f1dc\" /><path d=\"M20 45l-1 2M24 45v2.5M28 45l1 2\" stroke=\"#b9ad8a\" stroke-width=\"1.3\" stroke-linecap=\"round\"/><path d=\"M19 31h3v9h-3z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Remolacha": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 13c11 0 17 8 15 18-1 6-7 12-15 13S10 37 9 31C7 21 13 13 24 13z\" fill=\"#9a1f4a\" /><path class=\"o\" d=\"M24 44v3\" fill=\"none\"/><path class=\"o\" d=\"M24 13c-2-5-6-8-10-8 0 5 4 9 10 8zM24 13c2-5 6-8 10-8 0 5-4 9-10 8z\" fill=\"#6aa86f\" /><path d=\"M13 24c1-4 4-7 8-8-4 3-6 6-6 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Tomate": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M24 13C14 9 5 16 7 28c2 10 9 16 17 16s15-6 17-16c2-12-7-19-17-15z\" fill=\"#e2493f\" /><path class=\"o\" d=\"M24 12l-8-3 5 5-6 2 7 1 2 5 2-5 7-1-6-2 5-5z\" fill=\"#6aa86f\" /><path d=\"M11 25c0-4 2-7 5-8-3 2-4 6-3 10z\" fill=\"#fff\" opacity=\".45\" stroke=\"none\"/></svg>", "Zanahoria": "<svg class=\"fd\" viewBox=\"-3 -3 54 54\" aria-hidden=\"true\"><path class=\"o\" d=\"M13 15c0-5 22-5 22 0L26 44c-1 3-3 3-4 0z\" fill=\"#ee8a2e\" /><path class=\"o\" d=\"M17 22h5M26 28h5M20 34h4\" fill=\"none\"/><path class=\"o\" d=\"M24 12c-2-5-6-8-10-8 0 5 4 9 10 8zM24 12c2-5 6-8 10-8 0 5-4 9-10 8z\" fill=\"#6aa86f\" /></svg>"};
@@ -551,17 +732,17 @@ const toML=em=>{if(!ML.account||!ML.form)return;const d=new FormData();d.append(
   fetch("https://assets.mailerlite.com/jsonp/"+ML.account+"/forms/"+ML.form+"/subscribe",{method:"POST",body:d,mode:"no-cors"}).catch(()=>{})};
 const RE=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
 const showDone=()=>{document.body.classList.add("wl-done");document.querySelectorAll("[data-form]").forEach(f=>{f.replaceChildren(document.getElementById("okTpl").content.cloneNode(true))});
-  document.querySelectorAll("[data-share]").forEach(b=>b.onclick=async()=>{const d={title:"Primeros Alimentos",text:"Mira esta app para planificar los primeros alimentos del bebé. Sale muy pronto y regalan una guía para empezar.",url:"https://www.primerosalimentos.com/"};
-    try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.text+" "+d.url);b.textContent="Enlace copiado"}}catch(e){}})};
+  document.querySelectorAll("[data-share]").forEach(b=>b.onclick=async()=>{const d={title:"Primeros Alimentos",text:T("share"),url:"https://www.primerosalimentos.com/"};
+    try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.text+" "+d.url);b.textContent=T("copied")}}catch(e){}})};
 try{if(localStorage.getItem("pa_wl"))showDone()}catch(e){}
 document.querySelectorAll("[data-form]").forEach(f=>f.addEventListener("submit",async e=>{e.preventDefault();
   const em=f.email.value.trim().toLowerCase(),er=f.querySelector(".err"),bt=f.querySelector("button[type=submit]");er.textContent="";
-  if(!RE.test(em)){er.textContent="Revisa el email, parece que falta algo.";f.email.focus();return}
-  if(!f.ok.checked){er.textContent="Marca la casilla para que podamos escribirte.";return}
-  bt.disabled=true;const tx=bt.textContent;bt.textContent="Guardando…";
+  if(!RE.test(em)){er.textContent=T("err_email");f.email.focus();return}
+  if(!f.ok.checked){er.textContent=T("err_ok");return}
+  bt.disabled=true;const tx=bt.textContent;bt.textContent=T("saving");
   try{toML(em);const {db,fs}=await getDB();await fs.addDoc(fs.collection(db,"lista_espera"),{email:em,fecha:fs.serverTimestamp(),origen:ORIGEN});
     try{localStorage.setItem("pa_wl","1")}catch(e){}showDone()}
-  catch(err){console.error(err);er.textContent="No se ha podido guardar. Prueba otra vez en un momento.";bt.disabled=false;bt.textContent=tx}}));
+  catch(err){console.error(err);er.textContent=T("err_save");bt.disabled=false;bt.textContent=tx}}));
 </script>
 </body>
 </html>
