@@ -129,7 +129,7 @@ dict(cat="guia",slug="alergenos-bebe-como-introducirlos",
  title="Alérgenos en el bebé: cuándo y cómo introducirlos",
  short="Alérgenos",
  desc="Cuándo y cómo introducir los alérgenos al bebé: huevo, pescado, cacahuete, frutos secos, gluten y lácteos. De uno en uno, pronto y en poca cantidad.",
- date="2026-11-06", icon="Almendra", mins=5,
+ date="2026-11-09", icon="Almendra", mins=5,
  lead="Durante años se recomendó retrasarlos. Hoy se sabe que no sirve: introducir los alérgenos pronto y en poca cantidad puede ayudar a reducir el riesgo de alergia.",
  body="""
 <h2>Pronto, en poca cantidad y sin retrasarlos</h2>
