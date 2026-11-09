@@ -141,14 +141,13 @@ def alternates(langs,slug):
     out="".join(f'<link rel="alternate" hreflang="{l}" href="{url_de(l,slug)}">' for l in langs)
     return out+f'<link rel="alternate" hreflang="x-default" href="{url_de("es",slug)}">'
 
-SEL_CSS=('<style>.top{flex-wrap:wrap!important}.idi{flex:0 0 100%;display:flex;justify-content:center;margin:12px 0 0}'
- '.idi span{display:inline-flex;gap:4px;padding:3px;border-radius:99px;background:var(--card);border:1.5px solid var(--line)}'
- '.idi a{min-width:38px;padding:5px 9px;border-radius:99px;text-align:center;font:800 .78rem Montserrat,sans-serif;letter-spacing:.04em;color:var(--mute);text-decoration:none}'
- '.idi a[aria-current]{background:var(--green);color:#fff}</style>')
+SEL_CSS=('<style>.idi{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 18px;margin:0 0 16px}'
+ '.idi a{padding:4px 2px;color:rgba(255,255,255,.7);font:500 .8rem Montserrat,sans-serif;text-decoration:none}'
+ '.idi a:hover{color:#fff}.idi a[aria-current]{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px}</style>')
 def selector(l,langs,slug):
     lab={"es":"Idioma","ca":"Idioma","en":"Language"}[l]
-    return (f'<nav class="idi" aria-label="{lab}"><span>'+"".join(
-        f'<a href="{url_de(x,slug)}" hreflang="{x}" lang="{x}" aria-label="{NOMBRE[x]}"'+(' aria-current="true"' if x==l else '')+f'>{x.upper()}</a>' for x in ["es","ca","en"] if x in langs)+'</span></nav>')
+    return (f'<nav class="idi" aria-label="{lab}">'+"".join(
+        f'<a href="{url_de(x,slug)}" hreflang="{x}" lang="{x}"'+(' aria-current="true"' if x==l else '')+f'>{NOMBRE[x] if x!="es" else "Castellano"}</a>' for x in ["es","ca","en"] if x in langs)+'</nav>')
 
 def poner_idiomas(s,l,langs,slug):
     """Mete hreflang, el selector y el lang correcto. Se puede repetir sin duplicar."""
@@ -156,7 +155,8 @@ def poner_idiomas(s,l,langs,slug):
     s=re.sub(r'<html lang="[a-z]+">',f'<html lang="{l}">',s,count=1)
     if len(langs)>1:
         s=s.replace("</head>",f"{MARK}{alternates(langs,slug)}{SEL_CSS}<!--/idiomas--></head>",1)
-        s=s.replace("</header>",f"{MARK}{selector(l,langs,slug)}<!--/idiomas--></header>",1)
+        sel=f'{MARK}{selector(l,langs,slug)}<!--/idiomas-->'
+        s=re.sub(r'(<div class="links">.*?</div>)',lambda m:m.group(1)+sel,s,count=1,flags=re.S)
     return s
 
 def localizar_enlaces(s,l,trad):
