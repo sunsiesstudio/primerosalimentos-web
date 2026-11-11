@@ -63,8 +63,8 @@ article li::marker{color:var(--terra);font-weight:800}
 .alg{font-size:.95rem;color:var(--mute)}.reel{margin:6px 0 10px}
 .ing li::marker{content:"• "}.steps li{padding-left:4px}
 .grid{padding-bottom:30px!important}
-footer{background:var(--green);color:rgba(255,255,255,.85);text-align:center;padding:44px 24px 50px;font-size:.85rem}
-footer a{color:#fff}footer .links{display:flex;justify-content:center;gap:22px;font-weight:700;margin:0 0 14px}
+footer{background:var(--green);color:rgba(255,255,255,.85);text-align:center;padding:56px 24px calc(48px + env(safe-area-inset-bottom,0px));font-size:.85rem}
+footer a{color:#fff}footer .links{display:flex;justify-content:center;gap:22px;font-weight:600;margin:0 0 14px}
 footer p{max-width:36em;margin:0 auto}
 footer .soc{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:0 0 26px}
 footer .soc a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);color:#fff;text-decoration:none;font-weight:700;font-size:.92rem}
