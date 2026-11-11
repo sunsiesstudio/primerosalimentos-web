@@ -35,16 +35,23 @@ FIXES=r"""
 .wlb .btn{flex:none}
 .wlb.t2{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
 .wlb.t2 .bi{background:color-mix(in srgb,var(--terra) 14%,var(--card))}
+.wlb .bpg{flex:none;position:relative;width:96px;aspect-ratio:148/210;margin:0 10px 0 4px}
+.wlb .bpg img{position:absolute;inset:0;width:100%;height:100%;border-radius:5px;box-shadow:0 10px 22px rgba(0,0,0,.22)}
+.wlb .bpg .pg2{rotate:8deg;translate:10% 3%}.wlb .bpg .pg1{rotate:-4deg}
+.wlb.t2 .bmk{flex:none;width:150px;height:auto;align-self:flex-end;margin:-8px 0 -24px -6px}
 .wlb.t2 .bk{color:var(--terra)}.wlb.t2 .bh{color:var(--green)}.wlb.t2 .bp{color:var(--mute)}
 article .wlb{margin:30px 0}
-@media(max-width:640px){.wlb{flex-direction:column;text-align:center;gap:14px;padding:26px 22px 24px}.wlb .btn{width:100%}}
+@media(max-width:640px){.wlb{flex-direction:column;text-align:center;gap:14px;padding:26px 22px 24px}.wlb .btn{width:100%}.wlb.t2 .bmk{width:170px;align-self:center;margin:-6px 0 0}}
 /* ajustes nov 2026 */
 .faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .faq summary::after{float:none;flex:none;width:1em;text-align:center;font-size:1.2em;line-height:1}
 .vs{align-items:flex-start}
 .vs .side.main b{color:inherit}
 .vs .plus{align-self:flex-start;height:96px;display:flex;align-items:center;line-height:1}
+.ages{gap:44px}
+.ages li:not(:last-child)::after{right:-28px}
 @media(max-width:640px){
+.ages li:not(:last-child)::after{right:auto}
 .vs .plus{height:76px;font-size:1.6rem}
 .ages{gap:34px}
 .ages li:not(:last-child)::after{bottom:-25px}
@@ -127,10 +134,10 @@ footer .links{margin-bottom:14px;max-width:36em;margin-left:auto!important;margi
 """+illus.CSS+illus2.CSS+FIXES
 def BANNER(v,o):
     if v==1:
-        return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bi">{ic("Mandarina")}</span><span class="bt"><span class="bk">Gratis</span>'
+        return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bpg" aria-hidden="true"><img class="pg2" src="{BASE}/capturas/guia-2.jpg" alt="" loading="lazy"><img class="pg1" src="{BASE}/capturas/guia-1.jpg" alt="" loading="lazy"></span><span class="bt"><span class="bk">Gratis</span>'
                 f'<span class="bh">La guía para empezar</span><span class="bp">Apúntate a la lista de espera de la app y te la mandamos al email.</span></span>'
                 f'<span class="btn">Quiero la guía</span></a>')
-    return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><span class="bi">{ic("Fresas")}</span><span class="bt"><span class="bk">Muy pronto</span>'
+    return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><img class="bmk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="673" loading="lazy" alt="Pantallas de la app Primeros Alimentos"><span class="bt"><span class="bk">Muy pronto</span>'
             f'<span class="bh">Todo esto, en una app</span><span class="bp">Qué darle cada día y lo que ya ha probado. Apúntate y te avisamos el primer día.</span></span>'
             f'<span class="btn">Apuntarme</span></a>')
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
