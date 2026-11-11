@@ -205,7 +205,7 @@ figure.il svg.fd{overflow:visible}
 .vs .side span{color:var(--mute);font-size:.88rem;line-height:1.4;max-width:15em}
 .vs .side.main b{color:var(--green)}
 .wt{display:flex;align-items:center;justify-content:center;gap:20px}.wt .pic{margin:0;flex:none}
-.wt b{display:block;font-size:1.05rem;color:var(--green);margin:0 0 4px}.wt span{color:var(--mute);font-size:.92rem;line-height:1.45}
+.wt b{display:block;font-size:1.05rem;color:var(--green);margin:0 0 4px}.wt span{display:block;color:var(--mute);font-size:.92rem;line-height:1.45}
 .vs .plus{font:400 2rem "Luckiest Guy",sans-serif;color:var(--terra)}
 .plate{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}
 .plate>div{border-radius:20px;padding:16px;text-align:center}
