@@ -764,7 +764,7 @@ def receta(a):
     k = body.find('<div class="pills">')
     if k >= 0:
         body = body[:k] + nueva + body[body.find("</div>", k) + 6:]
-    ALG = {"Huevo": "Huevo", "Gluten": "Pan", "Leche": "yogur", "Pescado": "Merluza", "Sésamo": "especias", "Frutos secos": "Almendra"}
+    ALG = {"Huevo": "Huevo", "Gluten": "Pan", "Leche": "yogur", "Pescado": "Merluza", "Sésamo": "especias", "Frutos secos": "Almendra", "Legumbres": "Lentejas"}
     def alg_ic(x):
         n = next((v for k2, v in ALG.items() if x.startswith(k2)), None)
         return (mini(P[n]() if n in P else F(n, 2, 2, .94)) if n else "") + x

@@ -420,8 +420,9 @@ dict(cat="guia",slug="legumbres-bebe-como-darlas",
 <h2>¿Sirven las de bote?</h2>
 <p>Sí, y te ahorran mucho tiempo. Llevan algo de sal, así que <strong>escúrrelas y lávalas bien</strong> bajo el grifo antes de usarlas.</p>
 
-<h2>Un ojo con el cacahuete</h2>
-<p>El cacahuete es una legumbre y también un alérgeno. Se ofrece en crema 100 % y muy fina, nunca entero. Si tu bebé tiene eccema grave o alergia al huevo, consulta con tu pediatra antes.</p>
+<h2>Las legumbres también son alérgenos</h2>
+<p>Lentejas, garbanzos, guisantes y alubias pueden dar alergia, sobre todo las lentejas y los garbanzos. Introdúcelas como cualquier otro alérgeno: la primera vez, <strong>poca cantidad</strong>, en casa y a una hora en la que puedas observarle. Si la tolera bien, mantenla en su menú.</p>
+<p>El cacahuete también es una legumbre, y uno de los alérgenos más importantes. Se ofrece en crema 100 % y muy fina, nunca entero. Si tu bebé tiene eccema grave o alergia al huevo, consulta con tu pediatra antes.</p>
 """,
  faq=[("¿Puedo congelar las legumbres cocidas?","Sí. Congeladas en raciones duran 1 mes en buen estado y se descongelan en la nevera."),
       ("¿Hay que quitarles la piel a los garbanzos?","Para un bebé pequeño, mejor pasarlos por el pasapurés o hacer hummus. Más adelante, aplastados es suficiente."),

@@ -3,7 +3,7 @@
 R2=[
 dict(cat="receta",slug="crema-lentejas-rojas-calabaza-bebe",title="Crema de lentejas rojas y calabaza para bebés",short="Crema de lentejas y calabaza",
  desc="Crema de lentejas rojas y calabaza sin sal para bebés desde 6 meses. Rica en hierro, sin remojo y lista en 25 minutos. Para cuchara o para mojar pan.",
- date="2026-11-11",icon="Calabaza",age="Desde 6 meses",prep=10,cook=20,yld="4 raciones",alg=[],
+ date="2026-11-11",icon="Calabaza",age="Desde 6 meses",prep=10,cook=20,yld="4 raciones",alg=["Legumbres (lentejas)"],
  lead="Las lentejas rojas no necesitan remojo, no tienen piel y quedan cremosas solas. Con calabaza, un plato dulce, suave y lleno de hierro para empezar.",
  ing=["80 g de lentejas rojas","250 g de calabaza pelada","1 zanahoria","1/2 cebolla pequeña","1 cucharada de aceite de oliva virgen extra","Una pizca de comino (opcional)","Agua"],
  steps=["Lava las lentejas en un colador hasta que el agua salga clara.","Pela y trocea la calabaza, la zanahoria y la cebolla.","Rehoga la cebolla en una olla con el aceite 3-4 minutos, a fuego suave.","Añade el resto de verduras, las lentejas y el comino, y cubre con agua justo por encima.","Cuece a fuego medio 18-20 minutos, hasta que las lentejas se deshagan.","Tritura hasta que quede fina. Añade agua si la quieres más ligera."],
@@ -33,7 +33,7 @@ dict(cat="receta",slug="nuggets-merluza-horno-bebe",title="Nuggets de merluza al
 
 dict(cat="receta",slug="hamburguesitas-lentejas-bebe",title="Hamburguesitas de lentejas para bebés",short="Hamburguesitas de lentejas",
  desc="Hamburguesitas de lentejas y zanahoria sin sal para bebés desde 6 meses. Con hierro vegetal, sin huevo, perfectas para BLW y para congelar.",
- date="2026-11-23",icon="Lentejas",age="Desde 6 meses",prep=15,cook=20,yld="10 hamburguesitas",alg=["Gluten (avena)"],
+ date="2026-11-23",icon="Lentejas",age="Desde 6 meses",prep=15,cook=20,yld="10 hamburguesitas",alg=["Legumbres (lentejas)","Gluten (avena)"],
  lead="Un bote de lentejas, una zanahoria y un poco de avena. Una forma estupenda de dar legumbre a un bebé que ya prefiere comer con las manos.",
  ing=["1 bote de lentejas cocidas (400 g), escurridas y lavadas","1 zanahoria","40 g de copos de avena finos","1/2 cucharadita de comino o pimentón dulce","1 cucharada de aceite de oliva virgen extra"],
  steps=["Lava las lentejas bajo el grifo y escúrrelas muy bien.","Ralla la zanahoria fina.","Tritura las lentejas con la avena y las especias hasta tener una masa, sin que quede líquida.","Añade la zanahoria rallada y mezcla.","Precalienta el horno a 190 °C. Forma hamburguesitas finas, de 1 cm de grosor.","Píntalas con aceite y hornea 18-20 minutos, dándoles la vuelta a mitad."],
@@ -73,7 +73,7 @@ dict(cat="receta",slug="porridge-avena-pera-bebe",title="Porridge de avena y per
 
 dict(cat="receta",slug="pasta-bolonesa-lentejas-bebe",title="Pasta con boloñesa de lentejas para bebés",short="Boloñesa de lentejas",
  desc="Pasta con salsa boloñesa de lentejas y verduras, sin sal ni azúcar, para bebés desde 6 meses. Un plato de toda la familia con hierro vegetal.",
- date="2026-12-09",icon="Tomate",age="Desde 6 meses",prep=10,cook=25,yld="4 raciones",alg=["Gluten (pasta)"],
+ date="2026-12-09",icon="Tomate",age="Desde 6 meses",prep=10,cook=25,yld="4 raciones",alg=["Legumbres (lentejas)","Gluten (pasta)"],
  lead="La salsa de tomate de bote suele llevar azúcar y sal. Esta se hace en una olla, lleva lentejas escondidas y le gusta a toda la familia.",
  ing=["160 g de pasta (fusilli grandes o macarrones)","1 bote de lentejas cocidas (400 g), lavadas","400 g de tomate triturado natural sin sal","1 zanahoria","1/2 cebolla","1 diente de ajo","1 cucharada de aceite de oliva virgen extra","Orégano"],
  steps=["Pica la cebolla, el ajo y la zanahoria muy finos, o rállalos.","Rehógalos en el aceite 6-8 minutos a fuego suave.","Añade el tomate y el orégano y cuece 10 minutos.","Incorpora las lentejas y cocina 5 minutos más. Aplasta un poco con el tenedor.","Cuece la pasta sin sal 2-3 minutos más de lo que indique el paquete, para que quede blanda.","Mezcla la pasta con la salsa. Saca la ración del bebé y luego sazona la del resto."],
@@ -83,7 +83,7 @@ dict(cat="receta",slug="pasta-bolonesa-lentejas-bebe",title="Pasta con boloñesa
 
 dict(cat="receta",slug="mini-tortillas-horno-verduras-bebe",title="Mini tortillas al horno con verduras para bebés",short="Mini tortillas al horno",
  desc="Mini tortillas de huevo y verduras al horno, en molde de muffins, para bebés desde 6 meses. Sin sal, fáciles de coger y aptas para congelar.",
- date="2026-12-13",icon="Brócoli",age="Desde 6 meses",prep=10,cook=20,yld="8-10 mini tortillas",alg=["Huevo"],
+ date="2026-12-13",icon="Brócoli",age="Desde 6 meses",prep=10,cook=20,yld="8-10 mini tortillas",alg=["Huevo","Legumbres (guisantes)"],
  lead="Todo lo bueno de una tortilla en un formato que no se rompe y se coge con una mano. Y sirve para aprovechar las verduras que tengas en la nevera.",
  ing=["4 huevos","1 taza de verduras cocidas y picadas (brócoli, pimiento rojo, calabacín, guisantes aplastados)","1 cucharada de copos de avena (opcional, para que no se desmoronen)","Aceite de oliva virgen extra para el molde","Orégano o perejil"],
  steps=["Precalienta el horno a 180 °C y engrasa un molde de muffins o usa uno de silicona.","Bate los huevos con la avena y las hierbas.","Reparte las verduras en el molde y vierte el huevo por encima hasta 3/4 de su altura.","Hornea 15-20 minutos, hasta que estén cuajadas por completo: pincha con un palillo y tiene que salir limpio.","Deja templar unos minutos antes de desmoldar."],
@@ -93,7 +93,7 @@ dict(cat="receta",slug="mini-tortillas-horno-verduras-bebe",title="Mini tortilla
 
 dict(cat="receta",slug="arroz-meloso-pollo-verduras-bebe",title="Arroz meloso con pollo y verduras para bebés",short="Arroz meloso con pollo",
  desc="Arroz meloso con pollo y verduras sin sal para bebés desde 6 meses. Cremoso, fácil de comer con cuchara o con las manos.",
- date="2026-12-17",icon="Guisantes",age="Desde 6 meses",prep=10,cook=30,yld="3-4 raciones",alg=[],
+ date="2026-12-17",icon="Guisantes",age="Desde 6 meses",prep=10,cook=30,yld="3-4 raciones",alg=["Legumbres (guisantes)"],
  lead="Un arroz caldoso y cremoso que se puede comer con cuchara o a puñados. Con pollo y verduras, un plato completo en una olla.",
  ing=["80 g de arroz redondo","1 muslo de pollo sin piel ni hueso, en trocitos","1/2 pimiento rojo","1 zanahoria","Un puñado de guisantes","1/2 cebolla","400-500 ml de caldo de verduras sin sal o agua","1 cucharada de aceite de oliva virgen extra","Una pizca de cúrcuma (opcional)"],
  steps=["Pica la cebolla, el pimiento y la zanahoria muy finos.","Dora el pollo en el aceite, añade las verduras y rehoga 5 minutos.","Añade el arroz y la cúrcuma y remueve 1 minuto.","Vierte el caldo caliente y cuece 18-20 minutos a fuego medio, removiendo de vez en cuando, hasta que el arroz esté muy tierno y quede meloso.","Añade los guisantes en los últimos 5 minutos.","Deja reposar 5 minutos y aplasta los guisantes antes de servir."],
@@ -133,7 +133,7 @@ dict(cat="receta",slug="bizcocho-manzana-sin-azucar-bebe",title="Bizcocho de man
 
 dict(cat="receta",slug="cuscus-verduras-garbanzos-bebe",title="Cuscús con verduras y garbanzos para bebés",short="Cuscús con verduras",
  desc="Cuscús con verduras asadas y garbanzos, sin sal, para bebés desde 6 meses. Listo en 20 minutos, con hierro vegetal y textura nueva para practicar.",
- date="2027-01-02",icon="Zanahoria",age="Desde 6 meses",prep=10,cook=20,yld="3-4 raciones",alg=["Gluten (cuscús)"],
+ date="2027-01-02",icon="Zanahoria",age="Desde 6 meses",prep=10,cook=20,yld="3-4 raciones",alg=["Legumbres (garbanzos)","Gluten (cuscús)"],
  lead="El cuscús es una textura nueva estupenda: granos pequeños y blanditos que se pegan bien. Con garbanzos y verduras, un plato completo en 20 minutos.",
  ing=["80 g de cuscús integral","120 ml de caldo de verduras sin sal o agua hirviendo","1/2 bote de garbanzos cocidos, lavados","1 zanahoria","1 calabacín pequeño","1/2 pimiento rojo","1 cucharada de aceite de oliva virgen extra","Comino y canela, una pizca"],
  steps=["Corta las verduras en dados pequeños y saltéalas en el aceite con las especias 10-12 minutos, hasta que estén muy tiernas.","Pon el cuscús en un bol, cubre con el caldo hirviendo, tapa y deja reposar 5 minutos.","Suelta el cuscús con un tenedor.","Aplasta los garbanzos con el tenedor.","Mezcla el cuscús con las verduras y los garbanzos."],

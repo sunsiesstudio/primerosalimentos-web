@@ -17,7 +17,7 @@ dict(cat="receta",slug="barritas-avena-platano-horno-bebe",title="Barritas de av
  keep="En un recipiente cerrado en la nevera, 2-3 días. Congeladas, hasta 1 mes."),
 dict(cat="receta",slug="hummus-sin-sal-bebe-tostada",title="Hummus sin sal para bebés, con tostadas en tiras",short="Tostada con hummus",
  desc="Hummus sin sal para bebés desde 6 meses, con tostadas en tiras. Una forma fácil de dar legumbre, hierro y sésamo.",
- date="2026-11-06",icon="Lentejas",age="Desde 6 meses",prep=10,cook=0,yld="4-5 raciones",alg=["Sésamo","Gluten (pan)"],
+ date="2026-11-06",icon="Lentejas",age="Desde 6 meses",prep=10,cook=0,yld="4-5 raciones",alg=["Legumbres (garbanzos)","Sésamo","Gluten (pan)"],
  lead="Legumbre, hierro y su primer contacto con el sésamo, en una textura perfecta para empezar. Untado en pan tostado, lo coge solo.",
  ing=["200 g de garbanzos cocidos sin sal (si son de bote, enjuágalos muy bien)","1 cucharada de tahini (crema de sésamo)","Un chorrito de zumo de limón","2 cucharadas de aceite de oliva virgen extra","Agua, la necesaria","Pan sin sal"],
  steps=["Tritura los garbanzos con el tahini, el limón y el aceite.","Añade agua poco a poco hasta que quede una crema suave y sin grumos duros.","Tuesta el pan y córtalo en tiras del tamaño de un dedo.","Unta una capa fina de hummus sobre las tiras."],
