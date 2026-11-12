@@ -231,6 +231,7 @@ footer p{margin:0 auto;max-width:36em}
 .pages img{position:absolute;inset:0;width:100%;height:100%;border-radius:8px;box-shadow:0 18px 40px rgba(38,38,38,.22),0 0 0 1px rgba(0,0,0,.05)}
 .pages .pg2{rotate:7deg;translate:9% 3%}
 .pages .pg1{rotate:-4deg}
+.pages picture{display:contents}
 .marq{position:relative;z-index:3;background:var(--green);color:#fff;overflow:hidden;padding:14px 0 12px;rotate:-2deg;margin:-26px -20px 0;box-shadow:0 8px 24px rgba(38,38,38,.12)}
 .mq{display:flex;align-items:center;gap:30px;width:max-content;animation:mq 45s linear infinite}
 .mq span{display:inline-flex;align-items:center;gap:10px;font:400 1.35rem/1 "Luckiest Guy",sans-serif;letter-spacing:.04em;padding-top:3px;white-space:nowrap}
@@ -419,7 +420,7 @@ footer{background:#0b0b24}
 
   <section id="guia">
     <div class="wrap guide">
-      <div class="pages" aria-hidden="true"><img class="pg2" src="capturas/guia-2.jpg" alt=""><img class="pg1" src="capturas/guia-1.jpg" alt=""></div>
+      <div class="pages" aria-hidden="true"><picture><source media="(prefers-color-scheme: dark)" srcset="capturas/guia-2-dark.jpg" data-gpg="2" data-dk><img class="pg2" src="capturas/guia-2.jpg" alt="" data-gpg="2"></picture><picture><source media="(prefers-color-scheme: dark)" srcset="capturas/guia-1-dark.jpg" data-gpg="1" data-dk><img class="pg1" src="capturas/guia-1.jpg" alt="" data-gpg="1"></picture></div>
       <div>
         
         <h2 data-i18n="g_h">Tu&nbsp;guía gratis para&nbsp;empezar</h2>
@@ -490,7 +491,7 @@ const I18N={
   soon:"<i></i>Surt molt aviat",
   h1:"Planifica el&nbsp;que&nbsp;menja el&nbsp;teu&nbsp;nadó",
   lead:"El que m'hauria encantat tenir quan el meu nadó va començar a menjar.",
-  gift:"Apunta't i et regalo la <b>guia per començar</b> (en castellà).",
+  gift:"Apunta't i et regalo la <b>guia per començar</b>.",
   email_l:"El teu email",ph:"nom@email.com",join:"Apuntar-me",get_guide:"Vull la guia",
   consent:'Accepto rebre emails sobre l\'app. <a href="/privacy.html">Privacitat</a>',
   como_h:"L'alimentació complementària, sense&nbsp;maldecaps",
@@ -524,7 +525,7 @@ const I18N={
   g3:"Textures: de puré a trossos, i puré o BLW",
   g4:"Arcada o ennuegament, i què fer",
   g5:"Què evitar i fins quan",
-  g_note:"La guia és en castellà.",
+  g_note:"",
   b_h:"Del blog",
   b1_t:"Quan començar amb l'alimentació complementària",b1_s:"Els 4 senyals que el teu nadó està preparat",
   b2_t:"Arcada o ennuegament",b2_s:"Com distingir-los i què fer",
@@ -546,7 +547,7 @@ const I18N={
   soon:"<i></i>Coming very soon",
   h1:"Plan what your&nbsp;baby&nbsp;eats",
   lead:"What I wish I'd had when my baby started eating.",
-  gift:"Sign up and get my <b>starter guide</b> for free (in Spanish).",
+  gift:"Sign up and get my <b>starter guide</b> for free.",
   email_l:"Your email",ph:"you@email.com",join:"Sign me up",get_guide:"Get the guide",
   consent:'I agree to receive emails about the app. <a href="/privacy.html">Privacy</a>',
   como_h:"Starting solids, without&nbsp;the&nbsp;stress",
@@ -580,7 +581,7 @@ const I18N={
   g3:"Textures: from purées to pieces, and purées or BLW",
   g4:"Gagging or choking, and what to do",
   g5:"What to avoid and until when",
-  g_note:"The guide is in Spanish.",
+  g_note:"",
   b_h:"From the blog",
   b1_t:"When to start solids",b1_s:"The 4 signs your baby is ready",
   b2_t:"Gagging or choking",b2_s:"How to tell them apart and what to do",
@@ -626,6 +627,8 @@ i18nRoots().forEach(r=>{
   r.querySelectorAll("[data-i18n-alt]").forEach(el=>{const k=el.dataset.i18nAlt;if(I18N.es[k]==null)I18N.es[k]=el.alt});
   r.querySelectorAll("[data-i18n-ph]").forEach(el=>{const k=el.dataset.i18nPh;if(I18N.es[k]==null)I18N.es[k]=el.placeholder});
 });
+/* la guía en PDF también va en el idioma de la web */
+const fixPdf=r=>r.querySelectorAll('a[href*="guia-primeros-alimentos"]').forEach(a=>a.setAttribute("href","/guia-primeros-alimentos"+(LANG==="es"?"":"-"+LANG)+".pdf"));
 const setLang=(l,save)=>{
   LANG=LANGS.includes(l)?l:"es";
   document.documentElement.lang=LANG;
@@ -642,6 +645,8 @@ const setLang=(l,save)=>{
   document.querySelectorAll('a[href^="/blog/"],a[data-href-es]').forEach(a=>{if(!a.dataset.hrefEs)a.dataset.hrefEs=a.getAttribute("href");a.setAttribute("href",LANG==="es"?a.dataset.hrefEs:"/"+LANG+a.dataset.hrefEs)});
   /* capturas de la app en el idioma de la web (la versión oscura la elige <picture> según el tema) */
   document.querySelectorAll("[data-shot]").forEach(el=>{const f="capturas/captura-"+el.dataset.shot+(LANG==="es"?"":"-"+LANG)+("dk" in el.dataset?"-dark":"")+".jpg";if(el.tagName==="SOURCE")el.srcset=f;else el.src=f});
+  document.querySelectorAll("[data-gpg]").forEach(el=>{const f="capturas/guia-"+el.dataset.gpg+(LANG==="es"?"":"-"+LANG)+("dk" in el.dataset?"-dark":"")+".jpg";if(el.tagName==="SOURCE")el.srcset=f;else el.src=f});
+  fixPdf(document);
   if(save){try{localStorage.setItem("pa_lang",LANG)}catch(e){}}
   document.dispatchEvent(new CustomEvent("pa:lang",{detail:LANG}));
 };
@@ -766,7 +771,7 @@ const ML={account:"2776979",form:"203501696413861774"};
 const toML=em=>{if(!ML.account||!ML.form)return;const d=new FormData();d.append("fields[email]",em);d.append("fields[origen]",ORIGEN);d.append("ml-submit","1");d.append("anticsrf","true");
   fetch("https://assets.mailerlite.com/jsonp/"+ML.account+"/forms/"+ML.form+"/subscribe",{method:"POST",body:d,mode:"no-cors"}).catch(()=>{})};
 const RE=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
-const showDone=()=>{document.body.classList.add("wl-done");document.querySelectorAll("[data-form]").forEach(f=>{f.replaceChildren(document.getElementById("okTpl").content.cloneNode(true))});
+const showDone=()=>{document.body.classList.add("wl-done");document.querySelectorAll("[data-form]").forEach(f=>{f.replaceChildren(document.getElementById("okTpl").content.cloneNode(true));fixPdf(f)});
   document.querySelectorAll("[data-share]").forEach(b=>b.onclick=async()=>{const d={title:"Primeros Alimentos",text:T("share"),url:"https://www.primerosalimentos.com/"};
     try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.text+" "+d.url);b.textContent=T("copied")}}catch(e){}})};
 try{if(localStorage.getItem("pa_wl"))showDone()}catch(e){}
