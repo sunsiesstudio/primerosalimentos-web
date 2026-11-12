@@ -14,7 +14,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://www.primerosalimentos.com/">
 <meta property="og:url" content="https://www.primerosalimentos.com/">
-<meta name="theme-color" content="#eeead8">
+<meta name="theme-color" content="#eeead8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121232" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -288,6 +289,26 @@ h1,h2,h3,.disp{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
 h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
 /* el aviso "sale muy pronto" va arriba, con el botón del blog: el contenido empieza por debajo */
 .hero .hc{padding-top:calc(60px + env(safe-area-inset-top,0px))}
+
+/* Modo noche: misma paleta que la app (noche tipo Napper) */
+@media (prefers-color-scheme:dark){
+:root{--bg:#121232;--card:#1e1d46;--ink:#f1f0ff;--mute:#aeacd8;--line:#36356e;--green:#f1f0ff;--terra:#ffa77c;--blue:#a29dff;--gold:#f2c66d;color-scheme:dark}
+body{background:radial-gradient(1.2px 1.2px at 12% 18%,rgba(255,255,255,.5),transparent 60%),radial-gradient(1px 1px at 78% 9%,rgba(255,255,255,.4),transparent 60%),radial-gradient(1.4px 1.4px at 64% 34%,rgba(255,255,255,.3),transparent 60%),radial-gradient(1px 1px at 28% 62%,rgba(255,255,255,.3),transparent 60%),var(--bg)}
+input[type=email]{background:rgba(255,255,255,.06);color:var(--ink)}
+.food .lbl{background:#f1f0ff;color:#15143a}
+.btn{background:#a29dff!important;color:#15143a!important;box-shadow:0 5px 0 #6a64c8!important}.btn:active{box-shadow:0 1px 0 #6a64c8!important}
+.btn.g{background:#9fe0b8!important;color:#15143a!important;box-shadow:0 5px 0 #5f9e78!important}
+.err{color:#ff8f85}
+.step .num,.cal div.on{color:#15143a}
+.tnav a{color:#15143a;box-shadow:0 3px 0 #c9714c}
+.fic{background:color-mix(in srgb,var(--c) 22%,var(--card))}
+.marq{background:#2b2a6e}
+.me{background:#2a2766}.me .meli:hover{color:#2a2766}
+.advs{background:#1b1a4a}.advs .cal div{background:var(--card);color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.35)}.advs .cal div.on{background:var(--terra);color:#15143a;box-shadow:0 4px 0 #c9714c}
+footer{background:#0b0b24}
+.food .ck,.toc li::before{background-color:#4f9d6e!important}.cons input{accent-color:#a29dff}input[type=email]:focus{border-color:#a29dff}
+.wl{box-shadow:0 10px 30px rgba(5,4,30,.4)}
+}
 </style>
 <script src="/consent.js" defer></script>
 </head>
