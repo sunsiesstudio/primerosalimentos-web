@@ -57,6 +57,26 @@ article .wlb{margin:30px 0}
 .ages li:not(:last-child)::after{bottom:-25px}
 }
 """
+DARK=r"""
+@media (prefers-color-scheme:dark){
+:root{--bg:#121232;--card:#1e1d46;--ink:#f1f0ff;--mute:#aeacd8;--line:#36356e;--green:#f1f0ff;--terra:#ffa77c;--blue:#a29dff;--gold:#f2c66d;color-scheme:dark}
+a{color:#b9b4ff}
+.btn{background:#a29dff!important;color:#15143a!important;box-shadow:0 5px 0 #6a64c8!important}
+.card .ic,.ages li,.tiles li,.plate .core,.plate .ring,.cmp .col,.cuts li,.i2g .gr,.i2c li,.i2b li,.i2w li,.i2l .lab,.nb-steps li{background:#28275a!important;color:var(--ink)}
+.nb-steps li{border-color:#3d3b7a!important;box-shadow:0 2px 0 #14133a,0 8px 18px rgba(0,0,0,.25)!important}
+.i2b .bar{background:#14133a}
+.cmp .act{background:#24404a;color:#9fe0b8}.cmp .ko .act{background:#4a2a35;color:#ffb39a}
+.i2l mark{background:#4a2a35;color:#ffb39a}
+.nb-serve .p0,.nb-serve .p1{color:#15143a}
+.card:hover{box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.cta,.wlb{background:#2b2a63}
+footer{background:#0b0b24}
+.top .lg text{fill:#f1f0ff!important}
+.bpg picture,.pages picture{display:contents}
+article li::marker{color:var(--terra)}
+img{filter:none}
+}
+"""
 CSS=r"""
 h1,h2,h3,.disp{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
 h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
@@ -131,10 +151,10 @@ footer .soc a:hover{background:rgba(255,255,255,.12)}
 footer .soc svg{width:19px;height:19px}
 footer .links{margin-bottom:14px;max-width:36em;margin-left:auto!important;margin-right:auto!important;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
 @media(max-width:480px){.top nav{gap:12px}.top .btn{min-height:40px;padding:0 14px;font-size:.85rem}footer .links{flex-wrap:wrap;gap:12px 20px}}
-"""+illus.CSS+illus2.CSS+FIXES
+"""+illus.CSS+illus2.CSS+FIXES+DARK
 def BANNER(v,o):
     if v==1:
-        return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bpg" aria-hidden="true"><img class="pg2" src="{BASE}/capturas/guia-2.jpg" alt="" loading="lazy"><img class="pg1" src="{BASE}/capturas/guia-1.jpg" alt="" loading="lazy"></span><span class="bt"><span class="bk">Gratis</span>'
+        return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bpg" aria-hidden="true"><picture><source media="(prefers-color-scheme: dark)" srcset="{BASE}/capturas/guia-2-dark.jpg"><img class="pg2" src="{BASE}/capturas/guia-2.jpg" alt="" loading="lazy"></picture><picture><source media="(prefers-color-scheme: dark)" srcset="{BASE}/capturas/guia-1-dark.jpg"><img class="pg1" src="{BASE}/capturas/guia-1.jpg" alt="" loading="lazy"></picture></span><span class="bt"><span class="bk">Gratis</span>'
                 f'<span class="bh">La guía para empezar</span><span class="bp">Apúntate a la lista de espera de la app y te la mandamos al email.</span></span>'
                 f'<span class="btn">Quiero la guía</span></a>')
     return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><img class="bmk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="673" loading="lazy" alt="Pantallas de la app Primeros Alimentos"><span class="bt"><span class="bk">Muy pronto</span>'

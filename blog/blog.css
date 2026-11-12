@@ -244,3 +244,21 @@ article .wlb{margin:30px 0}
 .ages{gap:34px}
 .ages li:not(:last-child)::after{bottom:-25px}
 }
+@media (prefers-color-scheme:dark){
+:root{--bg:#121232;--card:#1e1d46;--ink:#f1f0ff;--mute:#aeacd8;--line:#36356e;--green:#f1f0ff;--terra:#ffa77c;--blue:#a29dff;--gold:#f2c66d;color-scheme:dark}
+a{color:#b9b4ff}
+.btn{background:#a29dff!important;color:#15143a!important;box-shadow:0 5px 0 #6a64c8!important}
+.card .ic,.ages li,.tiles li,.plate .core,.plate .ring,.cmp .col,.cuts li,.i2g .gr,.i2c li,.i2b li,.i2w li,.i2l .lab,.nb-steps li{background:#28275a!important;color:var(--ink)}
+.nb-steps li{border-color:#3d3b7a!important;box-shadow:0 2px 0 #14133a,0 8px 18px rgba(0,0,0,.25)!important}
+.i2b .bar{background:#14133a}
+.cmp .act{background:#24404a;color:#9fe0b8}.cmp .ko .act{background:#4a2a35;color:#ffb39a}
+.i2l mark{background:#4a2a35;color:#ffb39a}
+.nb-serve .p0,.nb-serve .p1{color:#15143a}
+.card:hover{box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.cta,.wlb{background:#2b2a63}
+footer{background:#0b0b24}
+.top .lg text{fill:#f1f0ff!important}
+.bpg picture,.pages picture{display:contents}
+article li::marker{color:var(--terra)}
+img{filter:none}
+}
