@@ -109,6 +109,7 @@ h2{font-family:"Luckiest Guy","Arial Rounded MT Bold",system-ui,sans-serif;font-
 .phone{position:relative;width:min(270px,72vw);aspect-ratio:9/19.5;margin:0 auto;border-radius:40px;background:#262626;padding:9px;box-shadow:0 24px 50px rgba(38,38,38,.18)}
 .phone img,.phone .ph{width:100%;height:100%;border-radius:32px;display:block;object-fit:cover;object-position:top;background:var(--card)}
 .phone img{padding-top:18px;background:#eeead8;box-sizing:border-box}
+.phone picture{display:contents}
 .phone .ph{display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px;color:var(--mute);font-size:.82rem;font-weight:600}
 .phone .ph svg{width:64px;height:64px}
 .phone.empty img{display:none}.phone.empty .ph{display:flex}
@@ -292,6 +293,7 @@ h1,h2,h3,.disp{text-wrap:balance}p,li{text-wrap:pretty}
 
 /* Modo noche: misma paleta que la app (noche tipo Napper) */
 @media (prefers-color-scheme:dark){
+  .phone img{background:#1c1a4b}
 :root{--bg:#121232;--card:#1e1d46;--ink:#f1f0ff;--mute:#aeacd8;--line:#36356e;--green:#f1f0ff;--terra:#ffa77c;--blue:#a29dff;--gold:#f2c66d;color-scheme:dark}
 body{background:radial-gradient(1.2px 1.2px at 12% 18%,rgba(255,255,255,.5),transparent 60%),radial-gradient(1px 1px at 78% 9%,rgba(255,255,255,.4),transparent 60%),radial-gradient(1.4px 1.4px at 64% 34%,rgba(255,255,255,.3),transparent 60%),radial-gradient(1px 1px at 28% 62%,rgba(255,255,255,.3),transparent 60%),var(--bg)}
 input[type=email]{background:rgba(255,255,255,.06);color:var(--ink)}
@@ -352,7 +354,7 @@ footer{background:#0b0b24}
             <h3 data-i18n="s1_h">Su&nbsp;menú de&nbsp;la&nbsp;semana, ya&nbsp;pensado</h3>
             <p class="sd" data-i18n="s1_p">Olvídate de pensar cada día qué le pones en el plato. Un menú hecho para su edad y para cómo coméis en casa: de todo, vegetariano o vegano, con puré, BLW o mezcla. Un alimento nuevo cada 1, 2 o 3 días, como te vaya mejor, y sin que le falte hierro ni zinc.</p>
           </div>
-          <div class="pw" style="--c:#3e4cd0"><figure class="phone"><img src="capturas/captura-2.jpg" alt="Pantalla del menú de la semana" data-i18n-alt="s1_alt"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><rect class="o" x="20" y="28" width="9" height="16" rx="3" fill="#8bbf7a" /><ellipse class="o" cx="14" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="34" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="16" rx="10" ry="10" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="26" rx="8" ry="8" fill="#4a8a4a" /><path d="M16 12c2-3 5-4 8-4-4 1-6 3-8 4z" fill="#fff" opacity=".45" stroke="none"/></svg>Captura 2<br>capturas/captura-2.jpg</div></figure></div>
+          <div class="pw" style="--c:#3e4cd0"><figure class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="capturas/captura-2-dark.jpg" data-shot="2" data-dk><img data-shot="2" src="capturas/captura-2.jpg" alt="Pantalla del menú de la semana" data-i18n-alt="s1_alt"></picture><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><rect class="o" x="20" y="28" width="9" height="16" rx="3" fill="#8bbf7a" /><ellipse class="o" cx="14" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="34" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="16" rx="10" ry="10" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="26" rx="8" ry="8" fill="#4a8a4a" /><path d="M16 12c2-3 5-4 8-4-4 1-6 3-8 4z" fill="#fff" opacity=".45" stroke="none"/></svg>Captura 2<br>capturas/captura-2.jpg</div></figure></div>
         </div>
         <div class="step">
           <div class="txt">
@@ -360,7 +362,7 @@ footer{background:#0b0b24}
             <h3 data-i18n="s2_h">Apunta todo lo&nbsp;que&nbsp;va probando</h3>
             <p class="sd" data-i18n="s2_p">Adiós a las notas sueltas en el móvil. Cada alimento nuevo, en un toque: cuándo lo probó, cómo se lo diste (puré, tiras o trozos) y si le gustó. Hay 179 alimentos en 7 categorías, y si algo le sienta mal, deja de aparecer en su menú.</p>
           </div>
-          <div class="pw" style="--c:#c96a47"><figure class="phone"><img src="capturas/captura-1.jpg" alt="Pantalla de alimentos por probar, probando y probado" data-i18n-alt="s2_alt"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M13 15c0-5 22-5 22 0L26 44c-1 3-3 3-4 0z" fill="#ee8a2e" /><path class="o" d="M17 22h5M26 28h5M20 34h4" fill="none"/><path class="o" d="M24 12c-2-5-6-8-10-8 0 5 4 9 10 8zM24 12c2-5 6-8 10-8 0 5-4 9-10 8z" fill="#6aa86f" /></svg>Captura 1<br>capturas/captura-1.jpg</div></figure></div>
+          <div class="pw" style="--c:#c96a47"><figure class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="capturas/captura-1-dark.jpg" data-shot="1" data-dk><img data-shot="1" src="capturas/captura-1.jpg" alt="Pantalla de alimentos por probar, probando y probado" data-i18n-alt="s2_alt"></picture><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M13 15c0-5 22-5 22 0L26 44c-1 3-3 3-4 0z" fill="#ee8a2e" /><path class="o" d="M17 22h5M26 28h5M20 34h4" fill="none"/><path class="o" d="M24 12c-2-5-6-8-10-8 0 5 4 9 10 8zM24 12c2-5 6-8 10-8 0 5-4 9-10 8z" fill="#6aa86f" /></svg>Captura 1<br>capturas/captura-1.jpg</div></figure></div>
         </div>
         <div class="step">
           <div class="txt">
@@ -368,7 +370,7 @@ footer{background:#0b0b24}
             <h3 data-i18n="s3_h">Tus dudas, a&nbsp;mano</h3>
             <p class="sd" data-i18n="s3_p">¿Qué textura le toca? ¿Cómo le corto esto? ¿Es una arcada o se está atragantando? Las mismas preguntas que me hacía yo, con la respuesta en la app, junto con qué alimentos evitar antes del año, cómo conservarlos y cuándo consultar con tu pediatra.</p>
           </div>
-          <div class="pw" style="--c:#c9962f"><figure class="phone"><img src="capturas/captura-3.jpg" alt="Pantalla de la guía de información" data-i18n-alt="s3_alt"><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M24 4c6 0 9 8 9 14 0 4 8 8 8 17 0 6-7 10-17 10S7 41 7 35c0-9 8-13 8-17 0-6 3-14 9-14z" fill="#4a7a3c" /><path class="o" d="M24 12c4 0 6 6 6 10 0 3 6 6 6 12 0 5-5 8-12 8s-12-3-12-8c0-6 6-9 6-12 0-4 2-10 6-10z" fill="#d9e08a" stroke="none"/><ellipse class="o" cx="24" cy="32" rx="6" ry="6" fill="#8a5a34" /></svg>Captura 3<br>capturas/captura-3.jpg</div></figure></div>
+          <div class="pw" style="--c:#c9962f"><figure class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="capturas/captura-3-dark.jpg" data-shot="3" data-dk><img data-shot="3" src="capturas/captura-3.jpg" alt="Pantalla de la guía de información" data-i18n-alt="s3_alt"></picture><div class="ph"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M24 4c6 0 9 8 9 14 0 4 8 8 8 17 0 6-7 10-17 10S7 41 7 35c0-9 8-13 8-17 0-6 3-14 9-14z" fill="#4a7a3c" /><path class="o" d="M24 12c4 0 6 6 6 10 0 3 6 6 6 12 0 5-5 8-12 8s-12-3-12-8c0-6 6-9 6-12 0-4 2-10 6-10z" fill="#d9e08a" stroke="none"/><ellipse class="o" cx="24" cy="32" rx="6" ry="6" fill="#8a5a34" /></svg>Captura 3<br>capturas/captura-3.jpg</div></figure></div>
         </div>
       </div>
 
@@ -638,6 +640,8 @@ const setLang=(l,save)=>{
   document.querySelectorAll(".lang [data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===LANG?"true":"false"));
   /* el blog también está en catalán e inglés (/ca/blog/, /en/blog/): cuidado, solo enlazar aquí artículos ya traducidos */
   document.querySelectorAll('a[href^="/blog/"],a[data-href-es]').forEach(a=>{if(!a.dataset.hrefEs)a.dataset.hrefEs=a.getAttribute("href");a.setAttribute("href",LANG==="es"?a.dataset.hrefEs:"/"+LANG+a.dataset.hrefEs)});
+  /* capturas de la app en el idioma de la web (la versión oscura la elige <picture> según el tema) */
+  document.querySelectorAll("[data-shot]").forEach(el=>{const f="capturas/captura-"+el.dataset.shot+(LANG==="es"?"":"-"+LANG)+("dk" in el.dataset?"-dark":"")+".jpg";if(el.tagName==="SOURCE")el.srcset=f;else el.src=f});
   if(save){try{localStorage.setItem("pa_lang",LANG)}catch(e){}}
   document.dispatchEvent(new CustomEvent("pa:lang",{detail:LANG}));
 };
