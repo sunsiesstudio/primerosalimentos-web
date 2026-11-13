@@ -72,6 +72,9 @@ a{color:#b9b4ff}
 .cta,.wlb{background:#2b2a63}
 footer{background:#0b0b24}
 .top .lg text{fill:#f1f0ff!important}
+.nb{background-color:#1e1d46;background-image:linear-gradient(90deg,transparent 46px,#7a4a5a 46px,#7a4a5a 48px,transparent 48px),repeating-linear-gradient(transparent 0 39px,#33326a 39px 40px),radial-gradient(circle at 20px 22px,var(--bg) 6px,transparent 7px);box-shadow:0 2px 0 #14133a,0 14px 30px rgba(0,0,0,.3)}
+.nb .tape{opacity:.75}
+.nb-ing .bx{border-color:#aeacd8}
 .bpg picture,.pages picture{display:contents}
 article li::marker{color:var(--terra)}
 img{filter:none}
@@ -157,7 +160,7 @@ def BANNER(v,o):
         return (f'<a class="wlb" href="{BASE}/?o={o}#guia"><span class="bpg" aria-hidden="true"><picture><source media="(prefers-color-scheme: dark)" srcset="{BASE}/capturas/guia-2-dark.jpg"><img class="pg2" src="{BASE}/capturas/guia-2.jpg" alt="" loading="lazy"></picture><picture><source media="(prefers-color-scheme: dark)" srcset="{BASE}/capturas/guia-1-dark.jpg"><img class="pg1" src="{BASE}/capturas/guia-1.jpg" alt="" loading="lazy"></picture></span><span class="bt"><span class="bk">Gratis</span>'
                 f'<span class="bh">La guía para empezar</span><span class="bp">Apúntate a la lista de espera de la app y te la mandamos al email.</span></span>'
                 f'<span class="btn">Quiero la guía</span></a>')
-    return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><img class="bmk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="673" loading="lazy" alt="Pantallas de la app Primeros Alimentos"><span class="bt"><span class="bk">Muy pronto</span>'
+    return (f'<a class="wlb t2" href="{BASE}/?o={o}#top"><picture><source media="(prefers-color-scheme: dark)" srcset="{BASE}/capturas/mockup-app-dark.webp?v=1"><img class="bmk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="673" loading="lazy" alt="Pantallas de la app Primeros Alimentos"></picture><span class="bt"><span class="bk">Muy pronto</span>'
             f'<span class="bh">Todo esto, en una app</span><span class="bp">Qué darle cada día y lo que ya ha probado. Apúntate y te avisamos el primer día.</span></span>'
             f'<span class="btn">Apuntarme</span></a>')
 HEAD=lambda title,desc,url,extra="":f'''<!DOCTYPE html>
@@ -215,7 +218,7 @@ for a in ARTICLES:
 {BANNER(1,'blog-art')}
 {a['body']}
 {('<section class="faq"><h2>Preguntas frecuentes</h2>'+faq+'</section>') if faq else ""}
-<section class="cta"><img class="mk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="652" loading="lazy" alt="Dos pantallas de la app Primeros Alimentos: el menú del día y los alimentos que ha probado"><div><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale muy pronto.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></div></section>
+<section class="cta"><picture><source media="(prefers-color-scheme: dark)" srcset="{BASE}/capturas/mockup-app-dark.webp?v=1"><img class="mk" src="{BASE}/capturas/mockup-app.webp?v=2" width="640" height="652" loading="lazy" alt="Dos pantallas de la app Primeros Alimentos: el menú del día y los alimentos que ha probado"></picture><div><p class="t disp">Todo esto, en una app</p><p>Qué darle cada día, lo que ya ha probado y estas dudas resueltas, en el móvil. Sale muy pronto.</p><a class="btn" style="background:#fff;color:var(--green)!important;box-shadow:0 4px 0 rgba(0,0,0,.15)" href="{BASE}/?o=blog-{a['slug'][:20]}">Apúntate y llévate la guía gratis</a></div></section>
 <section class="rel"><h2>Sigue leyendo</h2>{rel}</section>
 <p class="note">Fuente: <a href="{U_AEP}" rel="noopener">Recomendaciones de la Asociación Española de Pediatría sobre la alimentación complementaria</a>. Información orientativa: ante cualquier duda, consulta con tu pediatra.</p>
 </article></main>'''+FOOT
