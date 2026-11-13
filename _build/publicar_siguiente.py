@@ -42,6 +42,12 @@ BASE="https://www.primerosalimentos.com"
 MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
 fecha=lambda d:f"{d.day} de {MESES[d.month-1]}"
 
+def editorial():
+    try: return json.load(open(f"{B}/editorial.json"))
+    except Exception: return {}
+SALTA=("pausa","descartado")
+def en_cola():
+    ed=editorial(); return [s for s in COLA if (ed.get(s) or {}).get("estado") not in SALTA]
 def publicados():
     return sorted(d for d in os.listdir(f"{ROOT}/blog") if os.path.isfile(f"{ROOT}/blog/{d}/index.html"))
 
@@ -67,7 +73,7 @@ def calendario(n,hoy,ultimo):
     return res
 
 def borradores(hoy,publicado_hoy):
-    pub=publicados(); pend=[s for s in COLA if s not in pub]
+    pub=publicados(); pend=[s for s in en_cola() if s not in pub]; ed=editorial()
     dest=f"{ROOT}/borradores"; shutil.rmtree(dest,ignore_errors=True); os.makedirs(dest)
     fechas=calendario(len(pend),hoy,hoy if publicado_hoy else None)
     tmp=tempfile.mkdtemp(); shutil.copytree(B,f"{tmp}/b",ignore=shutil.ignore_patterns("__pycache__"))
@@ -89,7 +95,10 @@ def borradores(hoy,publicado_hoy):
         t=re.sub(r'(<body[^>]*>)',r'\1'+aviso,t,count=1)
         os.makedirs(f"{dest}/{s}"); open(f"{dest}/{s}/index.html","w").write(t)
     # La lista solo se ve en admin.primerosalimentos.com (lee cola.json); /borradores/ redirige allí
-    cola=[{"slug":s,"t":info[s]["title"],"d":fecha(d),"f":d.isoformat(),"cat":info[s]["cat"]} for s,d in zip(pend,fechas)]
+    CAMPOS=("title","short","desc","lead","body","ing","steps","serve","keep","faq","age","yld","alg","prep","cook")
+    art=lambda s:{k:info[s][k] for k in CAMPOS if k in info[s]}
+    cola=[{"slug":s,"t":info[s]["title"],"d":fecha(d),"f":d.isoformat(),"cat":info[s]["cat"],"a":art(s)} for s,d in zip(pend,fechas)]
+    cola+=[{"slug":s,"t":info[s]["title"],"d":"","f":"","cat":info[s]["cat"],"a":art(s),"fuera":(ed.get(s) or {}).get("estado")} for s in COLA if s not in pub and s not in pend and s in info]
     open(f"{dest}/cola.json","w").write(json.dumps(cola,ensure_ascii=False))
     open(f"{dest}/index.html","w").write('<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow">'
         '<meta http-equiv="refresh" content="0;url=https://admin.primerosalimentos.com/#blog"><title>Primeros Alimentos</title></head>'
@@ -100,7 +109,7 @@ hoy=datetime.datetime.now(ZoneInfo("Europe/Madrid")).date()
 if "--borradores" in sys.argv:
     print(f"Borradores: {len(borradores(hoy,False))}"); sys.exit(0)
 
-pend=[s for s in COLA if s not in publicados()]
+pend=[s for s in en_cola() if s not in publicados()]
 if not pend: print("NADA: la cola está vacía"); borradores(hoy,False); sys.exit(0)
 slug=pend[0]
 

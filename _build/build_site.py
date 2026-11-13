@@ -8,6 +8,13 @@ from guides4 import G4,R3
 import illus,illus2,nbsp
 for a in A1: a.setdefault('cat','guia')
 ARTICLES=A1+G2+G3+G4+R+R2+R3
+# Cambios hechos desde admin.primerosalimentos.com (editorial.json se sincroniza desde Firestore)
+try:
+    _ED=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'editorial.json')))
+except Exception: _ED={}
+for a in ARTICLES:
+    for k,v in ((_ED.get(a['slug']) or {}).get('cambios') or {}).items():
+        if k in ('title','short','desc','lead','body','ing','steps','serve','keep','faq','age','yld','alg','prep','cook'): a[k]=[tuple(x) for x in v] if k=='faq' else v
 import os as _os
 _PUB=_os.environ.get('PUB')
 if _PUB: ARTICLES=[a for a in ARTICLES if a['slug'] in _PUB.split(',')]
