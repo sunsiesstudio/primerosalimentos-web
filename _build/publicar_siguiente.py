@@ -85,20 +85,15 @@ def borradores(hoy,publicado_hoy):
         t=t.replace('<head>','<head><meta name="robots" content="noindex,nofollow">',1)
         t=re.sub(r'<link rel="canonical"[^>]*>','',t)
         aviso=(f'<div style="background:#c96a47;color:#fff;font:700 15px/1.4 Montserrat,sans-serif;padding:12px 16px;text-align:center">'
-               f'Borrador · nº {i} de la cola · se publica el {fecha(d)} · <a style="color:#fff" href="{BASE}/borradores/">ver todos</a></div>')
+               f'Borrador · nº {i} de la cola · se publica el {fecha(d)} · <a style="color:#fff" href="https://admin.primerosalimentos.com/#blog">ver todos</a></div>')
         t=re.sub(r'(<body[^>]*>)',r'\1'+aviso,t,count=1)
         os.makedirs(f"{dest}/{s}"); open(f"{dest}/{s}/index.html","w").write(t)
-    filas="".join(f'<li><span>{fecha(d)}</span><a href="{s}/">{html.escape(info[s]["title"])}</a><em class="{info[s]["cat"]}">{"Receta" if info[s]["cat"]=="receta" else "Guía"}</em></li>' for s,d in zip(pend,fechas))
-    open(f"{dest}/index.html","w").write(f'''<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>Borradores del blog · Primeros Alimentos</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-<style>body{{margin:0;background:#eeead8;color:#262626;font:400 17px/1.6 Montserrat,system-ui,sans-serif}}main{{width:min(760px,100% - 32px);margin:0 auto;padding:40px 0 80px}}
-h1{{font-size:1.8rem;margin:0 0 6px}}p{{color:#6b6a5c;margin:0 0 28px}}ol{{list-style:none;padding:0;margin:0;border-top:1px solid #d8d3bc}}
-li{{display:grid;grid-template-columns:150px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #d8d3bc}}
-li span{{font-weight:700;color:#6b6a5c;font-size:.9rem;white-space:nowrap}}li a{{color:#262626;font-weight:700;text-decoration:none}}li a:hover{{text-decoration:underline}}li em{{font-style:normal;font-size:.78rem;font-weight:800;padding:4px 12px;border-radius:99px;white-space:nowrap;justify-self:start}}li em.guia{{background:#dfeadf;color:#3f7553}}li em.receta{{background:#f6dfd4;color:#a24f30}}
-@media(max-width:560px){{li{{grid-template-columns:1fr auto;gap:6px 12px}}li a{{grid-column:1/-1;grid-row:2}}}}</style></head><body><main>
-<h1>Borradores del blog</h1><p>{len(pend)} artículos en cola. Se publica uno cada dos días. Esta página no aparece en Google ni está enlazada desde la web.</p>
-<ol>{filas}</ol></main></body></html>''')
+    # La lista solo se ve en admin.primerosalimentos.com (lee cola.json); /borradores/ redirige allí
+    cola=[{"slug":s,"t":info[s]["title"],"d":fecha(d),"f":d.isoformat(),"cat":info[s]["cat"]} for s,d in zip(pend,fechas)]
+    open(f"{dest}/cola.json","w").write(json.dumps(cola,ensure_ascii=False))
+    open(f"{dest}/index.html","w").write('<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow">'
+        '<meta http-equiv="refresh" content="0;url=https://admin.primerosalimentos.com/#blog"><title>Primeros Alimentos</title></head>'
+        '<body><a href="https://admin.primerosalimentos.com/#blog">admin.primerosalimentos.com</a></body></html>')
     return pend
 
 hoy=datetime.datetime.now(ZoneInfo("Europe/Madrid")).date()
