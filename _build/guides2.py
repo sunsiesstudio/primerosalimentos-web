@@ -3,7 +3,7 @@ dict(cat="guia",slug="consejos-empezar-alimentacion-complementaria",
  title="10 consejos para empezar con la alimentación complementaria",
  short="10 consejos para empezar",
  desc="Diez consejos prácticos para los primeros meses de alimentación complementaria: postura, cantidades, hierro, texturas, sin sal ni azúcar y mucha paciencia.",
- date="2026-11-06", icon="Brócoli", mins=5,
+ date="2026-11-13", icon="Brócoli", mins=5,
  lead="Empezar a comer es un aprendizaje para el bebé y para ti. Estos diez consejos hacen que los primeros meses sean más fáciles, más seguros y bastante más tranquilos.",
  body="""
 <h2>1. Siempre sentado y erguido</h2>
