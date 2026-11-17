@@ -17,6 +17,13 @@
       y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
     })(window, document, "clarity", "script", CLARITY_ID);
     window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "granted" });
+    // Etiquetas para filtrar en Clarity: seccion (landing / blog / articulo / privacidad) e idioma
+    try {
+      var path = location.pathname, sec = /\/blog\/[^\/]+\/?$/.test(path) && !/\/blog\/?$/.test(path) ? "articulo" : /\/blog\/?$/.test(path) ? "blog" : /privacy/.test(path) ? "privacidad" : "landing";
+      window.clarity("set", "seccion", sec);
+      window.clarity("set", "idioma", document.documentElement.lang || "es");
+      if (sec === "articulo") window.clarity("set", "articulo", path.replace(/^\/(ca|en)\//, "/").split("/").filter(Boolean).pop());
+    } catch (e) {}
   }
 
   var css =
