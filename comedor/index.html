@@ -326,7 +326,7 @@ const DAYC=new THREE.Color(0xeee6d4),NIGHTC=new THREE.Color(0x121232);
 S.background=DAYC.clone();S.fog=new THREE.Fog(0xeee6d4,34,70);
 const cam=new THREE.PerspectiveCamera(38,1,.1,200);
 const ctl=new THREE.OrbitControls(cam,$('c'));
-ctl.enablePan=true;ctl.screenSpacePanning=false;ctl.panSpeed=.9;ctl.touches={ONE:THREE.TOUCH.PAN,TWO:THREE.TOUCH.DOLLY_ROTATE};ctl.mouseButtons={LEFT:THREE.MOUSE.PAN,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.ROTATE};ctl.enableDamping=true;ctl.maxPolarAngle=1.3;ctl.minDistance=4;ctl.maxDistance=40;ctl.autoRotate=false;
+ctl.enablePan=true;ctl.screenSpacePanning=false;ctl.panSpeed=.9;ctl.touches={ONE:THREE.TOUCH.PAN,TWO:-1};ctl.mouseButtons={LEFT:THREE.MOUSE.PAN,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.ROTATE};ctl.enableDamping=true;ctl.maxPolarAngle=1.3;ctl.minDistance=4;ctl.maxDistance=40;ctl.autoRotate=false;
 const hemi=new THREE.HemisphereLight(0xfff4e6,0xd8c0a0,.7);S.add(hemi);
 const sun=new THREE.DirectionalLight(0xffe9d2,.8);sun.position.set(9,15,10);sun.castShadow=true;
 sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-14,right:14,top:14,bottom:-14});sun.shadow.bias=-.0006;S.add(sun);
@@ -385,7 +385,27 @@ function iconTex(n,bg){const cv=document.createElement('canvas');cv.width=cv.hei
 function print(n,x,y,z,ry,w,frame,bg){const g=new THREE.Group();g.position.set(x,y,z);g.rotation.y=ry;S.add(g);
  const f=new THREE.Mesh(box(w+.1,w*1.25+.1,.04),M(frame,.6));f.castShadow=true;g.add(f);
  const p=new THREE.Mesh(new THREE.PlaneGeometry(w,w*1.25),new THREE.MeshStandardMaterial({map:iconTex(n,bg),roughness:.9}));p.position.z=.025;g.add(p)}
-[['Calabaza',.9,2.3,C.wood,'#f4e9d8'],['Fresas',1.75,2.5,C.ink,'#e8b4a8'],['Brócoli',1.75,1.75,C.wood,'#f4e9d8'],['Pera',.9,1.6,C.mustard,'#dfe5d2']].forEach(([n,x,y,f,bg])=>print(n,x,y,-5.97,0,.45,f,bg));
+// menú del día de temporada en la pared
+const SEASON=(()=>{const m=+new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',month:'numeric'}).format(new Date());
+ const S4={invierno:[['Desayuno','Tostada con aguacate y huevo hervido aplastado',['Pan','Aguacate','Huevo']],['Comida','Lentejas estofadas con zanahoria',['Lentejas','Zanahoria','Patata']],['Merienda','Pera asada con canela',['Pera']],['Cena','Crema de brócoli y patata',['Brócoli','Patata']]],
+  primavera:[['Desayuno','Tortitas de plátano y avena',['Plátano','Avena','Huevo']],['Comida','Pasta con verduras y pollo',['Pasta','Calabacín','Pollo']],['Merienda','Yogur con fresas chafadas',['Yogur natural','Fresas']],['Cena','Tortilla de calabacín',['Huevo','Calabacín']]],
+  verano:[['Desayuno','Yogur con plátano y avena',['Yogur natural','Plátano','Avena']],['Comida','Quinoa con verduras',['Quinoa','Calabacín','Tomate']],['Merienda','Mousse de aguacate y plátano',['Aguacate','Plátano']],['Cena','Hummus con bastones de verdura',['Garbanzos','Zanahoria','Pepino']]],
+  otoño:[['Desayuno','Gachas de avena con pera asada y canela',['Avena','Pera']],['Comida','Crema de calabaza con pollo',['Calabaza','Pollo']],['Merienda','Yogur con plátano aplastado',['Yogur natural','Plátano']],['Cena','Merluza con patata y calabacín',['Merluza','Patata','Calabacín']]]};
+ const k=m===12||m<=2?'invierno':m<=5?'primavera':m<=8?'verano':'otoño';return {k,menu:S4[k]}})();
+const MB=document.createElement('canvas');MB.width=600;MB.height=800;const mbx=MB.getContext('2d'),mbT=new THREE.CanvasTexture(MB);mbT.encoding=THREE.sRGBEncoding;
+function drawMenu(){const x=mbx;x.fillStyle='#f7f4e8';x.fillRect(0,0,600,800);x.strokeStyle='#4a8760';x.lineWidth=5;x.strokeRect(18,18,564,764);x.lineWidth=2;x.strokeRect(32,32,536,736);
+ x.textAlign='center';x.fillStyle='#4a8760';x.font='64px "Luckiest Guy", cursive';x.fillText('MENÚ DEL DÍA',300,118);
+ x.fillStyle='#6b6a5c';x.font='600 20px Montserrat, sans-serif';x.fillText(('De temporada · '+SEASON.k).toUpperCase().split('').join(String.fromCharCode(8202)),300,160);
+ x.strokeStyle='rgba(74,135,96,.5)';x.lineWidth=2;x.beginPath();x.moveTo(70,196);x.lineTo(270,196);x.moveTo(330,196);x.lineTo(530,196);x.stroke();
+ x.fillStyle='#4a8760';x.beginPath();[[300,182],[305,191],[314,196],[305,201],[300,210],[295,201],[286,196],[295,191]].forEach(([a,b],i)=>i?x.lineTo(a,b):x.moveTo(a,b));x.fill();
+ SEASON.menu.forEach(([ml,d],i)=>{const y=260+i*132;x.textAlign='left';x.fillStyle='#c96a47';x.font='700 20px Montserrat, sans-serif';x.fillText(ml.toUpperCase().split('').join(String.fromCharCode(8202)),160,y);
+  x.fillStyle='#262626';x.font='700 25px Montserrat, sans-serif';const w=d.split(' ');let line='',yy=y+36;w.forEach(t=>{if(x.measureText(line+t).width>380){x.fillText(line,160,yy);line='';yy+=31}line+=t+' '});x.fillText(line,160,yy)});
+ mbT.needsUpdate=true;
+ SEASON.menu.forEach(([ml,d,ig],i)=>{const svg=(window.__dish&&ig.length>1?window.__dish(ig):ico(ig[0])).replace('<svg','<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"').replace(/class="[^"]*"/g,'');
+  const im=new Image();im.onload=()=>{mbx.drawImage(im,48,228+i*132,96,96);mbT.needsUpdate=true};im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)})}
+const menuB=new THREE.Group();menuB.position.set(1.3,1.9,-5.96);S.add(menuB);
+{const f=new THREE.Mesh(box(1.48,1.9,.05),M(C.wood,.6));f.castShadow=true;menuB.add(f);const p=new THREE.Mesh(new THREE.PlaneGeometry(1.36,1.8),new THREE.MeshStandardMaterial({map:mbT,roughness:.9}));p.position.z=.03;menuB.add(p);menuB.traverse(o=>o.userData.menu=1)}
+drawMenu();document.fonts&&document.fonts.ready.then(drawMenu);
 [['Plátano',-6.2,2.35,C.wood,'#eed9a6'],['Aguacate',-5.55,2.15,C.ink,'#f4e9d8']].forEach(([n,x,y,f,bg])=>print(n,x,y,-5.97,0,.4,f,bg));
 [['Zanahoria',-4.9,2.2,C.wood,'#f4e9d8'],['Huevo',-5.6,2.4,C.terra,'#e8b4a8'],['Tomate',-4.2,2.4,C.wood,'#dfe5d2'],['Manzana',.5,2.2,C.ink,'#f4e9d8'],['Guisantes',1.15,2.45,C.wood,'#eed9a6']].forEach(([n,z,y,f,bg])=>print(n,-6.97,y,z,P2,.42,f,bg));
 // alimentos pintados en la pared de la cocina que da al comedor
@@ -484,15 +504,25 @@ monstera(-6.3,2.4,.9);monstera(6.3,2.4,.9);pampas(6.3,6.1);pampas(-6.3,6.1);
 const PX=4.3,PZ=-.1,PR=1.25,PH=.55,BR=.13;
 [[0,C.terra],[.3,C.mustard]].forEach(([y,c])=>{const t=mk(new THREE.TorusGeometry(PR+.12,.17,14,48),c,PX,.18+y,PZ);t.rotation.x=P2});
 mk(cyl(PR+.1,PR+.1,.06,40),C.cream,PX,.11,PZ);
-function ballTex(n){const cv=document.createElement('canvas');cv.width=256;cv.height=128;const x=cv.getContext('2d'),tx=new THREE.CanvasTexture(cv);tx.encoding=THREE.sRGBEncoding;
- const c=colOf(n).clone().lerp(new THREE.Color(0xffffff),.72);x.fillStyle='#'+c.getHexString();x.fillRect(0,0,256,128);
- const svg=ico(n).replace('<svg','<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"').replace(/class="o"/g,'').replace('class="fd"','');
- const im=new Image();im.onload=()=>{x.drawImage(im,24,24,80,80);x.drawImage(im,152,24,80,80);tx.needsUpdate=true};im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);return tx}
-const BF=['Calabaza','Brócoli','Plátano','Aguacate','Zanahoria','Fresas','Pera','Manzana','Huevo','Guisantes','Tomate','Boniato','Patata','Mandarina','Arándanos','Calabacín','Pollo','Merluza','Kiwi','Mango'];
-const BM={};BF.forEach(n=>BM[n]=new THREE.MeshStandardMaterial({map:ballTex(n),roughness:.45}));
-const ballG=new THREE.SphereGeometry(BR,20,14),balls=[];
-for(let k=0;k<64;k++){const n=BF[k%BF.length],m=new THREE.Mesh(ballG,BM[n]);const a=Math.random()*PI*2,r=Math.sqrt(Math.random())*(PR-BR-.05);
- m.position.set(PX+Math.cos(a)*r,.3+(k/64)*.8,PZ+Math.sin(a)*r);m.rotation.set(Math.random()*6,Math.random()*6,0);m.castShadow=true;m.userData.ball=k;S.add(m);balls.push({m,v:new THREE.Vector3(),n})}
+// frutas y verduras de verdad en la piscina
+function fruit(type){const g=new THREE.Group(),F=(geo,c,x=0,y=0,z=0)=>{const m=new THREE.Mesh(geo,M(c,.45));m.position.set(x,y,z);m.castShadow=true;g.add(m);return m};
+ const leaf=(x,y,z,rz,c=0x4f8a45)=>{const l=F(sph(.045),c,x,y,z);l.scale.set(1.6,.35,.8);l.rotation.z=rz;return l};
+ if(type==='manzana'){F(sph(.13),0xd9433a).scale.set(1.05,.92,1.05);F(cyl(.01,.012,.07,6),0x6b4a2e,0,.13,0);leaf(.04,.14,0,.5)}
+ else if(type==='mandarina'){F(sph(.12),0xf08a24).scale.set(1.05,.9,1.05);leaf(.02,.11,0,.3,0x3f7d45)}
+ else if(type==='pera'){F(sph(.11),0xb9cc4e,0,-.03,0);F(sph(.075),0xb9cc4e,0,.09,0);F(cyl(.01,.01,.06,6),0x6b4a2e,0,.17,0)}
+ else if(type==='platano'){const t=F(new THREE.TorusGeometry(.13,.045,10,18,PI*.75),0xf3d04a);t.rotation.z=PI*.12;F(cyl(.015,.02,.05,6),0x6b5a2e,-.12,.04,0).rotation.z=.6}
+ else if(type==='brocoli'){F(cyl(.04,.055,.13,8),0x9ccf7a,0,-.06,0);[[0,.06,0],[.06,.04,.03],[-.06,.04,.02],[.02,.04,-.06],[-.02,.05,.06]].forEach(([x,y,z],i)=>F(sph(.06),i%2?0x4f8a45:0x5a9a4e,x,y,z))}
+ else if(type==='zanahoria'){const c=F(new THREE.ConeGeometry(.06,.26,12),0xf08a2a,0,-.02,0);c.rotation.x=PI;[-.4,0,.4].forEach(r=>{const l=F(cyl(.008,.012,.09,5),0x4f8a45,0,.15,0);l.rotation.z=r})}
+ else if(type==='fresa'){const c=F(new THREE.ConeGeometry(.08,.14,12),0xe0403f,0,-.01,0);c.rotation.x=PI;F(sph(.08),0xe0403f,0,.05,0).scale.y=.45;F(cyl(.07,.07,.015,6),0x4f8a45,0,.08,0)}
+ else if(type==='tomate'){F(sph(.12),0xe24a3b).scale.set(1.1,.85,1.1);F(cyl(.06,.06,.012,5),0x4f8a45,0,.1,0)}
+ else if(type==='aguacate'){F(sph(.12),0x4e6b2d).scale.set(.85,1.15,.85);const h=F(sph(.105),0xcfe08a,0,0,.03);h.scale.set(.8,1.1,.4);F(sph(.045),0x8a5a3c,0,-.02,.07)}
+ else if(type==='calabaza'){for(let i=0;i<6;i++){const a=i/6*PI*2;F(sph(.08),0xe8892c,Math.cos(a)*.05,0,Math.sin(a)*.05).scale.y=1.1}F(cyl(.015,.02,.06,6),0x6b8a3e,0,.1,0)}
+ else if(type==='guisantes'){const p=F(cyl(.045,.045,.22,10),0x7cb85a);p.rotation.z=P2;[-.07,0,.07].forEach(x=>F(sph(.04),0x9ad46a,x,.03,0))}
+ else {F(sph(.12),0xc9925a).scale.set(1.25,.85,1)}
+ return g}
+const FT=['manzana','mandarina','pera','platano','brocoli','zanahoria','fresa','tomate','aguacate','calabaza','guisantes','patata'],balls=[];
+for(let k=0;k<44;k++){const m=fruit(FT[k%FT.length]);const a=Math.random()*PI*2,r=Math.sqrt(Math.random())*(PR-BR-.05);
+ m.position.set(PX+Math.cos(a)*r,.3+(k/44)*.9,PZ+Math.sin(a)*r);m.rotation.set(Math.random()*6,Math.random()*6,0);m.traverse(o=>o.userData.ball=k);S.add(m);balls.push({m,v:new THREE.Vector3()})}
 function physics(dt){const g=-9.8,steps=2,h=dt/steps;
  for(let st=0;st<steps;st++){balls.forEach(b=>{if(b===drag)return;b.v.y+=g*h;b.m.position.addScaledVector(b.v,h);
    const p=b.m.position,dx=p.x-PX,dz=p.z-PZ,d=Math.hypot(dx,dz);
@@ -619,16 +649,20 @@ function openBaby(i){sel=i;const d=TODAY[i],R0=recipeFor(d),ings=d.ings.filter(n
 function openKitchen(){sel=-1;pvOn=false;
  const c={};TODAY.forEach(d=>d.ings.forEach(n=>{if(!COND.includes(n))c[n]=(c[n]||0)+1}));const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,8);
  const m={};TODAY.forEach(d=>{(m[d.dish]=m[d.dish]||{n:0,ings:d.ings}).n++});const rows=Object.entries(m).sort((a,b)=>b[1].n-a[1].n);
- show(`<div class="hd" style="padding-top:22px"><h2>La cocina</h2><p class="svc">${SL.open?'Cocinando '+esc(SL.pl):'Cerrada · '+esc(SL.pl)+' de hoy'} · ${TODAY.length} ${TODAY.length===1?'plato':'platos'}</p></div>
+ show(`<div class="hd" style="padding-top:22px"><h2>La cocina</h2><p class="svc">${SL.open?'Cocinando '+esc(SL.pl):esc(SL.pl[0].toUpperCase()+SL.pl.slice(1))+' de hoy'} · ${TODAY.length} ${TODAY.length===1?'plato':'platos'}</p></div>
  <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
  ${rows.length?`<div class="slot">Ya servidos</div><ul class="list">${rows.map(([n,x])=>`<li><span class="ico">${dishSvg(x.ings.filter(y=>!COND.includes(y)))}</span><span>${esc(n)}${x.n>1?` <small>· ${x.n}</small>`:''}</span></li>`).join('')}</ul>
  <div class="slot" style="margin-top:20px">Lo que más se cocina</div><div class="grid">${top.map(([n,k])=>`<div class="it"><span class="ico">${ico(n)}</span>${esc(n)}<small>${k} ${k===1?'plato':'platos'}</small></div>`).join('')}</div>`
  :`<p class="note" style="margin-top:0">Todavía no ha salido ningún plato en ${esc(SL.pl)}.</p>`}`)}
+function openMenu(){sel=-1;pvOn=false;show(`<div class="hd" style="padding-top:22px"><h2>Menú del día</h2><p class="svc">De temporada · ${esc(SEASON.k)}</p></div>
+ <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
+ ${SEASON.menu.map(([ml,d,ig])=>`<div class="slot" style="margin-top:14px">${esc(ml)}</div><div class="row"><span class="plate"><span class="ico">${dishSvg(ig)}</span></span><div><p>${esc(d)}</p><div class="pills">${ig.map(n=>`<span class="pill">${esc(n)}</span>`).join('')}</div></div></div>`).join('')}
+ <span class="note">Una idea de menú para todos, con lo que es de temporada. Luego cada bebé come lo que su familia quiere.</span>`)}
 $('close').onclick=()=>{sheet.classList.remove('open');sel=-1;pvOn=false};
 
 function topFood(){const c={};TODAY.forEach(d=>d.ings.forEach(n=>{if(!COND.includes(n))c[n]=(c[n]||0)+1}));
  const t=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];
- $('slotL').textContent=(SL.open?`En directo · ${SL.pl} · `:`Cerrado · ${SL.pl} de hoy · `)+`${TODAY.length} ${TODAY.length===1?'bebé':'bebés'}`;$('liveDot').style.display=SL.open?'':'none';
+ $('slotL').textContent=(SL.open?`En directo · ${SL.pl} · `:`${SL.pl[0].toUpperCase()+SL.pl.slice(1)} de hoy · `)+`${TODAY.length} ${TODAY.length===1?'bebé':'bebés'}`;$('liveDot').style.display=SL.open?'':'none';
  if(!t){$('topI').innerHTML='';$('topL').textContent=SL.open?`${SL.h}`:'';$('topN').textContent=SL.open?`Todavía no ha comido nadie`:`Hoy no se apuntó ninguna`;return}
  $('topL').textContent=`Lo más comido en ${SL.pl}`;$('topI').innerHTML=ico(t[0]);$('topN').textContent=`${t[0]} · ${t[1]} ${t[1]===1?'bebé':'bebés'}`}
 let tt;function toast(d){const el=$('toast');el.innerHTML=`<span class="ico">${dishSvg(d.ings.filter(n=>!COND.includes(n)))}</span><div><small>Acaba de comer</small></div>`;
@@ -668,7 +702,7 @@ applyMode();setInterval(applyMode,60000);night=nightT;
 const ray=new THREE.Raycaster(),mv=new THREE.Vector2();let down=null;
 const dragPlane=new THREE.Plane(new THREE.Vector3(0,1,0),-.75),hitP=new THREE.Vector3(),last=new THREE.Vector3();let dragT=0,dragMoved=false;
 function setRay(e){mv.set(e.clientX/innerWidth*2-1,-e.clientY/innerHeight*2+1);ray.setFromCamera(mv,cam)}
-$('c').addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];setRay(e);const h=ray.intersectObjects(balls.map(b=>b.m))[0];
+$('c').addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];setRay(e);const h=ray.intersectObjects(balls.map(b=>b.m),true)[0];
  if(h){drag=balls[h.object.userData.ball];ctl.enabled=false;dragMoved=false;last.copy(drag.m.position);dragT=performance.now();try{$('c').setPointerCapture(e.pointerId)}catch(_){}}},{capture:true});
 $('c').addEventListener('pointermove',e=>{if(!drag)return;if(Math.hypot(e.clientX-down[0],e.clientY-down[1])>6)dragMoved=true;if(!dragMoved)return;setRay(e);
  if(ray.ray.intersectPlane(dragPlane,hitP)){const now=performance.now(),dtm=Math.max(.016,(now-dragT)/1000);drag.v.set((hitP.x-last.x)/dtm,0,(hitP.z-last.z)/dtm).clampLength(0,6);last.copy(hitP);dragT=now;
@@ -679,10 +713,23 @@ function dropBall(){if(!drag)return;const b=drag;drag=null;ctl.enabled=true;
 addEventListener('pointerup',dropBall);addEventListener('pointercancel',dropBall);
 $('c').addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>8)return;if(!ctl.enabled)return;
  mv.set(e.clientX/innerWidth*2-1,-e.clientY/innerHeight*2+1);ray.setFromCamera(mv,cam);
- if(ray.intersectObjects(balls.map(b=>b.m))[0])return;
- const hit=ray.intersectObjects([...babies.map(b=>b.g),K],true)[0];
- if(hit&&hit.object.userData.i!=null)openBaby(hit.object.userData.i);else if(hit&&hit.object.userData.k)openKitchen();else{sheet.classList.remove('open');sel=-1;pvOn=false}});
+ if(ray.intersectObjects(balls.map(b=>b.m),true)[0])return;
+ const hit=ray.intersectObjects([...babies.map(b=>b.g),K,menuB],true)[0];
+ if(hit&&hit.object.userData.menu)openMenu();else if(hit&&hit.object.userData.i!=null)openBaby(hit.object.userData.i);else if(hit&&hit.object.userData.k)openKitchen();else{sheet.classList.remove('open');sel=-1;pvOn=false}});
 
+
+// dos dedos: pellizcar para zoom, girar los dedos para rotar, subir/bajar juntos para inclinar
+{const tp=new Map();let g0=null;const cv=$('c'),sp=new THREE.Spherical(),off=new THREE.Vector3();
+ const geo2=()=>{const [a,b]=[...tp.values()];return {d:Math.hypot(b.x-a.x,b.y-a.y),ang:Math.atan2(b.y-a.y,b.x-a.x),my:(a.y+b.y)/2}};
+ cv.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')return;tp.set(e.pointerId,{x:e.clientX,y:e.clientY});if(tp.size===2&&!drag)g0=geo2()});
+ cv.addEventListener('pointermove',e=>{if(!tp.has(e.pointerId))return;tp.set(e.pointerId,{x:e.clientX,y:e.clientY});if(tp.size!==2||!g0||drag)return;
+  const g=geo2();off.copy(cam.position).sub(ctl.target);sp.setFromVector3(off);
+  let da=g.ang-g0.ang;if(da>PI)da-=2*PI;if(da<-PI)da+=2*PI;sp.theta-=da;
+  sp.radius=Math.max(ctl.minDistance,Math.min(ctl.maxDistance,sp.radius*g0.d/Math.max(20,g.d)));
+  sp.phi=Math.max(.25,Math.min(ctl.maxPolarAngle,sp.phi-(g.my-g0.my)*.006));
+  off.setFromSpherical(sp);cam.position.copy(ctl.target).add(off);cam.lookAt(ctl.target);g0=g});
+ const up=e=>{tp.delete(e.pointerId);g0=tp.size===2?geo2():null};
+ addEventListener('pointerup',up);addEventListener('pointercancel',up)}
 function resize(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();portrait=w/h<.8}
 addEventListener('resize',()=>{resize();frame()});resize();frame();
 
