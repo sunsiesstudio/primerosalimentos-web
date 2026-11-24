@@ -23,21 +23,20 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);font:15px/1.
 #c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
 #tags{position:fixed;inset:0;pointer-events:none;overflow:hidden}
 .disp{font-family:'Luckiest Guy',cursive;font-weight:400;letter-spacing:.02em}
-header{position:fixed;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top) + 10px) 12px 0;display:flex;justify-content:center;pointer-events:none}
-.brand{pointer-events:auto;width:min(380px,100%);background:color-mix(in srgb,var(--card) 94%,transparent);border:1.5px solid var(--line);border-radius:24px;padding:12px 18px 14px;box-shadow:0 10px 30px rgba(20,18,60,.14);text-align:center}
-.logo{display:block;width:min(230px,70%);margin:0 auto;overflow:visible}
-.logo text{font-family:'Luckiest Guy',cursive;font-size:56px;fill:var(--green)}
-.logo g{fill:var(--terra)}.logo path.f{stroke:var(--card);fill:none;stroke-width:.9;stroke-linecap:round}
-.svc{margin:2px 0 0;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
-.svc i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:7px;vertical-align:1px;animation:p 1.6s infinite}
+header{position:fixed;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top) + 10px) 12px 0;display:flex;justify-content:center;pointer-events:none;transition:opacity .25s}
+body.sh header{opacity:0}
+.brand{pointer-events:auto;display:flex;align-items:center;gap:10px;max-width:100%;background:color-mix(in srgb,var(--card) 92%,transparent);border:1.5px solid var(--line);border-radius:999px;padding:7px 16px 7px 8px;box-shadow:0 6px 20px rgba(20,18,60,.14)}
+.star{width:34px;height:34px;flex:none;fill:var(--terra)}.star path{stroke:var(--card);fill:none;stroke-width:.9;stroke-linecap:round}
+.bt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.bt b{font-size:14px;white-space:nowrap}
+.bt b i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:6px;vertical-align:1px;animation:p 1.6s infinite}
 @keyframes p{50%{opacity:.3}}
+.bt small{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bt small .ico{width:16px;height:16px;flex:none}
+.svc{margin:2px 0 0;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
 .div{display:flex;align-items:center;gap:10px;margin:10px 0 8px;color:var(--green)}
 .div:before,.div:after{content:"";flex:1;height:1.5px;background:color-mix(in srgb,var(--green) 45%,transparent)}
 .div svg{width:14px;height:14px;flex:none}
-.top{display:flex;align-items:center;justify-content:center;gap:10px;text-align:left}
-.top .ico{width:34px;height:34px;flex:none}
-.top small{display:block;font-size:12px;font-weight:600;color:var(--mute);line-height:1.2}
-.top b{display:block;font-size:15px;line-height:1.3}
 .empty{font-size:13px;color:var(--mute);margin:0}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 20px);transform:translate(-50%,12px);opacity:0;transition:.35s;display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:10px 16px 10px 10px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(20,18,60,.18);max-width:calc(100% - 24px);pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -93,10 +92,8 @@ header{position:fixed;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top)
 <div id="tags"></div>
 <header>
   <div class="brand">
-    <svg class="logo" viewBox="0 0 640 215" role="img" aria-label="Primeros alimentos"><defs><path id="ARC" d="M10,185 Q320,10 630,185"/></defs><text text-anchor="middle"><textPath href="#ARC" startOffset="50%">Primeros alimentos</textPath></text><g transform="translate(279 112) scale(3.4)"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/><path class="f" d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0"/></g></svg>
-    <p class="svc"><i id="liveDot"></i><span id="slotL"></span></p>
-    <div class="div"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
-    <div class="top" id="topW"><span class="ico" id="topI"></span><div><small id="topL"></small><b id="topN"></b></div></div>
+    <svg class="star" viewBox="0 0 24 24" aria-label="Primeros alimentos"><polygon points="12,1.5 14.9,8.4 22.4,9.1 16.7,14 18.4,21.4 12,17.5 5.6,21.4 7.3,14 1.6,9.1 9.1,8.4"/><path d="M9.3 11.2v.9M14.7 11.2v.9M9.8 13.4q2.2 1.9 4.4 0"/></svg>
+    <div class="bt"><b><i id="liveDot"></i><span id="slotL"></span></b><small id="topW"><span id="topL"></span> <span class="ico" id="topI"></span> <span id="topN"></span></small></div>
   </div>
 </header>
 <div class="toast" id="toast" aria-live="polite"></div>
@@ -518,11 +515,17 @@ function fruit(type){const g=new THREE.Group(),F=(geo,c,x=0,y=0,z=0)=>{const m=n
  else if(type==='aguacate'){F(sph(.12),0x4e6b2d).scale.set(.85,1.15,.85);const h=F(sph(.105),0xcfe08a,0,0,.03);h.scale.set(.8,1.1,.4);F(sph(.045),0x8a5a3c,0,-.02,.07)}
  else if(type==='calabaza'){for(let i=0;i<6;i++){const a=i/6*PI*2;F(sph(.08),0xe8892c,Math.cos(a)*.05,0,Math.sin(a)*.05).scale.y=1.1}F(cyl(.015,.02,.06,6),0x6b8a3e,0,.1,0)}
  else if(type==='guisantes'){const p=F(cyl(.045,.045,.22,10),0x7cb85a);p.rotation.z=P2;[-.07,0,.07].forEach(x=>F(sph(.04),0x9ad46a,x,.03,0))}
+ else if(type==='kiwi'){F(sph(.11),0x8a6a3a).scale.set(1.2,.95,.95);const c=F(cyl(.08,.08,.01,16),0x8fc25a,.13,0,0);c.rotation.z=P2}
+ else if(type==='limon'){F(sph(.1),0xf2d64a).scale.set(1.3,1,1)}
+ else if(type==='arandanos'){[[0,0,0],[.07,.0,.03],[-.05,.01,.05],[.02,.06,-.02]].forEach(([x,y,z])=>F(sph(.05),0x3f4f9a,x,y,z))}
+ else if(type==='berenjena'){F(sph(.1),0x5a2a5a).scale.set(1,1.5,1);F(cyl(.04,.03,.04,8),0x4f8a45,0,.16,0)}
+ else if(type==='pimiento'){F(sph(.11),0xd93a2e).scale.set(1,1.15,1);F(cyl(.015,.015,.06,6),0x4f8a45,0,.14,0)}
+ else if(type==='cereza'){F(sph(.06),0xb0202e,-.04,0,0);F(sph(.06),0xb0202e,.05,0,.01);const st=F(cyl(.006,.006,.14,5),0x4f6b2e,0,.08,0);st.rotation.z=.1}
  else {F(sph(.12),0xc9925a).scale.set(1.25,.85,1)}
  return g}
-const FT=['manzana','mandarina','pera','platano','brocoli','zanahoria','fresa','tomate','aguacate','calabaza','guisantes','patata'],balls=[];
-for(let k=0;k<44;k++){const m=fruit(FT[k%FT.length]);const a=Math.random()*PI*2,r=Math.sqrt(Math.random())*(PR-BR-.05);
- m.position.set(PX+Math.cos(a)*r,.3+(k/44)*.9,PZ+Math.sin(a)*r);m.rotation.set(Math.random()*6,Math.random()*6,0);m.traverse(o=>o.userData.ball=k);S.add(m);balls.push({m,v:new THREE.Vector3()})}
+const FT=['manzana','mandarina','pera','platano','brocoli','zanahoria','fresa','tomate','aguacate','calabaza','guisantes','patata','kiwi','limon','arandanos','berenjena','pimiento','cereza'],balls=[];
+for(let k=0;k<96;k++){const m=fruit(FT[k%FT.length]);const a=Math.random()*PI*2,r=Math.sqrt(Math.random())*(PR-BR-.05);
+ m.position.set(PX+Math.cos(a)*r,.3+(k/96)*1.4,PZ+Math.sin(a)*r);m.rotation.set(Math.random()*6,Math.random()*6,0);m.traverse(o=>o.userData.ball=k);S.add(m);balls.push({m,v:new THREE.Vector3()})}
 function physics(dt){const g=-9.8,steps=2,h=dt/steps;
  for(let st=0;st<steps;st++){balls.forEach(b=>{if(b===drag)return;b.v.y+=g*h;b.m.position.addScaledVector(b.v,h);
    const p=b.m.position,dx=p.x-PX,dz=p.z-PZ,d=Math.hypot(dx,dz);
@@ -626,10 +629,35 @@ function preview(d){const cv=$('pv');if(!cv)return;
 
 // ficha
 const sheet=$('sheet'),sc2=$('sc');let sel=-1;
-function show(html){sc2.innerHTML=html;sheet.classList.add('open');sheet.scrollTop=0;$('toast').classList.remove('show')}
+function show(html){sc2.innerHTML=html;sheet.classList.add('open');document.body.classList.add('sh');sheet.scrollTop=0;$('toast').classList.remove('show')}
+
+// tiempos y recetas extra (menú de temporada)
+const TIME={'Crema de calabaza y zanahoria':25,'Albóndigas de ternera y calabacín':30,'Aguacate chafado':5,'Bastones de boniato al horno':35,'Porridge de avena y pera':10,'Yogur natural con fresas chafadas':5,'Tortilla francesa en tiras':10,'Crema de lentejas rojas y calabaza':25,'Merluza al horno con patata y calabacín':30,'Arroz meloso con pollo y zanahoria':25,'Crema de calabacín y patata':20,'Salmón al horno con brócoli':20,'Plátano chafado con avena':5,'Tortitas de plátano y avena':15,'Compota de manzana y pera asadas':30};
+DISHES.forEach(d=>d.t=TIME[d.dish]);
+const XR=[
+ ['Tostada con aguacate y huevo hervido aplastado',10,[['Pan','1 rebanada sin sal'],['Aguacate','½'],['Huevo','1']],['Cuece el huevo 10 min y pélalo.','Tuesta el pan y úntalo con el aguacate chafado.','Aplasta el huevo por encima y corta en tiras.'],'Tiras de dos dedos de ancho, con el huevo bien cocido.'],
+ ['Lentejas estofadas con zanahoria',35,[['Lentejas','50 g'],['Zanahoria','1'],['Patata','½'],['Cebolla','¼'],['AOVE','1 chorrito']],['Pocha la cebolla y la zanahoria con el AOVE.','Añade las lentejas, la patata y agua, y cuece unos 30 min.','Sin sal: chafa o tritura según su edad.'],'Chafadas con tenedor o en puré. Ricas en hierro.'],
+ ['Pera asada con canela',25,[['Pera','1'],['Canela','1 pizca']],['Parte la pera y quita las pepitas.','Ásala 20-25 min a 180 °C con la canela.','Pélala y sírvela templada.'],'En gajos blanditos o chafada.'],
+ ['Crema de brócoli y patata',20,[['Brócoli','150 g'],['Patata','1'],['AOVE','1 chorrito']],['Trocea el brócoli y la patata pelada.','Cuécelos unos 15 min.','Tritura con el AOVE, sin sal.'],'Espesa, en cuchara precargada.'],
+ ['Pasta con verduras y pollo',20,[['Pasta','40 g'],['Calabacín','½'],['Pollo','50 g'],['AOVE','1 chorrito']],['Cuece la pasta un poco más de lo que indica el paquete.','Saltea el calabacín y el pollo en trocitos con el AOVE.','Mézclalo todo, sin sal.'],'Pasta grande tipo macarrón o fusilli para que la agarre.'],
+ ['Yogur con fresas chafadas',5,[['Yogur natural','1, sin azúcar'],['Fresas','3']],['Lava las fresas y quítales el rabito.','Cháfalas con un tenedor.','Mézclalas con el yogur.'],'Yogur natural entero y sin azúcar añadido.'],
+ ['Tortilla de calabacín',15,[['Huevo','1'],['Calabacín','¼'],['AOVE','unas gotas']],['Ralla el calabacín y saltéalo con el AOVE.','Bate el huevo y mézclalo.','Cuaja bien por los dos lados y corta en tiras.'],'Bien cuajada, en tiras de un dedo de ancho.'],
+ ['Yogur con plátano y avena',5,[['Yogur natural','1, sin azúcar'],['Plátano','½'],['Avena','1 cucharada de copos finos']],['Chafa el plátano.','Mézclalo con el yogur y la avena.','Deja reposar 5 min.'],'Sin azúcar: el plátano ya endulza.'],
+ ['Quinoa con verduras',25,[['Quinoa','40 g'],['Calabacín','½'],['Tomate','1'],['AOVE','1 chorrito']],['Lava la quinoa y cuécela unos 15 min.','Saltea el calabacín y el tomate pelado en trocitos.','Mézclalo todo, sin sal.'],'Suelta para practicar la pinza, o en cuchara precargada.'],
+ ['Mousse de aguacate y plátano',5,[['Aguacate','½ maduro'],['Plátano','½ maduro']],['Saca la pulpa del aguacate.','Cháfalo o tritúralo con el plátano.','Sírvelo enseguida.'],'En cuchara o untado en una tostada.'],
+ ['Hummus con bastones de verdura',15,[['Garbanzos','100 g cocidos'],['Sésamo (tahini)','1 cucharadita'],['Zanahoria','1'],['Pepino','½'],['Limón','unas gotas']],['Tritura los garbanzos con el tahini, el limón y un poco de agua, sin sal.','Cuece la zanahoria en bastones hasta que esté blanda y pela el pepino en bastones.','Moja los bastones en el hummus.'],'La zanahoria siempre cocida y blanda. Siempre con un adulto al lado.'],
+ ['Gachas de avena con pera asada y canela',10,[['Avena','3 cucharadas de copos finos'],['Pera','½ asada'],['Canela','1 pizca']],['Cuece la avena con 120 ml de agua o su leche de siempre, 5 min.','Añade la pera asada chafada y la canela.','Deja templar.'],'Sin azúcar ni miel.'],
+ ['Crema de calabaza con pollo',25,[['Calabaza','200 g'],['Pollo','50 g'],['Cebolla','¼'],['AOVE','1 chorrito']],['Trocea la calabaza, la cebolla y el pollo.','Cuécelo todo unos 20 min.','Tritura con el AOVE, sin sal.'],'Cada vez más espesa, según la acepte.'],
+ ['Yogur con plátano aplastado',5,[['Yogur natural','1, sin azúcar'],['Plátano','½ maduro']],['Chafa el plátano con un tenedor.','Mézclalo con el yogur.','Sírvelo enseguida.'],'Yogur natural entero y sin azúcar añadido.'],
+ ['Merluza con patata y calabacín',30,[['Merluza','100 g'],['Patata','1'],['Calabacín','½'],['AOVE','1 chorrito']],['Hornea la patata y el calabacín en rodajas 20 min a 200 °C.','Pon la merluza encima y hornea 10-12 min más.','Aparta la ración del bebé antes de salar.'],'Lascas sin piel ni espinas.']];
+const RECIPES={};DISHES.forEach(d=>RECIPES[d.dish]=d);XR.forEach(([n,t,r,st,o])=>{if(!RECIPES[n])RECIPES[n]={dish:n,t,rec:r,steps:st,offer:o}});
+const recHTML=(R0,id)=>`<div class="rec" id="${id}" hidden><h3>Ingredientes</h3><ul>${R0.rec.map(([n,q])=>`<li class="i"><span class="ico">${ico(n)}</span><span><b>${esc(n)}</b> · ${esc(q)}</span></li>`).join('')}</ul>
+ <h3>Cómo se hace</h3><ol>${R0.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol><div class="offer"><b>Cómo ofrecerlo</b>${esc(R0.offer)}</div>${R0.blog?`<a class="lnk" href="${BLOG+R0.blog}/">Receta completa en el blog</a>`:''}</div>`;
+const recBtn=(R0,id)=>`<button class="lnk" data-rx="${id}" aria-expanded="false">Receta <span>≈ ${R0.t||15} min</span></button>`;
+function wireRec(){sc2.querySelectorAll('[data-rx]').forEach(bt=>bt.onclick=()=>{const r=$(bt.dataset.rx),o=r.hidden;r.hidden=!o;bt.setAttribute('aria-expanded',o);bt.firstChild.textContent=o?'Ocultar receta ':'Receta ';if(o)r.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'})})}
 const RX={love:'Le encantó',like:'Le gustó',meh:'Poquito'};
 const MONTHS=m=>m===1?'1 mes':m+' meses';
-const recipeFor=d=>d.rec?d:DISHES.find(x=>x.dish===d.dish);
+const recipeFor=d=>RECIPES[d.dish];
 function openBaby(i){sel=i;const d=TODAY[i],R0=recipeFor(d),ings=d.ings.filter(n=>!COND.includes(n));
  show(`<div class="pv" id="pv"></div>
  <div class="hd"><h2>Bebé de ${MONTHS(d.m)}</h2><p class="svc">${esc(d.meal)} · ${esc(d.stage)}</p></div>
@@ -637,14 +665,11 @@ function openBaby(i){sel=i;const d=TODAY[i],R0=recipeFor(d),ings=d.ings.filter(n
  <div class="slot">${esc(d.meal)}</div>
  <div class="row"><span class="plate"><span class="ico">${dishSvg(ings)}</span></span><div><p>${esc(d.dish)}</p>
  <div class="pills"><span class="pill">${esc(RX[d.r]||'')}</span>${d.nw?'<span class="pill n">Nuevo</span>':''}${ings.slice(0,3).map(n=>`<span class="pill t">${esc(n)}</span>`).join('')}</div>
- ${R0?'<button class="lnk" id="seeRec" aria-expanded="false">Ver receta</button>':''}</div></div>
- ${R0?`<div class="rec" id="recB" hidden><h3>Ingredientes</h3><ul>${R0.rec.map(([n,q])=>`<li class="i"><span class="ico">${ico(n)}</span><span><b>${esc(n)}</b> · ${esc(q)}</span></li>`).join('')}</ul>
- <h3>Cómo se hace</h3><ol>${R0.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>
- <div class="offer"><b>Cómo ofrecerlo</b>${esc(R0.offer)}</div>
- ${R0.blog?`<a class="lnk" href="${BLOG+R0.blog}/">Receta completa en el blog</a>`:''}</div>`:''}
+ ${R0?recBtn(R0,'recB'):''}</div></div>
+ ${R0?recHTML(R0,'recB'):''}
  ${LIVE?'<a class="cta" href="/">Planifica sus comidas con la app</a>':''}
  <span class="note">${LIVE?'Datos reales y anónimos de las familias que usan la app.':'Comidas de ejemplo con platos de la app.'} Sin nombres ni datos personales.</span>`);
- if(R0)$('seeRec').onclick=e=>{const r=$('recB'),o=r.hidden;r.hidden=!o;e.currentTarget.textContent=o?'Ocultar receta':'Ver receta';e.currentTarget.setAttribute('aria-expanded',o);if(o)r.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'})};
+ wireRec();
  preview(d)}
 function openKitchen(){sel=-1;pvOn=false;
  const c={};TODAY.forEach(d=>d.ings.forEach(n=>{if(!COND.includes(n))c[n]=(c[n]||0)+1}));const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,8);
@@ -656,15 +681,16 @@ function openKitchen(){sel=-1;pvOn=false;
  :`<p class="note" style="margin-top:0">Todavía no ha salido ningún plato en ${esc(SL.pl)}.</p>`}`)}
 function openMenu(){sel=-1;pvOn=false;show(`<div class="hd" style="padding-top:22px"><h2>Menú del día</h2><p class="svc">De temporada · ${esc(SEASON.k)}</p></div>
  <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
- ${SEASON.menu.map(([ml,d,ig])=>`<div class="slot" style="margin-top:14px">${esc(ml)}</div><div class="row"><span class="plate"><span class="ico">${dishSvg(ig)}</span></span><div><p>${esc(d)}</p><div class="pills">${ig.map(n=>`<span class="pill">${esc(n)}</span>`).join('')}</div></div></div>`).join('')}
- <span class="note">Una idea de menú para todos, con lo que es de temporada. Luego cada bebé come lo que su familia quiere.</span>`)}
+ ${SEASON.menu.map(([ml,d,ig],i)=>{const R0=RECIPES[d];return `<div class="slot" style="margin-top:14px">${esc(ml)}</div><div class="row"><span class="plate"><span class="ico">${dishSvg(ig)}</span></span><div><p>${esc(d)}</p><div class="pills">${ig.map(n=>`<span class="pill">${esc(n)}</span>`).join('')}</div>${R0?recBtn(R0,'mr'+i):''}</div></div>${R0?recHTML(R0,'mr'+i):''}`}).join('')}
+ <span class="note">Una idea de menú para todos, con lo que es de temporada. Luego cada bebé come lo que su familia quiere.</span>`);wireRec()}
 $('close').onclick=()=>{sheet.classList.remove('open');sel=-1;pvOn=false};
+new MutationObserver(()=>{if(!sheet.classList.contains('open'))document.body.classList.remove('sh')}).observe(sheet,{attributes:true,attributeFilter:['class']});
 
 function topFood(){const c={};TODAY.forEach(d=>d.ings.forEach(n=>{if(!COND.includes(n))c[n]=(c[n]||0)+1}));
  const t=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];
- $('slotL').textContent=(SL.open?`En directo · ${SL.pl} · `:`${SL.pl[0].toUpperCase()+SL.pl.slice(1)} de hoy · `)+`${TODAY.length} ${TODAY.length===1?'bebé':'bebés'}`;$('liveDot').style.display=SL.open?'':'none';
- if(!t){$('topI').innerHTML='';$('topL').textContent=SL.open?`${SL.h}`:'';$('topN').textContent=SL.open?`Todavía no ha comido nadie`:`Hoy no se apuntó ninguna`;return}
- $('topL').textContent=`Lo más comido en ${SL.pl}`;$('topI').innerHTML=ico(t[0]);$('topN').textContent=`${t[0]} · ${t[1]} ${t[1]===1?'bebé':'bebés'}`}
+ $('slotL').textContent=(SL.open?`${SL.pl[0].toUpperCase()+SL.pl.slice(1)} en directo · `:`${SL.pl[0].toUpperCase()+SL.pl.slice(1)} de hoy · `)+`${TODAY.length} ${TODAY.length===1?'bebé':'bebés'}`;$('liveDot').style.display=SL.open?'':'none';
+ if(!t){$('topI').innerHTML='';$('topL').textContent=SL.open?`${SL.h} ·`:'';$('topN').textContent=SL.open?`todavía no ha comido nadie`:`no se apuntó ninguna`;return}
+ $('topL').textContent='Lo más comido:';$('topI').innerHTML=ico(t[0]);$('topN').textContent=t[0]}
 let tt;function toast(d){const el=$('toast');el.innerHTML=`<span class="ico">${dishSvg(d.ings.filter(n=>!COND.includes(n)))}</span><div><small>Acaba de comer</small></div>`;
  el.querySelector('div').append(`Bebé de ${MONTHS(d.m)}: ${d.dish.toLowerCase()}`);el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),4200)}
 
