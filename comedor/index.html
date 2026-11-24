@@ -817,7 +817,7 @@ async function getList(sl){if(LIVE)return fetchLive(sl);const all=service(sl).ma
 const keys=new Set();
 function sync(list,first){list.forEach(d=>{if(keys.has(d.k))return;keys.add(d.k);const i=TODAY.length;TODAY.push(d);addBaby(d,i,first);if(!first&&!sheet.classList.contains('open'))toast(d)});topFood();refreshKitchen()}
 async function startService(){babies.forEach(b=>S.remove(b.g));babies=[];used={};TODAY=[];keys.clear();demoN=0;
- SL=nowSlot();const list=await getList(SL);applyLevel();topFood();updClock();sync(list,true)}
+ SL=nowSlot();const list=await getList(SL);applyMode();applyLevel();topFood();updClock();sync(list,true)}
 startService();
 setInterval(async()=>{updClock();const n=nowSlot();if(n.k!==SL.k||n.open!==SL.open||n.iso!==SL.iso){if(sheet.classList.contains('open')){sheet.classList.remove('open');sel=-1;pvOn=false}startService();return}
  if(!SL.open&&!LIVE)return;sync(await getList(SL),false)},LIVE?60000:EVERY);
@@ -834,7 +834,14 @@ function frame(){const d=[0,11,12,16,22,23,27,48][LVL||4]*(portrait?1.9:1),t=new
 function sunDown(){const d=new Date(),N=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5),lat=41.39*PI/180,dec=23.44*PI/180*Math.sin(2*PI*(284+N)/365);
  const ha=Math.acos(Math.max(-1,Math.min(1,-Math.tan(lat)*Math.tan(dec))))*12/PI,noon=12-2.17/15,h=d.getUTCHours()+d.getUTCMinutes()/60;return h<noon-ha||h>noon+ha}
 let night=0,nightT=0;
-function applyMode(){const n=/noche/.test(location.hash)?true:/dia/.test(location.hash)?false:sunDown();nightT=n?1:0;document.documentElement.dataset.theme=n?'dark':'light'}
+function sunAt(hl){const d=new Date(),N=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5),lat=41.39*PI/180,dec=23.44*PI/180*Math.sin(2*PI*(284+N)/365);
+ const ha=Math.acos(Math.max(-1,Math.min(1,-Math.tan(lat)*Math.tan(dec))))*12/PI,noon=12-2.17/15;
+ const off=(new Date(d.toLocaleString('en-US',{timeZone:'Europe/Madrid'}))-new Date(d.toLocaleString('en-US',{timeZone:'UTC'})))/36e5,rise=noon-ha+off,set=noon+ha+off;
+ const k=x=>Math.max(0,Math.min(1,x));return Math.max(k((hl-set+.25)/.6),k((rise-hl+.25)/.6))}
+function applyMode(){let n;if(/noche/.test(location.hash))n=1;else if(/dia/.test(location.hash))n=0;
+ else if(SL&&!SL.open&&FORCE){const r=REP[SL.k];n=sunAt(r[0]+r[1]/60)}
+ else{const hm=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date()).split(':');n=sunAt((+hm[0]%24)+(+hm[1])/60)}
+ nightT=n;document.documentElement.dataset.theme=n>.5?'dark':'light'}
 applyMode();setInterval(applyMode,60000);night=nightT;
 
 // tocar
