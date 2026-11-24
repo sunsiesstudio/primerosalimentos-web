@@ -333,7 +333,8 @@ const SEATS={
  'Jardín':[-4.2,-1.4,1.4,4.2].flatMap(x=>[[x-.45,8.35,0,.88,1.12,.75],[x+.45,8.35,0,.88,1.12,.75],[x-.45,10.25,PI,.88,1.12,.75],[x+.45,10.25,PI,.88,1.12,.75]]),
  'Trozos':[[-2.9,-4.95,0,.88,1.12,.75],[-1.5,-4.95,0,.88,1.12,.75],[-.1,-4.95,0,.88,1.12,.75],[-2.9,-2.25,PI,.88,1.12,.75],[-1.5,-2.25,PI,.88,1.12,.75],[-.1,-2.25,PI,.88,1.12,.75]],
  'Purés':[[-6.35,-4.2,P2,.5,.66,.95],[-6.35,-2.8,P2,.5,.66,.95],[-6.35,-.9,P2,.5,.66,.95],[-6.35,.45,P2,.5,.66,.95]],
- 'Grumos':[[-4.6,4.2,P2,.88,1.12,.7],[-2.4,4.2,-P2,.88,1.12,.7],[1.7,4.2,P2,.88,1.12,.7],[3.9,4.2,-P2,.88,1.12,.7]]
+ 'Grumos':[[-3.15,-.1,P2,.88,1.12,.65],[-1.45,-.1,-P2,.88,1.12,.65],[-.05,-.1,P2,.88,1.12,.65],[1.65,-.1,-P2,.88,1.12,.65]],
+ 'Terraza':[[-5.85,4.2,P2,.88,1.12,.7],[-3.75,4.2,-P2,.88,1.12,.7],[3.15,4.2,P2,.88,1.12,.7],[5.25,4.2,-P2,.88,1.12,.7]]
 };
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -449,6 +450,8 @@ CUR=BIG;mk(box(5.9,.02,3.5),C.terra,-1.5,.105,-3.6).castShadow=false;for(let i=0
 mk(box(4.6,.1,1.45),C.wood,-1.5,1.05,-3.6);mk(box(4.6,.012,.5),C.cream,-1.5,1.106,-3.6);
 [[-3.6,-4.2],[0.6,-4.2],[-3.6,-3],[.6,-3]].forEach(([x,z])=>mk(cyl(.07,.06,1),0xa47a55,x,.5,z));
 mk(cyl(.1,.13,.3,16),C.terra,-1.5,1.25,-3.6);[[-.06,C.pink],[.07,C.mustard],[0,C.blush],[.03,C.cream]].forEach(([d,c],i)=>mk(sph(.08),c,-1.5+d,1.45+i*.035,-3.6+d*.7));
+// mesas redondas del centro (grumos)
+[[-2.3,-.1],[.8,-.1]].forEach(([x,z],i)=>{const r=mk(cyl(1.25,1.25,.02,36),i?C.olive:C.mustard,x,.11,z);r.scale.x=1.35;r.castShadow=false;mk(cyl(.95,.95,.022,36),C.cream,x,.112,z).scale.x=1.35;mk(cyl(.55,.55,.07,28),C.woodL,x,1.05,z);mk(cyl(.06,.06,1,8),C.wood,x,.5,z);mk(cyl(.3,.3,.03,20),C.wood,x,.02,z);mk(cyl(.07,.09,.18,10),C.terra,x,1.18,z);mk(sph(.08),i?C.blush:C.mustard,x,1.33,z)});
 // lámparas de ratán
 const shadeG=new THREE.SphereGeometry(.42,20,12,0,PI*2,0,PI/2);
 for(let i=0;i<3;i++){const x=-2.9+i*1.4;mk(cyl(.012,.012,1,6),C.ink,x,2.5,-3.6);const sh=new THREE.Mesh(shadeG,new THREE.MeshStandardMaterial({color:C.rattan,roughness:.9,side:THREE.DoubleSide}));sh.position.set(x,1.95,-3.6);sh.castShadow=true;(CUR||S).add(sh);bulb(x,1.85,-3.6,.09)}
@@ -526,12 +529,12 @@ for(let i=0;i<7;i++){const x=-6.2+i*2.05;mk(box(1.6,.5,.5),i%2?C.terra:C.cream,x
 function parasol0(x,z,c1,c2,y0){const g=new THREE.Group();g.position.y=y0;(CUR||S).add(g);const pc=CUR;CUR=g;parasol(x,z,c1,c2);CUR=pc}
 function parasol(x,z,c1,c2){mk(cyl(.03,.03,2.9,8),C.cream,x,2.45,z);for(let i=0;i<8;i++){const m=new THREE.Mesh(new THREE.ConeGeometry(1.05,.45,8,1,true,i*PI/4,PI/4),M(i%2?c1:c2));m.position.set(x,3.65,z);m.material.side=THREE.DoubleSide;m.castShadow=true;(CUR||S).add(m)}
  for(let i=0;i<16;i++){const a=i/16*PI*2;mk(sph(.035),c1,x+Math.cos(a)*1.02,3.4,z+Math.sin(a)*1.02)}}
-[[-3.5,C.cream,C.terra],[2.8,C.cream,C.olive]].forEach(([x,a,b])=>{mk(cyl(.7,.7,.08,32),C.woodL,x,1.05,4.2);mk(cyl(.07,.07,1),C.wood,x,.5,4.2);mk(cyl(.3,.3,.04,20),C.wood,x,.02,4.2);parasol(x,4.2,a,b)});
+[[-4.8,C.cream,C.terra],[4.2,C.cream,C.olive]].forEach(([x,a,b])=>{mk(cyl(.7,.7,.08,32),C.woodL,x,1.05,4.2);mk(cyl(.07,.07,1),C.wood,x,.5,4.2);mk(cyl(.3,.3,.04,20),C.wood,x,.02,4.2);parasol(x,4.2,a,b)});
 monstera(-6.3,2.4,.9);monstera(6.3,2.4,.9);pampas(6.3,6.1);pampas(-6.3,6.1);
 CUR=REST;
 CUR=null;
 // piscina de bolas de alimentos
-const PX=-.35,PZ=4.3,PR=1.1,PH=.55,BR=.13;
+const PX=-.3,PZ=4.3,PR=1.35,PH=.55,BR=.13;
 [[0,C.terra],[.3,C.mustard]].forEach(([y,c])=>{const t=mk(new THREE.TorusGeometry(PR+.12,.17,14,48),c,PX,.18+y,PZ);t.rotation.x=P2});
 mk(cyl(PR+.1,PR+.1,.06,40),C.cream,PX,.11,PZ);
 // frutas y verduras de verdad en la piscina
@@ -557,8 +560,8 @@ function fruit(type){const g=new THREE.Group(),F=(geo,c,x=0,y=0,z=0)=>{const m=n
  else {F(sph(.12),0xc9925a).scale.set(1.25,.85,1)}
  return g}
 const FT=['manzana','mandarina','pera','platano','brocoli','zanahoria','fresa','tomate','aguacate','calabaza','guisantes','patata','kiwi','limon','arandanos','berenjena','pimiento','cereza'],balls=[];
-for(let k=0;k<80;k++){const m=fruit(FT[k%FT.length]);const a=Math.random()*PI*2,r=Math.sqrt(Math.random())*(PR-BR-.05);
- m.position.set(PX+Math.cos(a)*r,.3+(k/80)*1.4,PZ+Math.sin(a)*r);m.rotation.set(Math.random()*6,Math.random()*6,0);m.traverse(o=>o.userData.ball=k);S.add(m);balls.push({m,v:new THREE.Vector3()})}
+for(let k=0;k<110;k++){const m=fruit(FT[k%FT.length]);const a=Math.random()*PI*2,r=Math.sqrt(Math.random())*(PR-BR-.05);
+ m.position.set(PX+Math.cos(a)*r,.3+(k/110)*1.4,PZ+Math.sin(a)*r);m.rotation.set(Math.random()*6,Math.random()*6,0);m.traverse(o=>o.userData.ball=k);S.add(m);balls.push({m,v:new THREE.Vector3()})}
 function physics(dt){const g=-9.8,steps=2,h=dt/steps;
  for(let st=0;st<steps;st++){balls.forEach(b=>{if(b===drag)return;b.v.y+=g*h;b.m.position.addScaledVector(b.v,h);
    const p=b.m.position,dx=p.x-PX,dz=p.z-PZ,d=Math.hypot(dx,dz);
@@ -683,7 +686,7 @@ function trona(x,z,ry,s,col,par=S,y0=0){const g=new THREE.Group();g.position.set
  [-1,1].forEach(k=>{mk(box(.07,.06,.95),col,k*.33,.03,.08,g);const u=mk(box(.07,H,.1),col,k*.33,H/2,-.3,g);u.rotation.x=-.13});
  mk(box(.6,.05,.46),col,0,s,-.02,g);mk(box(.6,.04,.42),col,0,s*.42,.06,g);
  mk(box(.6,.09,.035),col,0,s+.38,-.38,g);mk(box(.6,.09,.035),col,0,s+.66,-.42,g);return g}
-Object.entries(SEATS).forEach(([st,list])=>list.forEach(([x,z,ry,s,py,po,y0],j)=>{if(st!=='Purés')trona(x,z,ry,s,WOOD[(j+st.length)%6],st==='Grumos'?TER:st==='Azotea'?ROOF:st==='Jardín'?GAR:st==='Truck'?TRUCK:st==='Kiosk'?KIOSK:st==='Pequeño'?SMALL:BIG,y0||0)}));
+Object.entries(SEATS).forEach(([st,list])=>list.forEach(([x,z,ry,s,py,po,y0],j)=>{if(st!=='Purés')trona(x,z,ry,s,WOOD[(j+st.length)%6],st==='Grumos'?BIG:st==='Terraza'?TER:st==='Azotea'?ROOF:st==='Jardín'?GAR:st==='Truck'?TRUCK:st==='Kiosk'?KIOSK:st==='Pequeño'?SMALL:BIG,y0||0)}));
 
 // bebés
 const SK=[0xf3c9a8,0xe0ac85,0xc68a5f,0x8d5a3b,0xf6d5bd],HA=[0x7a5230,0x2d2420,0xc9925a,0x3b2a20,0xe0b86a],ON=[C.sage,C.terra,C.cobalt,C.mustard,0x9fc6d8,C.blush,C.cream];
@@ -692,7 +695,7 @@ const smileG=geo('smile',()=>new THREE.TorusGeometry(.07,.016,8,16,PI)),bigG=geo
 const starG=new THREE.OctahedronGeometry(.09),starM=new THREE.MeshStandardMaterial({color:0xf2b84b,emissive:0xf2b84b,emissiveIntensity:.5,roughness:.4});
 function heart(){const h=new THREE.Group();mk(sph(.05),0xe05a6a,-.035,0,0,h);mk(sph(.05),0xe05a6a,.035,0,0,h);const c=mk(new THREE.ConeGeometry(.07,.09,12),0xe05a6a,0,-.06,0,h);c.rotation.x=PI;return h}
 let used={},babies=[],LVL=4;
-function seatFor(st){const keys=LVL===1?['Truck']:LVL===2?['Kiosk']:LVL===3?['Pequeño']:[st,...['Trozos','Purés','Grumos'].filter(x=>x!==st),...(LVL>=5?['Azotea']:[]),...(LVL>=6?['Jardín']:[])];for(const k of keys){const n=used[k]||0;if(n<SEATS[k].length){used[k]=n+1;return SEATS[k][n]}}return null}
+function seatFor(st){const keys=LVL===1?['Truck']:LVL===2?['Kiosk']:LVL===3?['Pequeño']:[st,...['Trozos','Purés','Grumos'].filter(x=>x!==st),'Terraza',...(LVL>=5?['Azotea']:[]),...(LVL>=6?['Jardín']:[])];for(const k of keys){const n=used[k]||0;if(n<SEATS[k].length){used[k]=n+1;return SEATS[k][n]}}return null}
 function addBaby(d,i,instant){const st=d.stage||STAGE[d.tex],seat=seatFor(st);if(!seat)return null;
  const [x,z,ry,s,py,po,y0]=seat;
  const g=new THREE.Group();g.position.set(x,y0||0,z);g.rotation.y=ry;S.add(g);
