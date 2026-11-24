@@ -42,7 +42,7 @@ body.sh header{opacity:0}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast .ico{width:40px;height:40px;flex:none}
 .toast small{display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--terra)}
-.sheet{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 12px);width:min(440px,calc(100% - 20px));max-height:72vh;overflow:auto;overscroll-behavior:contain;transform:translate(-50%,24px);opacity:0;pointer-events:none;transition:.28s;background:var(--sheet);border-radius:26px;padding:6px;box-shadow:0 18px 50px rgba(20,18,60,.3);z-index:2}
+.sheet{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 12px);width:min(440px,calc(100% - 20px));max-height:84vh;overflow:auto;overscroll-behavior:contain;transform:translate(-50%,24px);opacity:0;pointer-events:none;transition:.28s;background:var(--sheet);border-radius:26px;padding:6px;box-shadow:0 18px 50px rgba(20,18,60,.3);z-index:2}
 .sheet.open{transform:translate(-50%,0);opacity:1;pointer-events:auto}
 .mdd{border:1.5px solid var(--green);border-radius:22px;padding:0 0 22px;overflow:hidden;box-shadow:inset 0 0 0 4px var(--sheet),inset 0 0 0 5.5px color-mix(in srgb,var(--green) 60%,transparent)}
 .x{position:absolute;top:16px;right:16px;width:44px;height:44px;border:1.5px solid var(--line);background:var(--card);color:var(--mute);font-size:22px;line-height:1;cursor:pointer;border-radius:50%;z-index:3;display:grid;place-items:center}
@@ -80,6 +80,16 @@ body.sh header{opacity:0}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;padding:0 24px}
 .it{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;font-size:13px;font-weight:600;padding:10px 4px;border-radius:16px;background:color-mix(in srgb,var(--ink) 5%,transparent)}
 .it .ico{width:40px;height:40px}.it small{color:var(--mute);font-size:11px}
+.cm .hd{padding-top:16px!important}.cm .hd h2{font-size:24px;margin-bottom:2px}
+.cm .div{margin:8px 24px!important}
+.cm .slot{margin:10px 24px 4px!important;font-size:11px}
+.cm .row{gap:12px;align-items:center}
+.cm .plate{width:48px;height:48px}.cm .plate .ico{width:40px;height:40px}
+.cm .row p{font-size:15px;margin:0;line-height:1.25}
+.cm .pills{display:none}
+.cm .lnk{min-height:30px;margin-top:2px;font-size:13px}
+.cm .note{margin-top:12px;font-size:11px}
+.cm .rec{padding-top:0}
 .ico{display:block}
 .fd{width:100%;height:100%;fill:none;display:block}.fd .o{stroke:none}
 .fd .o[fill="none"]{stroke:rgba(0,0,0,.4);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}.fd .o.w{stroke:#fff!important}
@@ -679,10 +689,10 @@ function openKitchen(){sel=-1;pvOn=false;
  ${rows.length?`<div class="slot">Ya servidos</div><ul class="list">${rows.map(([n,x])=>`<li><span class="ico">${dishSvg(x.ings.filter(y=>!COND.includes(y)))}</span><span>${esc(n)}${x.n>1?` <small>· ${x.n}</small>`:''}</span></li>`).join('')}</ul>
  <div class="slot" style="margin-top:20px">Lo que más se cocina</div><div class="grid">${top.map(([n,k])=>`<div class="it"><span class="ico">${ico(n)}</span>${esc(n)}<small>${k} ${k===1?'plato':'platos'}</small></div>`).join('')}</div>`
  :`<p class="note" style="margin-top:0">Todavía no ha salido ningún plato en ${esc(SL.pl)}.</p>`}`)}
-function openMenu(){sel=-1;pvOn=false;show(`<div class="hd" style="padding-top:22px"><h2>Menú del día</h2><p class="svc">De temporada · ${esc(SEASON.k)}</p></div>
+function openMenu(){sel=-1;pvOn=false;show(`<div class="cm"><div class="hd" style="padding-top:22px"><h2>Menú del día</h2><p class="svc">De temporada · ${esc(SEASON.k)}</p></div>
  <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
  ${SEASON.menu.map(([ml,d,ig],i)=>{const R0=RECIPES[d];return `<div class="slot" style="margin-top:14px">${esc(ml)}</div><div class="row"><span class="plate"><span class="ico">${dishSvg(ig)}</span></span><div><p>${esc(d)}</p><div class="pills">${ig.map(n=>`<span class="pill">${esc(n)}</span>`).join('')}</div>${R0?recBtn(R0,'mr'+i):''}</div></div>${R0?recHTML(R0,'mr'+i):''}`}).join('')}
- <span class="note">Una idea de menú para todos, con lo que es de temporada. Luego cada bebé come lo que su familia quiere.</span>`);wireRec()}
+ <span class="note">Una idea para todos, con lo que es de temporada. Luego cada familia elige.</span></div>`);wireRec()}
 $('close').onclick=()=>{sheet.classList.remove('open');sel=-1;pvOn=false};
 new MutationObserver(()=>{if(!sheet.classList.contains('open'))document.body.classList.remove('sh')}).observe(sheet,{attributes:true,attributeFilter:['class']});
 
