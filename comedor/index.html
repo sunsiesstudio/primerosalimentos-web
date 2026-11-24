@@ -90,6 +90,8 @@ body.sh header{opacity:0}
 .cm .lnk{min-height:30px;margin-top:2px;font-size:13px}
 .cm .note{margin-top:12px;font-size:11px}
 .cm .rec{padding-top:0}
+.cm .list{gap:8px}.cm .list li{font-size:14px;gap:12px}.cm .list .ico{width:32px;height:32px}
+.cm .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.cm .it{padding:6px 2px;font-size:11px}.cm .it .ico{width:30px;height:30px}
 .ico{display:block}
 .fd{width:100%;height:100%;fill:none;display:block}.fd .o{stroke:none}
 .fd .o[fill="none"]{stroke:rgba(0,0,0,.4);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}.fd .o.w{stroke:#fff!important}
@@ -508,7 +510,7 @@ function parasol(x,z,c1,c2){mk(cyl(.03,.03,2.9,8),C.cream,x,2.45,z);for(let i=0;
 [[-3.5,C.cream,C.terra],[2.8,C.cream,C.olive]].forEach(([x,a,b])=>{mk(cyl(.7,.7,.08,32),C.woodL,x,1.05,4.2);mk(cyl(.07,.07,1),C.wood,x,.5,4.2);mk(cyl(.3,.3,.04,20),C.wood,x,.02,4.2);parasol(x,4.2,a,b)});
 monstera(-6.3,2.4,.9);monstera(6.3,2.4,.9);pampas(6.3,6.1);pampas(-6.3,6.1);
 // piscina de bolas de alimentos
-const PX=4.3,PZ=-.1,PR=1.25,PH=.55,BR=.13;
+const PX=-.35,PZ=4.3,PR=1.1,PH=.55,BR=.13;
 [[0,C.terra],[.3,C.mustard]].forEach(([y,c])=>{const t=mk(new THREE.TorusGeometry(PR+.12,.17,14,48),c,PX,.18+y,PZ);t.rotation.x=P2});
 mk(cyl(PR+.1,PR+.1,.06,40),C.cream,PX,.11,PZ);
 // frutas y verduras de verdad en la piscina
@@ -534,8 +536,8 @@ function fruit(type){const g=new THREE.Group(),F=(geo,c,x=0,y=0,z=0)=>{const m=n
  else {F(sph(.12),0xc9925a).scale.set(1.25,.85,1)}
  return g}
 const FT=['manzana','mandarina','pera','platano','brocoli','zanahoria','fresa','tomate','aguacate','calabaza','guisantes','patata','kiwi','limon','arandanos','berenjena','pimiento','cereza'],balls=[];
-for(let k=0;k<96;k++){const m=fruit(FT[k%FT.length]);const a=Math.random()*PI*2,r=Math.sqrt(Math.random())*(PR-BR-.05);
- m.position.set(PX+Math.cos(a)*r,.3+(k/96)*1.4,PZ+Math.sin(a)*r);m.rotation.set(Math.random()*6,Math.random()*6,0);m.traverse(o=>o.userData.ball=k);S.add(m);balls.push({m,v:new THREE.Vector3()})}
+for(let k=0;k<80;k++){const m=fruit(FT[k%FT.length]);const a=Math.random()*PI*2,r=Math.sqrt(Math.random())*(PR-BR-.05);
+ m.position.set(PX+Math.cos(a)*r,.3+(k/80)*1.4,PZ+Math.sin(a)*r);m.rotation.set(Math.random()*6,Math.random()*6,0);m.traverse(o=>o.userData.ball=k);S.add(m);balls.push({m,v:new THREE.Vector3()})}
 function physics(dt){const g=-9.8,steps=2,h=dt/steps;
  for(let st=0;st<steps;st++){balls.forEach(b=>{if(b===drag)return;b.v.y+=g*h;b.m.position.addScaledVector(b.v,h);
    const p=b.m.position,dx=p.x-PX,dz=p.z-PZ,d=Math.hypot(dx,dz);
@@ -682,13 +684,13 @@ function openBaby(i){sel=i;const d=TODAY[i],R0=recipeFor(d),ings=d.ings.filter(n
  wireRec();
  preview(d)}
 function openKitchen(){sel=-1;pvOn=false;
- const c={};TODAY.forEach(d=>d.ings.forEach(n=>{if(!COND.includes(n))c[n]=(c[n]||0)+1}));const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,8);
+ const c={};TODAY.forEach(d=>d.ings.forEach(n=>{if(!COND.includes(n))c[n]=(c[n]||0)+1}));const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,4);
  const m={};TODAY.forEach(d=>{(m[d.dish]=m[d.dish]||{n:0,ings:d.ings}).n++});const rows=Object.entries(m).sort((a,b)=>b[1].n-a[1].n);
- show(`<div class="hd" style="padding-top:22px"><h2>La cocina</h2><p class="svc">${SL.open?'Cocinando '+esc(SL.pl):esc(SL.pl[0].toUpperCase()+SL.pl.slice(1))+' de hoy'} · ${TODAY.length} ${TODAY.length===1?'plato':'platos'}</p></div>
+ show(`<div class="cm"><div class="hd" style="padding-top:22px"><h2>La cocina</h2><p class="svc">${SL.open?'Cocinando '+esc(SL.pl):esc(SL.pl[0].toUpperCase()+SL.pl.slice(1))+' de hoy'} · ${TODAY.length} ${TODAY.length===1?'plato':'platos'}</p></div>
  <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
- ${rows.length?`<div class="slot">Ya servidos</div><ul class="list">${rows.map(([n,x])=>`<li><span class="ico">${dishSvg(x.ings.filter(y=>!COND.includes(y)))}</span><span>${esc(n)}${x.n>1?` <small>· ${x.n}</small>`:''}</span></li>`).join('')}</ul>
+ ${rows.length?`<div class="slot">Ya servidos</div><ul class="list">${rows.slice(0,5).map(([n,x])=>`<li><span class="ico">${dishSvg(x.ings.filter(y=>!COND.includes(y)))}</span><span>${esc(n)}${x.n>1?` <small>· ${x.n}</small>`:''}</span></li>`).join('')}</ul>
  <div class="slot" style="margin-top:20px">Lo que más se cocina</div><div class="grid">${top.map(([n,k])=>`<div class="it"><span class="ico">${ico(n)}</span>${esc(n)}<small>${k} ${k===1?'plato':'platos'}</small></div>`).join('')}</div>`
- :`<p class="note" style="margin-top:0">Todavía no ha salido ningún plato en ${esc(SL.pl)}.</p>`}`)}
+ :`<p class="note" style="margin-top:0">Todavía no ha salido ningún plato en ${esc(SL.pl)}.</p>`}</div>`)}
 function openMenu(){sel=-1;pvOn=false;show(`<div class="cm"><div class="hd" style="padding-top:22px"><h2>Menú del día</h2><p class="svc">De temporada · ${esc(SEASON.k)}</p></div>
  <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
  ${SEASON.menu.map(([ml,d,ig],i)=>{const R0=RECIPES[d];return `<div class="slot" style="margin-top:14px">${esc(ml)}</div><div class="row"><span class="plate"><span class="ico">${dishSvg(ig)}</span></span><div><p>${esc(d)}</p><div class="pills">${ig.map(n=>`<span class="pill">${esc(n)}</span>`).join('')}</div>${R0?recBtn(R0,'mr'+i):''}</div></div>${R0?recHTML(R0,'mr'+i):''}`}).join('')}
