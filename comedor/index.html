@@ -812,7 +812,7 @@ const FS='https://firestore.googleapis.com/v1/projects/primeros-alimentos/databa
 const fv=v=>v==null?null:'stringValue' in v?v.stringValue:'integerValue' in v?+v.integerValue:'doubleValue' in v?v.doubleValue:'booleanValue' in v?v.booleanValue:'arrayValue' in v?(v.arrayValue.values||[]).map(fv):'mapValue' in v?Object.fromEntries(Object.entries(v.mapValue.fields||{}).map(([k,x])=>[k,fv(x)])):'timestampValue' in v?v.timestampValue:null;
 const STG={'Puré':'Purés','Grumos':'Grumos','Trozos':'Trozos'};
 async function fetchLive(sl){try{const r=await fetch(FS,{cache:'no-store'});if(!r.ok)return [];const j=await r.json(),doc=Object.fromEntries(Object.entries(j.fields||{}).map(([k,x])=>[k,fv(x)]));
- AYER=typeof doc.ayer==='number'?doc.ayer:null;if(doc.day!==sl.iso)return [];
+ const yd=new Date(sl.iso+'T12:00:00Z');yd.setUTCDate(yd.getUTCDate()-1);if(doc.day===sl.iso)AYER=typeof doc.ayer==='number'?doc.ayer:null;else{AYER=doc.day===yd.toISOString().slice(0,10)?new Set((doc.items||[]).map(i=>i&&(i.b||i.k))).size:null;return []}
  return (doc.items||[]).filter(x=>x&&x.ml===sl.meal&&Array.isArray(x.ings)&&x.ings.length&&STG[x.tex]).map(x=>({k:String(x.k),meal:x.ml,m:Math.max(4,Math.min(36,+x.m||6)),dish:String(x.dish||x.ings.join(', ')).slice(0,90),ings:x.ings.map(String).slice(0,6),tex:x.tex,stage:STG[x.tex],r:['love','like','meh'].includes(x.r)?x.r:'like',nw:x.nw?1:0}))}catch(e){return []}}
 let demoN=0;
 async function getList(sl){if(LIVE)return fetchLive(sl);const all=service(sl).map((d,i)=>({...d,k:'d'+i}));
