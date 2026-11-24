@@ -579,7 +579,7 @@ function addBaby(d,i,instant){const st=d.stage||STAGE[d.tex],seat=SEATS[st][used
  let star=null;if(d.nw){star=new THREE.Mesh(starG,starM);star.position.set(0,py+.55,po);star.userData.y0=py+.55;g.add(star)}
  const hearts=[];if(d.r==='love')for(let k=0;k<2;k++){const hh=heart();hh.visible=false;g.add(hh);hearts.push(hh)}
  g.traverse(o=>o.userData.i=i);
- babies.push({d,g,head,arm,bite,star,hearts,ph:Math.random()*6,s,born:instant?-99:performance.now()/1000});
+ babies.push({d,g,head,arm,bite,star,hearts,ph:Math.random()*6,s,py,po,born:instant?-99:performance.now()/1000});
  if(!instant)g.scale.setScalar(.001)}
 
 // en directo (simulado)
@@ -698,11 +698,21 @@ function loop(){const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime,now=
  babies.forEach((b,i)=>{const age=now-b.born;
   if(age<1.2){const p=Math.max(0,age/1.2),e=reduce?1:1+Math.sin(p*PI)*.25*(1-p);b.g.scale.setScalar(Math.max(.001,p*e))}
   else b.g.scale.setScalar(TODAY.indexOf(b.d)===sel?1.08:1);
-  const cyc=(t*.55+b.ph)%3,lift=cyc<1?Math.sin(cyc*PI):0;
-  b.head.position.y=b.s+.82+Math.sin(t*2+b.ph)*.02*k;b.head.rotation.x=-.12*lift*k;
-  b.head.rotation.y=b.d.r==='meh'?Math.sin(t*3+b.ph)*.25*k*(cyc>1.5&&cyc<2.3?1:0):0;
+  // gesto de comer: mano al plato, coge, a la boca, mastica
+  const cyc=(t*.5+b.ph)%3.2,E=x=>x<0?0:x>1?1:x*x*(3-2*x);
+  const REST=[.25,b.s+.35,.2],PLATE=[.1,b.py+.12-0,b.po-.08],MOUTH=[.07,b.s+.74,.3];
+  let P=REST,show=false,chew=0;
+  if(cyc<.7){const q=E(cyc/.7);P=REST.map((v,j)=>v+(PLATE[j]-v)*q)}
+  else if(cyc<1){P=PLATE;show=cyc>.85}
+  else if(cyc<1.7){const q=E((cyc-1)/.7);P=PLATE.map((v,j)=>v+(MOUTH[j]-v)*q);show=true}
+  else if(cyc<2.2){P=MOUTH;show=cyc<1.85;chew=1}
+  else if(cyc<2.8){const q=E((cyc-2.2)/.6);P=MOUTH.map((v,j)=>v+(REST[j]-v)*q);chew=cyc<2.5?1:0}
+  if(!k)P=REST;
+  b.arm.position.set(P[0]-REST[0],P[1]-REST[1],P[2]-REST[2]);b.bite.visible=!!k&&show;
+  const lean=k*(cyc<1?E(cyc/.5)*(cyc<.7?1:1-E((cyc-.7)/.3)):0);
+  b.head.position.y=b.s+.82+Math.sin(t*2+b.ph)*.02*k-(chew?Math.abs(Math.sin(t*14))*.025:0);b.head.rotation.x=.18*lean*k;
+  b.head.rotation.y=b.d.r==='meh'?Math.sin(t*3+b.ph)*.25*k*(cyc>2.3&&cyc<3.1?1:0):0;
   b.head.rotation.z=b.d.r==='love'?Math.sin(t*2.4+b.ph)*.12*k:Math.sin(t*1.3+b.ph)*.05*k;
-  b.arm.position.set(-.08*lift*k,.3*lift*k,-.04*lift*k);b.bite.visible=cyc<.55;
   if(b.star){b.star.position.y=b.star.userData.y0+Math.sin(t*2+b.ph)*.05*k}
   b.hearts.forEach((h,j)=>{const q=((t*.4+b.ph+j*.5)%2.2)/1.2;h.visible=!!k&&q<1;if(q<1){h.position.set(.18+Math.sin(q*6+j)*.06,b.s+1.15+q*.6,.05);h.scale.setScalar(Math.max(.01,Math.sin(q*PI)*1.1))}});
  });
