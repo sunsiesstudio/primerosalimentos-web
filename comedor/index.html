@@ -317,7 +317,8 @@ function rng(str){let h=1779033703^str.length;for(let i=0;i<str.length;i++){h=Ma
 function service(sl){const r=rng(sl.day+sl.k),out=[],AGE={'Purés':[6,7],'Grumos':[7,9],'Trozos':[8,12]},MAX={'Purés':4,'Grumos':4,'Trozos':6};
  Object.keys(MAX).forEach(st=>{const pool=DISHES.filter(d=>d.stage===st&&d.fit.includes(sl.k));if(!pool.length)return;const n=2+Math.floor(r()*(MAX[st]-1));
   for(let i=0;i<n;i++){const d=pool[Math.floor(r()*pool.length)],[a,b]=AGE[st],x=r();out.push({...d,meal:sl.meal,m:a+Math.floor(r()*(b-a+1)),r:x<.42?'love':x<.82?'like':'meh',nw:r()<.25?1:0})}});
- for(let i=out.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[out[i],out[j]]=[out[j],out[i]]}return out}
+ for(let i=out.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[out[i],out[j]]=[out[j],out[i]]}
+ const si=SLOTS.findIndex(x=>x.k===sl.k);out.forEach(x=>x.mc=1+Math.floor(r()*(si+1)));return out}
 let TODAY=[],SL=null;const EVERY=11000;
 const PANTRY={
  'Nevera':['Yogur natural','Queso fresco','Huevo','Fresas','Brócoli','Calabacín','Zanahoria','Merluza','Pollo','Salmón'],
@@ -700,23 +701,26 @@ function addBaby(d,i,instant){const st=d.stage||STAGE[d.tex],seat=seatFor(st);if
  const [x,z,ry,s,py,po,y0]=seat;
  const g=new THREE.Group();g.position.set(x,y0||0,z);g.rotation.y=ry;S.add(g);
  const skin=SK[i%5],on=ON[(i*3)%7];
- mk(sph(.28),on,0,s+.3,0,g).scale.set(1,1.1,.95);
- [-1,1].forEach(k=>mk(sph(.1),on,k*.12,s+.1,.24,g));
- const head=new THREE.Group();head.position.set(0,s+.82,0);g.add(head);
+ // más alto según la edad y más gordito según las comidas de hoy (1 a 4 o más)
+ const kk=Math.max(.8,Math.min(1.14,.8+((d.m||8)-6)*.05)),fat=1+(Math.min(4,d.mc||1)-1)*.14;
+ const kid=new THREE.Group();kid.scale.setScalar(kk);kid.position.y=s*(1-kk);g.add(kid);
+ mk(sph(.28),on,0,s+.3,0,kid).scale.set(fat,1.1+(fat-1)*.25,.95*fat);
+ [-1,1].forEach(k=>mk(sph(.1),on,k*.12*fat,s+.1,.24*fat,kid));
+ const head=new THREE.Group();head.position.set(0,s+.82,0);kid.add(head);
  mk(sph(.32),skin,0,0,0,head);const h=new THREE.Mesh(hairG,M(HA[(i*2)%5]));h.position.y=.02;h.rotation.x=-.25;head.add(h);
  [-1,1].forEach(k=>{mk(sph(.07),skin,k*.31,0,0,head);mk(sph(.034),C.ink,k*.11,.02,.29,head);const ck=mk(sph(.055),0xf0a08a,k*.19,-.07,.25,head);ck.scale.z=.4});
  if(d.r==='love'){const m=new THREE.Mesh(bigG,M(0x8a3a3a));m.position.set(0,-.1,.315);head.add(m)}
  else if(d.r==='like'){const m=new THREE.Mesh(smileG,M(C.ink));m.position.set(0,-.08,.3);m.rotation.z=PI;m.scale.setScalar(.8);head.add(m)}
  else{const m=mk(box(.09,.018,.02),C.ink,0,-.12,.305,head);m.rotation.z=.15}
- mk(cyl(.16,.16,.03),0xfffdf6,0,s+.42,.24,g).rotation.x=P2*.85;
- const arm=new THREE.Group();g.add(arm);mk(sph(.08),skin,.25,s+.35,.2,arm);
+ mk(cyl(.16,.16,.03),0xfffdf6,0,s+.42,.24+.27*(fat-1),kid).rotation.x=P2*.85;
+ const arm=new THREE.Group();kid.add(arm);mk(sph(.08),skin,.25,s+.35,.2,arm);
  const bite=mk(sph(.05),colOf(d.ings.find(n=>!COND.includes(n))),.25,s+.45,.26,arm);
- mk(sph(.08),skin,-.26,s+.35,.2,g);
+ mk(sph(.08),skin,-.26*fat,s+.35,.2,kid);
  dish(d,g,0,py,po);
  let star=null;if(d.nw){star=new THREE.Mesh(starG,starM);star.position.set(0,py+.55,po);star.userData.y0=py+.55;g.add(star)}
  const hearts=[];if(d.r==='love')for(let k=0;k<2;k++){const hh=heart();hh.visible=false;g.add(hh);hearts.push(hh)}
  g.traverse(o=>o.userData.i=i);
- babies.push({d,g,head,arm,bite,star,hearts,ph:Math.random()*6,s,py,po,born:instant?-99:performance.now()/1000});
+ babies.push({d,g,kid,kk,head,arm,bite,star,hearts,ph:Math.random()*6,s,py,po,born:instant?-99:performance.now()/1000});
  if(!instant)g.scale.setScalar(.001)}
 
 // en directo (simulado)
@@ -764,7 +768,7 @@ const MONTHS=m=>m===1?'1 mes':m+' meses';
 const recipeFor=d=>RECIPES[d.dish];
 function openBaby(i){sel=i;const d=TODAY[i],R0=recipeFor(d),ings=d.ings.filter(n=>!COND.includes(n));
  show(`<div class="pv" id="pv"></div>
- <div class="hd"><h2>Bebé de ${MONTHS(d.m)}</h2><p class="svc">${esc(d.meal)} · ${esc(d.stage)}</p></div>
+ <div class="hd"><h2>Bebé de ${MONTHS(d.m)}</h2><p class="svc">${esc(d.meal)} · ${esc(d.stage)} · ${d.mc||1} ${(d.mc||1)===1?'comida':'comidas'} hoy</p></div>
  <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
  <div class="slot">${esc(d.meal)}</div>
  <div class="row"><span class="plate"><span class="ico">${dishSvg(ings)}</span></span><div><p>${esc(d.dish)}</p>
@@ -813,7 +817,8 @@ const fv=v=>v==null?null:'stringValue' in v?v.stringValue:'integerValue' in v?+v
 const STG={'Puré':'Purés','Grumos':'Grumos','Trozos':'Trozos'};
 async function fetchLive(sl){try{const r=await fetch(FS,{cache:'no-store'});if(!r.ok)return [];const j=await r.json(),doc=Object.fromEntries(Object.entries(j.fields||{}).map(([k,x])=>[k,fv(x)]));
  const yd=new Date(sl.iso+'T12:00:00Z');yd.setUTCDate(yd.getUTCDate()-1);if(doc.day===sl.iso)AYER=typeof doc.ayer==='number'?doc.ayer:null;else{AYER=doc.day===yd.toISOString().slice(0,10)?new Set((doc.items||[]).map(i=>i&&(i.b||i.k))).size:null;return []}
- return (doc.items||[]).filter(x=>x&&x.ml===sl.meal&&Array.isArray(x.ings)&&x.ings.length&&STG[x.tex]).map(x=>({k:String(x.k),meal:x.ml,m:Math.max(4,Math.min(36,+x.m||6)),dish:String(x.dish||x.ings.join(', ')).slice(0,90),ings:x.ings.map(String).slice(0,6),tex:x.tex,stage:STG[x.tex],r:['love','like','meh'].includes(x.r)?x.r:'like',nw:x.nw?1:0}))}catch(e){return []}}
+ const MC={};(doc.items||[]).forEach(x=>{if(x&&x.b)MC[x.b]=(MC[x.b]||0)+1});
+ return (doc.items||[]).filter(x=>x&&x.ml===sl.meal&&Array.isArray(x.ings)&&x.ings.length&&STG[x.tex]).map(x=>({k:String(x.k),meal:x.ml,m:Math.max(4,Math.min(36,+x.m||6)),dish:String(x.dish||x.ings.join(', ')).slice(0,90),ings:x.ings.map(String).slice(0,6),tex:x.tex,stage:STG[x.tex],r:['love','like','meh'].includes(x.r)?x.r:'like',nw:x.nw?1:0,mc:x.b?MC[x.b]:1}))}catch(e){return []}}
 let demoN=0;
 async function getList(sl){if(LIVE)return fetchLive(sl);const all=service(sl).map((d,i)=>({...d,k:'d'+i}));
  if(!sl.open)return all;if(!demoN)demoN=Math.max(3,Math.round(all.length*Math.min(1,.35+sl.frac*.65)));else demoN++;return all.slice(0,Math.min(demoN,all.length))}
@@ -896,7 +901,7 @@ function loop(){const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime,now=
   else b.g.scale.setScalar(TODAY.indexOf(b.d)===sel?1.08:1);
   // gesto de comer: mano al plato, coge, a la boca, mastica
   const cyc=(t*.5+b.ph)%3.2,E=x=>x<0?0:x>1?1:x*x*(3-2*x);
-  const REST=[.25,b.s+.35,.2],PLATE=[.1,b.py+.12-0,b.po-.08],MOUTH=[.07,b.s+.74,.3];
+  const kk=b.kk,ky=b.kid.position.y,REST=[.25*kk,ky+kk*(b.s+.35),.2*kk],PLATE=[.1,b.py+.12,b.po-.08],MOUTH=[.07*kk,ky+kk*(b.s+.74),.3*kk];
   let P=REST,show=false,chew=0;
   if(cyc<.7){const q=E(cyc/.7);P=REST.map((v,j)=>v+(PLATE[j]-v)*q)}
   else if(cyc<1){P=PLATE;show=cyc>.85}
@@ -904,7 +909,7 @@ function loop(){const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime,now=
   else if(cyc<2.2){P=MOUTH;show=cyc<1.85;chew=1}
   else if(cyc<2.8){const q=E((cyc-2.2)/.6);P=MOUTH.map((v,j)=>v+(REST[j]-v)*q);chew=cyc<2.5?1:0}
   if(!k)P=REST;
-  b.arm.position.set(P[0]-REST[0],P[1]-REST[1],P[2]-REST[2]);b.bite.visible=!!k&&show;
+  b.arm.position.set(P[0]/kk-.25,(P[1]-ky)/kk-(b.s+.35),P[2]/kk-.2);b.bite.visible=!!k&&show;
   const lean=k*(cyc<1?E(cyc/.5)*(cyc<.7?1:1-E((cyc-.7)/.3)):0);
   b.head.position.y=b.s+.82+Math.sin(t*2+b.ph)*.02*k-(chew?Math.abs(Math.sin(t*14))*.025:0);b.head.rotation.x=.18*lean*k;
   b.head.rotation.y=b.d.r==='meh'?Math.sin(t*3+b.ph)*.25*k*(cyc>2.3&&cyc<3.1?1:0):0;
