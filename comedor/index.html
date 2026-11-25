@@ -111,7 +111,7 @@ body.sh header{opacity:0}
 .fd{width:100%;height:100%;fill:none;display:block}.fd .o{stroke:none}
 .fd .o[fill="none"]{stroke:rgba(0,0,0,.4);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}.fd .o.w{stroke:#fff!important}
 @media(prefers-reduced-motion:reduce){.toast,.sheet{transition:none}.svc i{animation:none}}
-.wel{text-align:center;padding:16px 24px 8px}.wel .wil{width:230px;max-width:72%;height:auto;display:block;margin:0 auto 2px}.wel .wt{font:400 25px/1.12 "Luckiest Guy",cursive;color:var(--green);margin:2px 0 14px;letter-spacing:.4px}.wel .wn{display:inline-flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--terra) 13%,transparent);border-radius:999px;padding:5px 16px 5px 5px;margin-bottom:12px}.wel .wn svg{width:40px;height:40px;flex:none}.wel .wn b{font:400 24px "Luckiest Guy",cursive;color:var(--terra)}.wel .wn span{font:600 14px Montserrat,sans-serif;color:var(--ink)}.wel .ws{font-size:14px;line-height:1.45;margin:0 0 14px;color:var(--mute)}.wel .opts{padding:0}
+.wel{text-align:center;padding:16px 24px 8px}.wel .wil{width:230px;max-width:72%;height:auto;display:block;margin:0 auto 2px}.wel .wt{font:400 25px/1.12 "Luckiest Guy",cursive;color:var(--green);margin:2px 0 14px;letter-spacing:.4px}.wel .wn{display:inline-flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--terra) 13%,transparent);border-radius:999px;padding:5px 16px 5px 5px;margin-bottom:12px}.wel .wn svg{width:40px;height:40px;flex:none}.wel .wn b{font:400 24px/1 "Luckiest Guy",cursive;color:var(--terra);display:block;padding-top:.2em}.wel .wn span{font:600 14px Montserrat,sans-serif;color:var(--ink)}.wel .ws{font-size:14px;line-height:1.45;margin:0 0 14px;color:var(--mute)}.wel .opts{padding:0}
 .tx{display:flex;gap:10px;align-items:baseline;margin:12px 24px 2px;padding:10px 14px;border-radius:14px;background:color-mix(in srgb,var(--green) 10%,transparent);font-size:13.5px;line-height:1.4;color:var(--ink)}.tx b{font:700 11px Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--green);flex:none}
 </style>
 
@@ -871,9 +871,8 @@ function openHost(){sel=-1;pvOn=false;const n=TODAY.length;
  const now=SL.open?{D:'desayunando',C:'comiendo',M:'merendando',N:'cenando'}[SL.k]+' ahora':'han pasado hoy por las '+esc(SL.pl);
  show(`<div class="cm wel">${WILL}<h2 class="wt">¡Bienvenidos al restaurante de Primeros Alimentos!</h2>
   <div class="wn">${BABYF}<b>${n}</b><span>${n===1?'bebé':'bebés'} ${now}</span></div>
-  <p class="ws">Lo que comen en directo los bebés de la app. Todo anónimo.</p>
-  <div class="opts"><a class="op main" href="https://app.primerosalimentos.com/" target="_blank" rel="noopener">Usar la app</a><button class="op" data-a="no">Seguir mirando</button></div></div>`,true);
- sc2.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>sheet.classList.remove('open'))}
+  <p class="ws">Cada bebé que ves es una comida que una familia acaba de apuntar en la app: su plato, su edad y cómo le ha sentado. Según la hora verás desayunos, comidas, meriendas o cenas. Todo anónimo.</p>
+  <div class="opts"><a class="op main" href="https://app.primerosalimentos.com/" target="_blank" rel="noopener">Ir a la app</a></div></div>`,true)}
 function hostAge(){hostCard({h:'¡Genial!',sub:'Te preparo la trona',body:`<p><b>¿Cuántos meses tiene?</b> Así le busco la sillita y la textura que toca.</p>`,
   opts:`<div class="ages">${[6,7,8,9,10,11,12].map(m=>`<button class="op age" data-a="${m}">${m===12?'12+':m}</button>`).join('')}</div>`,on:a=>{HS.m=+a;hostDish()}})}
 function hostDish(){const sm=SEASON.menu.find(x=>x[0]===SL.meal);const md=sm&&sm[1];const tex=HS.m<7?'Puré':HS.m<9?'Grumos':'Trozos';
