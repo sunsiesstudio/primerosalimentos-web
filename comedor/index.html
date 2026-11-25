@@ -385,10 +385,8 @@ mk(box(14.4,3,.25),0xf0d2c4,0,1.5,-6.12);
 mk(box(9.5,.9,.04),C.terra,-2.45,.45,-5.98);for(let i=0;i<38;i++){const sc=mk(cyl(.125,.125,.02,20,1,false),C.terra,-7+i*.25,.9,-5.98);sc.rotation.x=P2;sc.scale.y=1}
 mk(box(.25,3,7.6),0xeed9a6,-7.12,1.5,-2.3);
 mk(box(.04,.9,7.6),C.sage,-6.98,.45,-2.3);
-arch(-1.3,.9,-5.97,3.4,2.05,C.cream);
+arch(-1.3,.9,-5.97,3.4,2.05,C.blush);
 const winM=new THREE.MeshStandardMaterial({color:0xcfe3ea,emissive:0xffd58a,emissiveIntensity:0});const glow=[winM];
-arch(-4.9,.95,-5.965,1.3,1.75,0,0,winM);
-arch(-6.955,.95,-1.6,1.75,2.1,C.terra,P2);arch(-6.945,1.1,-1.6,1.4,1.8,0,P2,winM);
 // ventanas con luz natural
 const SHAFT=new THREE.MeshBasicMaterial({color:0xfff0c8,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending});
 const PATCH=new THREE.MeshBasicMaterial({color:0xfff3d6,transparent:true,opacity:0,depthWrite:false});
@@ -461,7 +459,6 @@ mk(cyl(.1,.13,.3,16),C.terra,-1.5,1.25,-3.6);[[-.06,C.pink],[.07,C.mustard],[0,C
 [[-2.3,-.1],[.8,-.1]].forEach(([x,z],i)=>{const r=mk(cyl(1.25,1.25,.02,36),i?C.olive:C.mustard,x,.11,z);r.scale.x=1.35;r.castShadow=false;mk(cyl(.95,.95,.022,36),C.cream,x,.112,z).scale.x=1.35;mk(cyl(.66,.66,.07,28),C.woodL,x,1.05,z);mk(cyl(.06,.06,1,8),C.wood,x,.5,z);mk(cyl(.3,.3,.03,20),C.wood,x,.02,z);mk(cyl(.06,.08,.14,10),C.terra,x,1.16,z);mk(sph(.08),i?C.blush:C.mustard,x,1.33,z)});
 // lámparas de ratán
 const shadeG=new THREE.SphereGeometry(.42,20,12,0,PI*2,0,PI/2);
-for(let i=0;i<3;i++){const x=-2.9+i*1.4;mk(cyl(.012,.012,1,6),C.ink,x,2.5,-3.6);const sh=new THREE.Mesh(shadeG,new THREE.MeshStandardMaterial({color:C.rattan,roughness:.9,side:THREE.DoubleSide}));sh.position.set(x,1.95,-3.6);sh.castShadow=true;(CUR||S).add(sh);bulb(x,1.85,-3.6,.09)}
 
 // sofás redondeados
 CUR=SOF;
@@ -532,7 +529,6 @@ for(let i=0;i<14;i++)for(let j=0;j<5;j++)mk(box(.98,.1,.98),(i+j)%2?0xc9724f:0xe
 const TER=new THREE.Group();(CUR||S).add(TER);CUR=TER;
 for(let i=0;i<7;i++){const x=-6.2+i*2.05;mk(box(1.6,.5,.5),i%2?C.terra:C.cream,x,.25,6.75);mk(sph(.3),C.olive,x-.3,.62,6.75);mk(sph(.28),0x8fb478,x+.25,.6,6.75);mk(sph(.18),i%2?C.mustard:C.terra,x+.55,.62,6.7)}
 [[-6.9,1.7],[6.9,1.7],[-6.9,6.6],[6.9,6.6]].forEach(([x,z])=>mk(cyl(.05,.05,3,8),C.wood,x,1.5,z));
-[[[-6.9,1.7],[6.9,1.7]],[[-6.9,6.6],[6.9,6.6]],[[-6.9,1.7],[-6.9,6.6]],[[6.9,1.7],[6.9,6.6]]].forEach(([a,b])=>{for(let i=1;i<14;i++){const t=i/14,x=a[0]+(b[0]-a[0])*t,z=a[1]+(b[1]-a[1])*t,y=2.95-Math.sin(t*PI)*.45;bulb(x,y,z,.06)}});
 function parasol0(x,z,c1,c2,y0){const g=new THREE.Group();g.position.y=y0;(CUR||S).add(g);const pc=CUR;CUR=g;parasol(x,z,c1,c2);CUR=pc}
 function parasol(x,z,c1,c2){mk(cyl(.03,.03,2.9,8),C.cream,x,2.45,z);for(let i=0;i<8;i++){const m=new THREE.Mesh(new THREE.ConeGeometry(1.05,.45,8,1,true,i*PI/4,PI/4),M(i%2?c1:c2));m.position.set(x,3.65,z);m.material.side=THREE.DoubleSide;m.castShadow=true;(CUR||S).add(m)}
  for(let i=0;i<16;i++){const a=i/16*PI*2;mk(sph(.035),c1,x+Math.cos(a)*1.02,3.4,z+Math.sin(a)*1.02)}}
@@ -582,13 +578,13 @@ function physics(dt){const g=-9.8,steps=2,h=dt/steps;
     const rv=(B.v.x-A.v.x)*nx+(B.v.y-A.v.y)*ny+(B.v.z-A.v.z)*nz;if(rv<0){const j=-rv*.6;if(wa){A.v.x-=nx*j;A.v.y-=ny*j;A.v.z-=nz*j}if(wb){B.v.x+=nx*j;B.v.y+=ny*j;B.v.z+=nz*j}}}}}
  balls.forEach(b=>{if(b!==drag&&b.v.lengthSq()>.01){b.m.rotation.x+=b.v.z*dt*4;b.m.rotation.z-=b.v.x*dt*4}})}
 let drag=null;
+for(let i=0;i<360;i++)physics(1/60);balls.forEach(b=>b.v.set(0,0,0));
 
 CUR=PLAY;
 const tp=new THREE.Mesh(new THREE.ConeGeometry(.85,1.9,6,1,true),M(C.lilac));tp.material.side=THREE.DoubleSide;tp.position.set(6.1,.95,.9);tp.castShadow=true;(CUR||S).add(tp);
 for(let i=0;i<6;i++){const a=i/6*PI*2;const st=mk(cyl(.02,.02,2.3,6),C.wood,6.1+Math.cos(a)*.35,1.1,.9+Math.sin(a)*.35);st.rotation.z=Math.cos(a)*.35;st.rotation.x=-Math.sin(a)*.35}
 mk(box(.25,.02,.9),C.terra,6.1,1.02,.9+.0).visible=false;
 mk(box(1.4,1.1,.35),C.woodL,6.75,.55,-1.2);[C.terra,C.cobalt,C.mustard,C.sage,C.pink].forEach((c,i)=>mk(box(.08,.3,.24),c,6.2+i*.12,1.26,-1.2));
-for(let i=0;i<5;i++)bulb(2.6+i*.45,2.3-Math.sin(i/4*PI)*.25,1.4,.05);
 CUR=null;
 
 
@@ -909,7 +905,7 @@ function loop(){const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime,now=
  night+=(nightT-night)*Math.min(1,dt*2.5);
  bg.copy(DAYC).lerp(NIGHTC,night);S.background.copy(bg);S.fog.color.copy(bg);
  sun.intensity=.62-.5*night;hemi.intensity=.5-.22*night;
- warm.forEach(l=>l.intensity=.25+night*1.05);lamps.forEach(l=>l.material.emissiveIntensity=.15+night*1.2);glow.forEach(m=>m.emissiveIntensity=night*.8+(1-night)*.55);SHAFT.opacity=(1-night)*.16;PATCH.opacity=(1-night)*.3;
+ warm.forEach(l=>l.intensity=.25+night*1.05);lamps.forEach(l=>l.material.emissiveIntensity=.15+night*1.2);glow.forEach(m=>m.emissiveIntensity=night*.8+(1-night)*.25);SHAFT.opacity=0;PATCH.opacity=(1-night)*.14;
  const k=reduce?0:1;
  babies.forEach((b,i)=>{const age=now-b.born;
   if(age<1.2){const p=Math.max(0,age/1.2),e=reduce?1:1+Math.sin(p*PI)*.25*(1-p);b.g.scale.setScalar(Math.max(.001,p*e))}
