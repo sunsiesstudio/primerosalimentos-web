@@ -25,7 +25,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);font:15px/1.
 .disp{font-family:'Luckiest Guy',cursive;font-weight:400;letter-spacing:.02em}
 header{position:fixed;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top) + 10px) 12px 0;display:flex;justify-content:center;pointer-events:none;transition:opacity .25s}
 body.sh header{opacity:0}
-.chips2{display:flex;gap:10px;pointer-events:auto}
+.chips2{display:none}
 .chip{position:relative;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;color:var(--terra);cursor:pointer;padding:0;box-shadow:0 4px 14px rgba(20,18,60,.10)}
 .chip svg{width:26px;height:26px;display:block}
 .chip b{position:absolute;right:-5px;bottom:-5px;min-width:21px;height:21px;padding:0 5px;border-radius:11px;background:var(--terra);color:var(--onacc);font:700 11px/21px Montserrat,sans-serif;text-align:center}
@@ -792,7 +792,7 @@ function openKitchen(){sel=-1;pvOn=false;
  <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
  ${rows.length?`<div class="slot">Ya servidos</div><ul class="list">${rows.slice(0,5).map(([n,x])=>`<li><span class="ico">${dishSvg(x.ings.filter(y=>!COND.includes(y)))}</span><span>${esc(n)}${x.n>1?` <small>· ${x.n}</small>`:''}</span></li>`).join('')}</ul>
  <div class="slot" style="margin-top:20px">Lo que más se cocina</div><div class="grid">${top.map(([n,k])=>`<div class="it"><span class="ico">${ico(n)}</span>${esc(n)}<small>${k} ${k===1?'plato':'platos'}</small></div>`).join('')}</div>`
- :`<p class="note" style="margin-top:0">Todavía no ha salido ningún plato en ${esc(SL.pl)}.</p>`}</div>`)}
+ :`<p class="note" style="margin-top:0">Todavía no ha salido ningún plato en ${esc(SL.pl)}.</p>`}</div>`,true)}
 const REP={D:[9,0],C:[13,30],M:[17,30],N:[20,30]};
 function updClock(){if(SL&&SL.open){const hm=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date()).split(':');drawClock(+hm[0],+hm[1])}else{const r=REP[(SL||{}).k||'N'];drawClock(r[0],r[1])}}
 function openClock(){sel=-1;pvOn=false;const r=realSlot(),ci=SLOTS.findIndex(x=>x.k===r.k);
