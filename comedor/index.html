@@ -113,6 +113,7 @@ body.sh header{opacity:0}
 @media(prefers-reduced-motion:reduce){.toast,.sheet{transition:none}.svc i{animation:none}}
 .wel{text-align:center;padding:16px 24px 8px}.wel .wil{width:230px;max-width:72%;height:auto;display:block;margin:0 auto 2px}.wel .wt{font:400 25px/1.12 "Luckiest Guy",cursive;color:var(--green);margin:2px 0 14px;letter-spacing:.4px}.wel .wn{display:inline-flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--terra) 13%,transparent);border-radius:999px;padding:5px 16px 5px 5px;margin-bottom:12px}.wel .wn svg{width:40px;height:40px;flex:none}.wel .wn b{font:400 24px/1 "Luckiest Guy",cursive;color:var(--terra);display:block;padding-top:.2em}.wel .wn span{font:600 14px Montserrat,sans-serif;color:var(--ink)}.wel .ws{font-size:14px;line-height:1.45;margin:0 0 14px;color:var(--mute)}.wel .opts{padding:0}
 .tx{display:flex;gap:10px;align-items:baseline;margin:12px 24px 2px;padding:10px 14px;border-radius:14px;background:color-mix(in srgb,var(--green) 10%,transparent);font-size:13.5px;line-height:1.4;color:var(--ink)}.tx b{font:700 11px Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--green);flex:none}
+@media(min-width:820px) and (min-aspect-ratio:1/1){.sheet:not(.mid){left:auto;right:28px;top:50%;bottom:auto;max-height:88vh;transform:translate(24px,-50%)}.sheet.open:not(.mid){transform:translate(0,-50%)}.sheet.half{max-height:88vh}.sheet.half .pv{height:180px}}
 </style>
 
 <script>window.PA_LIVE=1</script>
@@ -974,7 +975,7 @@ function openMenu(st){if(st!=null)MST=st;sel=-1;pvOn=false;show(`<div class="cm"
 $('close').onclick=()=>{sheet.classList.remove('open');sel=-1;pvOn=false};
 // al tocar "acaba de comer": zoom al bebé y su ficha
 let FLY=null;
-function flyTo(pos,dist){const dir=cam.position.clone().sub(ctl.target).normalize();const tP=pos.clone().add(dir.multiplyScalar(dist));const tT=pos.clone().add(new THREE.Vector3(0,-1.25,0));
+function flyTo(pos,dist){const dir=cam.position.clone().sub(ctl.target).normalize();const tP=pos.clone().add(dir.multiplyScalar(dist));const wide=innerWidth>=820&&innerWidth>=innerHeight,rt=new THREE.Vector3().crossVectors(dir,new THREE.Vector3(0,1,0)).normalize();const tT=wide?pos.clone().add(rt.multiplyScalar(-1.6)).add(new THREE.Vector3(0,-.3,0)):pos.clone().add(new THREE.Vector3(0,-1.25,0));
  FLY={t:0,fT:ctl.target.clone(),tT,fP:cam.position.clone(),tP}}
 $('toast').onclick=()=>{const b=babies.find(x=>TODAY.indexOf(x.d)===toastI);if(!b)return;$('toast').classList.remove('show');
  const p=new THREE.Vector3(0,b.s+1,0);b.g.localToWorld(p);flyTo(p,3.6);openBaby(toastI);sheet.classList.add('half')};
