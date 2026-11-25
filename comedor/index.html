@@ -677,6 +677,7 @@ for(let i=0;i<6;i++){const f=mk(cyl(.12,.12,.012,14),C.terra,-.95,.02,.5+i*.5);f
  }
 const KCH=new THREE.Group();KCH.position.set(-.5,0,-1.45);KCH.scale.setScalar(.78);KIOSK.add(KCH);{const c=KCH;mk(sph(.4),0xffffff,0,.95,0,c).scale.set(1,1.25,1);mk(sph(.36),0xe0ac85,0,1.68,0,c);mk(cyl(.24,.21,.36),0xffffff,0,2.12,0,c);mk(sph(.27),0xffffff,0,2.35,0,c);
  [-1,1].forEach(k=>{mk(sph(.035),C.ink,k*.11,1.72,.33,c);mk(sph(.12),0xe0ac85,k*.4,1.1,.12,c)});mk(box(.5,.55,.06),C.terra,0,1.0,.38,c);const sm=new THREE.Mesh(new THREE.TorusGeometry(.06,.014,8,16,PI),M(C.ink));sm.position.set(0,1.6,.34);sm.rotation.z=PI;c.add(sm)}
+KIOSK.traverse(o=>{if(!o.userData.menu)o.userData.k=1});
 CUR=null;
 // restaurante pequeño: tres mesas redondas (nivel 3)
 CUR=SMALL;monstera(-1.95,.9,.75);pampas(-1.95,-5.55);[[-1.2,-4.4],[.9,-2.6]].forEach(([x,z])=>{mk(cyl(.55,.55,.07,28),C.woodL,x,1.05,z);mk(cyl(.06,.06,1,8),C.wood,x,.5,z);mk(cyl(.32,.32,.03,20),C.wood,x,.02,z);mk(cyl(.07,.09,.18,10),C.terra,x,1.18,z);mk(sph(.07),C.pink,x,1.32,z)});CUR=null;
@@ -945,14 +946,15 @@ function openBaby(i){sel=i;const d=TODAY[i],R00=recipeFor(d),R0=R00&&{...R00,__s
  <span class="note">${LIVE?'Datos reales y anónimos de las familias que usan la app.':'Comidas de ejemplo con platos de la app.'} Sin nombres ni datos personales.</span>`);
  wireRec();
  preview(d)}
-function openKitchen(){sel=-1;pvOn=false;
- const c={};TODAY.forEach(d=>d.ings.forEach(n=>{if(!COND.includes(n))c[n]=(c[n]||0)+1}));const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,4);
- const m={};TODAY.forEach(d=>{(m[d.dish]=m[d.dish]||{n:0,ings:d.ings}).n++});const rows=Object.entries(m).sort((a,b)=>b[1].n-a[1].n);
- show(`<div class="cm"><div class="hd" style="padding-top:22px"><h2>La cocina</h2><p class="svc">${SL.open?'Cocinando '+esc(SL.pl):esc(SL.pl[0].toUpperCase()+SL.pl.slice(1))+' de hoy'} · ${TODAY.length} ${TODAY.length===1?'plato':'platos'}</p><p class="svc" style="margin-top:4px">Nivel ${LVL} · ${esc(LVN[LVL])}</p></div>
+async function openKitchen(){sel=-1;pvOn=false;const r=realSlot();const ci=r.open?SLOTS.findIndex(x=>x.k===r.k):3;
+ const lists=[];for(let i=0;i<SLOTS.length;i++){if(i>ci)break;const sl={...SLOTS[i],open:false,frac:1,day:r.day,iso:r.iso};lists.push([SLOTS[i],SL&&SL.k===SLOTS[i].k?TODAY:await getList(sl)])}
+ const tot=lists.reduce((a,[,l])=>a+l.length,0),c={};lists.forEach(([,l])=>l.forEach(d=>d.ings.forEach(n=>{if(!COND.includes(n))c[n]=(c[n]||0)+1})));const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,4);
+ const sec=([sv,l])=>{const m={};l.forEach(d=>{(m[d.dish]=m[d.dish]||{n:0,ings:d.ings}).n++});const rows=Object.entries(m).sort((a,b)=>b[1].n-a[1].n);
+  return `<div class="slot" style="margin-top:16px">${esc(sv.pl[0].toUpperCase()+sv.pl.slice(1))} · ${l.length} ${l.length===1?'plato':'platos'}</div>${rows.length?`<ul class="list">${rows.slice(0,6).map(([n,x])=>`<li><span class="ico">${dishSvg(x.ings.filter(y=>!COND.includes(y)))}</span><span>${esc(n)}${x.n>1?` <small>· ${x.n}</small>`:''}</span></li>`).join('')}${rows.length>6?`<li class="more"><span></span><span><small>y ${rows.length-6} platos más</small></span></li>`:''}</ul>`:`<p class="note" style="margin:4px 0 0">Aún nada.</p>`}`};
+ show(`<div class="cm"><div class="hd" style="padding-top:22px"><h2>La cocina</h2><p class="svc">Hoy · ${tot} ${tot===1?'plato preparado':'platos preparados'}</p></div>
  <div class="div" style="margin:12px 24px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
- ${rows.length?`<div class="slot">Ya servidos</div><ul class="list">${rows.slice(0,5).map(([n,x])=>`<li><span class="ico">${dishSvg(x.ings.filter(y=>!COND.includes(y)))}</span><span>${esc(n)}${x.n>1?` <small>· ${x.n}</small>`:''}</span></li>`).join('')}</ul>
- <div class="slot" style="margin-top:20px">Lo que más se cocina</div><div class="grid">${top.map(([n,k])=>`<div class="it"><span class="ico">${ico(n)}</span>${esc(n)}<small>${k} ${k===1?'plato':'platos'}</small></div>`).join('')}</div>`
- :`<p class="note" style="margin-top:0">Todavía no ha salido ningún plato en ${esc(SL.pl)}.</p>`}</div>`,true)}
+ ${top.length?`<div class="slot">Lo que más se cocina hoy</div><div class="grid">${top.map(([n,k])=>`<div class="it"><span class="ico">${ico(n)}</span>${esc(n)}<small>${k} ${k===1?'plato':'platos'}</small></div>`).join('')}</div>`:''}
+ ${lists.slice().reverse().map(sec).join('')}</div>`,true)}
 const REP={D:[9,0],C:[13,30],M:[17,30],N:[20,30]};
 function updClock(){if(SL&&SL.open){const hm=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date()).split(':');drawClock(+hm[0],+hm[1])}else{const r=REP[(SL||{}).k||'N'];drawClock(r[0],r[1])}}
 function openClock(){sel=-1;pvOn=false;const r=realSlot(),ci=SLOTS.findIndex(x=>x.k===r.k);
