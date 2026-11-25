@@ -42,6 +42,7 @@ body.sh header{opacity:0}
 .toast small{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);margin-bottom:2px}.toast div{min-width:0}.toast b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sheet{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 12px);width:min(440px,calc(100% - 20px));max-height:84vh;overflow:auto;overscroll-behavior:contain;transform:translate(-50%,24px);opacity:0;pointer-events:none;transition:.28s;background:var(--sheet);border-radius:26px;padding:6px;box-shadow:0 18px 50px rgba(20,18,60,.3);z-index:2}
 .sheet.open{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.sheet.half{max-height:50vh}.sheet.half .pv{height:130px}
 .sheet.mid{top:50%;bottom:auto;transform:translate(-50%,-46%)}.sheet.mid.open{transform:translate(-50%,-50%)}
 .mdd{border:1.5px solid var(--green);border-radius:22px;padding:0 0 22px;overflow:hidden;box-shadow:inset 0 0 0 4px var(--sheet),inset 0 0 0 5.5px color-mix(in srgb,var(--green) 60%,transparent)}
 .x{position:absolute;top:16px;right:16px;width:44px;height:44px;border:1.5px solid var(--line);background:var(--card);color:var(--mute);font-size:22px;line-height:1;cursor:pointer;border-radius:50%;z-index:3;display:grid;place-items:center}
@@ -340,7 +341,7 @@ const SEATS={
  'Kiosk':[-1.6,-.5,.6].flatMap(x=>[[x,.6,0,.88,1.12,.7],[x,2.2,PI,.88,1.12,.7]]),
  'Pequeño':[[-3.2,-3.8],[-.4,-3.8],[-4.9,-1.3]].flatMap(([x,z])=>[[x,z-.95,0,.88,1.12,.55],[x,z+.95,PI,.88,1.12,.55]]),
  'Azotea':[[2.65,-4.7,P2,.88,1.12,.95,2.73],[4.55,-4.7,-P2,.88,1.12,.95,2.73],[3.6,-5.65,0,.88,1.12,.95,2.73],[3.6,-3.75,PI,.88,1.12,.95,2.73],[4.85,-3.0,P2,.88,1.12,.95,2.73],[6.75,-3.0,-P2,.88,1.12,.95,2.73],[5.8,-3.95,0,.88,1.12,.95,2.73],[5.8,-2.05,PI,.88,1.12,.95,2.73]],
- 'Jardín':[-4.2,-1.4,1.4,4.2].flatMap(x=>[[x-.45,8.35,0,.88,1.12,.75],[x+.45,8.35,0,.88,1.12,.75],[x-.45,10.25,PI,.88,1.12,.75],[x+.45,10.25,PI,.88,1.12,.75]]),
+ 'Jardín':[-4.2,-1.4,1.4,4.2].flatMap(x=>[[x-.45,8.2,0,.88,1.12,.75],[x+.45,8.2,0,.88,1.12,.75],[x-.45,10.4,PI,.88,1.12,.75],[x+.45,10.4,PI,.88,1.12,.75]]),
  'Trozos':[[-2.9,-4.95,0,.88,1.12,.75],[-1.5,-4.95,0,.88,1.12,.75],[-.1,-4.95,0,.88,1.12,.75],[-2.9,-2.25,PI,.88,1.12,.75],[-1.5,-2.25,PI,.88,1.12,.75],[-.1,-2.25,PI,.88,1.12,.75]],
  'Purés':[[-6.35,-4.2,P2,.5,.66,.95],[-6.35,-2.8,P2,.5,.66,.95],[-6.35,-.9,P2,.5,.66,.95],[-6.35,.45,P2,.5,.66,.95]],
  'Grumos':[[-3.25,-.1,P2,.88,1.12,.55],[-1.35,-.1,-P2,.88,1.12,.55],[-.15,-.1,P2,.88,1.12,.55],[1.75,-.1,-P2,.88,1.12,.55]],
@@ -652,7 +653,7 @@ const KIOSK=new THREE.Group();S.add(KIOSK);CUR=KIOSK;
  for(let i=0;i<9;i++){const a=mk(box(.5,.05,.8),i%2?C.terra:C.cream,X-2+i*.5,2.3,Z+1.65);a.rotation.x=.45}
  const sg=new THREE.Mesh(new THREE.PlaneGeometry(2.6,.76),new THREE.MeshBasicMaterial({map:signTex2('Para llevar'),transparent:true}));sg.position.set(X,3.25,Z+1.32);KIOSK.add(sg);
  [[-1.6],[1.4]].forEach(([dx])=>{mk(cyl(.3,.24,.5),C.terra,X+dx*1.4,.25,Z+1.7);mk(sph(.4),C.olive,X+dx*1.4,.8,Z+1.7)});
- mk(box(3.4,.08,.9),C.woodL,X,1.05,1.4);[-1.4,1.4].forEach(dx=>mk(box(.08,1,.6),C.wood,X+dx,.5,1.4));
+ mk(box(3.4,.08,1.2),C.woodL,X,1.05,1.4);[-1.4,1.4].forEach(dx=>mk(box(.08,1,.6),C.wood,X+dx,.5,1.4));
  for(let i=0;i<4;i++){const b=mk(box(.28,.3,.22),C.cream,X-.6+i*.4,1.25,Z+1.45);mk(box(.29,.05,.23),C.terra,X-.6+i*.4,1.42,Z+1.45)}}
 CUR=null;
 // restaurante pequeño: tres mesas redondas (nivel 3)
@@ -678,7 +679,7 @@ CUR=null;
 const GAR=new THREE.Group();S.add(GAR);CUR=GAR;
 mk(box(13,.06,4.4),0x9fca7e,0,.03,9.3);for(let i=0;i<9;i++){mk(box(1.4,.45,.4),0x5f8a50,-5.6+i*1.4,.25,11.6)}
 [-6.6,6.6].forEach(x=>mk(box(.4,.45,4.4),0x5f8a50,x,.25,9.3));
-[-4.2,-1.4,1.4,4.2].forEach((x,i)=>{mk(box(1.7,.08,.95),C.wood,x,1.05,9.3);[-.6,.6].forEach(dx=>mk(box(.08,1,.08),C.wood,x+dx,.5,9.3));parasol0(x,9.3,i%2?C.cream:C.mustard,i%2?C.terra:C.olive,0)});
+[-4.2,-1.4,1.4,4.2].forEach((x,i)=>{mk(box(1.7,.08,1.35),C.wood,x,1.05,9.3);[-.6,.6].forEach(dx=>mk(box(.08,1,.08),C.wood,x+dx,.5,9.3));parasol0(x,9.3,i%2?C.cream:C.mustard,i%2?C.terra:C.olive,0)});
 for(let i=0;i<20;i++){const x=-6+i*.63;bulb(x,2.6-Math.sin((i%5)/4*PI)*.25,11.4,.05)}
 [[-6,7.6],[6,7.6]].forEach(([x,z])=>{mk(cyl(.14,.2,1.2),0xa47a55,x,.6,z);mk(sph(.9),0x6f9a5a,x,1.7,z)});
 CUR=null;
@@ -708,7 +709,8 @@ const smileG=geo('smile',()=>new THREE.TorusGeometry(.07,.016,8,16,PI)),bigG=geo
 const starG=new THREE.OctahedronGeometry(.09),starM=new THREE.MeshStandardMaterial({color:0xf2b84b,emissive:0xf2b84b,emissiveIntensity:.5,roughness:.4});
 function heart(){const h=new THREE.Group();mk(sph(.05),0xe05a6a,-.035,0,0,h);mk(sph(.05),0xe05a6a,.035,0,0,h);const c=mk(new THREE.ConeGeometry(.07,.09,12),0xe05a6a,0,-.06,0,h);c.rotation.x=PI;return h}
 let used={},babies=[],LVL=4;
-function seatFor(st){const keys=LVL===1?['Truck']:LVL===2?['Kiosk']:LVL===3?['Pequeño']:[st,...['Trozos','Purés','Grumos'].filter(x=>x!==st),'Terraza',...(LVL>=5?['Azotea']:[]),...(LVL>=6?['Jardín']:[])];for(const k of keys){const n=used[k]||0;if(n<SEATS[k].length){used[k]=n+1;return SEATS[k][n]}}return null}
+let LASTK='';
+function seatFor(st){const keys=LVL===1?['Truck']:LVL===2?['Kiosk']:LVL===3?['Pequeño']:[st,...['Trozos','Purés','Grumos'].filter(x=>x!==st),'Terraza',...(LVL>=5?['Azotea']:[]),...(LVL>=6?['Jardín']:[])];for(const k of keys){const n=used[k]||0;if(n<SEATS[k].length){used[k]=n+1;LASTK=k;return SEATS[k][n]}}return null}
 function addBaby(d,i,instant){const st=d.stage||STAGE[d.tex],seat=seatFor(st);if(!seat)return null;
  const [x,z,ry,s,py,po,y0]=seat;
  const g=new THREE.Group();g.position.set(x,y0||0,z);g.rotation.y=ry;S.add(g);
@@ -728,11 +730,12 @@ function addBaby(d,i,instant){const st=d.stage||STAGE[d.tex],seat=seatFor(st);if
  const arm=new THREE.Group();kid.add(arm);mk(sph(.08),skin,.25,s+.35,.2,arm);
  const bite=mk(sph(.05),colOf(d.ings.find(n=>!COND.includes(n))),.25,s+.45,.26,arm);
  mk(sph(.08),skin,-.26*fat,s+.35,.2,kid);
- dish(d,g,0,py,po);
- let star=null;if(d.nw){star=new THREE.Mesh(starG,starM);star.position.set(0,py+.55,po);star.userData.y0=py+.55;g.add(star)}
+ const FIT={Trozos:[.95,1],Purés:[.9,.85],Grumos:[.68,.82],Pequeño:[.68,.82],Truck:[.68,.82],Terraza:[.68,.82],Azotea:[.68,.82],Kiosk:[.55,.8],Jardín:[.85,.75]}[LASTK]||[po,1];
+ dish(d,g,0,py,FIT[0],FIT[1]);
+ let star=null;if(d.nw){star=new THREE.Mesh(starG,starM);star.position.set(0,py+.55,FIT[0]);star.userData.y0=py+.55;g.add(star)}
  const hearts=[];if(d.r==='love')for(let k=0;k<2;k++){const hh=heart();hh.visible=false;g.add(hh);hearts.push(hh)}
  g.traverse(o=>o.userData.i=i);
- babies.push({d,g,kid,kk,head,arm,bite,star,hearts,ph:Math.random()*6,s,py,po,born:instant?-99:performance.now()/1000});
+ babies.push({d,g,kid,kk,head,arm,bite,star,hearts,ph:Math.random()*6,s,py,po:FIT[0],born:instant?-99:performance.now()/1000});
  if(!instant)g.scale.setScalar(.001)}
 
 
@@ -787,7 +790,7 @@ function preview(d){const cv=$('pv');if(!cv)return;
 
 // ficha
 const sheet=$('sheet'),sc2=$('sc');let sel=-1;
-function show(html,mid){sc2.innerHTML=html;sheet.classList.toggle('mid',!!mid);sheet.classList.add('open');document.body.classList.add('sh');sheet.scrollTop=0;$('toast').classList.remove('show')}
+function show(html,mid){sc2.innerHTML=html;sheet.classList.toggle('mid',!!mid);sheet.classList.remove('half');sheet.classList.add('open');document.body.classList.add('sh');sheet.scrollTop=0;$('toast').classList.remove('show')}
 
 // tiempos y recetas extra (menú de temporada)
 const TIME={'Crema de calabaza y zanahoria':25,'Albóndigas de ternera y calabacín':30,'Aguacate chafado':5,'Bastones de boniato al horno':35,'Porridge de avena y pera':10,'Yogur natural con fresas chafadas':5,'Tortilla francesa en tiras':10,'Crema de lentejas rojas y calabaza':25,'Merluza al horno con patata y calabacín':30,'Arroz meloso con pollo y zanahoria':25,'Crema de calabacín y patata':20,'Salmón al horno con brócoli':20,'Plátano chafado con avena':5,'Tortitas de plátano y avena':15,'Compota de manzana y pera asadas':30};
@@ -860,10 +863,10 @@ function openMenu(st){if(st!=null)MST=st;sel=-1;pvOn=false;show(`<div class="cm"
 $('close').onclick=()=>{sheet.classList.remove('open');sel=-1;pvOn=false};
 // al tocar "acaba de comer": zoom al bebé y su ficha
 let FLY=null;
-function flyTo(pos,dist){const dir=cam.position.clone().sub(ctl.target).normalize();const tP=pos.clone().add(dir.multiplyScalar(dist));const tT=pos.clone().add(new THREE.Vector3(0,-1.05,0));
+function flyTo(pos,dist){const dir=cam.position.clone().sub(ctl.target).normalize();const tP=pos.clone().add(dir.multiplyScalar(dist));const tT=pos.clone().add(new THREE.Vector3(0,-1.25,0));
  FLY={t:0,fT:ctl.target.clone(),tT,fP:cam.position.clone(),tP}}
 $('toast').onclick=()=>{const b=babies.find(x=>TODAY.indexOf(x.d)===toastI);if(!b)return;$('toast').classList.remove('show');
- const p=new THREE.Vector3(0,b.s+1,0);b.g.localToWorld(p);flyTo(p,3.4);openBaby(toastI)};
+ const p=new THREE.Vector3(0,b.s+1,0);b.g.localToWorld(p);flyTo(p,3.6);openBaby(toastI);sheet.classList.add('half')};
 $('c').addEventListener('pointerdown',()=>{FLY=null});
 $('chipM').onclick=()=>openClock();$('chipB').onclick=()=>openKitchen();
 new MutationObserver(()=>{if(!sheet.classList.contains('open'))document.body.classList.remove('sh')}).observe(sheet,{attributes:true,attributeFilter:['class']});
