@@ -756,7 +756,7 @@ function addBaby(d,i,instant){const st=d.stage||STAGE[d.tex],seat=seatFor(st);if
  mk(sph(.08),skin,-.26*fat,s+.35,.2,kid);
  const FIT={Trozos:[.95,1],Purés:[.9,.85],Grumos:[.68,.82],Pequeño:[.68,.82],Barra:[.62,.8],Banco:[.6,.82],Cola:[.4,.55],Terraza:[.68,.82],Azotea:[.68,.82],Kiosk:[.55,.8],Jardín:[.85,.75]}[LASTK]||[po,1];
  dish(d,g,0,py,FIT[0],FIT[1]);
- let star=null;if(d.nw){star=new THREE.Mesh(starG,starM);star.position.set(0,py+.55,FIT[0]);star.userData.y0=py+.55;g.add(star)}
+ let star=null;
  const hearts=[];if(d.r==='love')for(let k=0;k<2;k++){const hh=heart();hh.visible=false;g.add(hh);hearts.push(hh)}
  g.traverse(o=>o.userData.i=i);
  babies.push({d,g,kid,kk,head,arm,bite,star,hearts,ph:Math.random()*6,s,py,po:FIT[0],born:instant?-99:performance.now()/1000});
