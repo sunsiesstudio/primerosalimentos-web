@@ -1075,7 +1075,7 @@ function applyLevel(){const h=(location.hash.match(/nivel-(\d)/)||[])[1];LVL=h?M
  frame()}
 let LO=null;
 addEventListener('hashchange',()=>startService());
-function frame(){const d=[0,14,17,21,25,29,34,48][LVL||4]*(portrait?1.9:1),Ze=LO?LO.Ze:5,t=new THREE.Vector3(LVL===1?.3:-.3,1,LVL===1?2.6:LVL>=7?.6:Ze/2);ctl.target.copy(t);cam.position.copy(t).add(new THREE.Vector3(.55,.48,.62).normalize().multiplyScalar(d))}
+function frame(){const d=[0,14,15,16,17,18,20,48][LVL||4]*(portrait?1.9:1),Ze=LO?LO.Ze:5,t=new THREE.Vector3(LVL===1?.3:-.3,1,LVL===1?2.6:LVL>=7?.6:Ze*.55);ctl.target.copy(t);cam.position.copy(t).add(new THREE.Vector3(.55,.48,.62).normalize().multiplyScalar(d))}
 
 // luz real según el sol en Barcelona
 function sunDown(){const d=new Date(),N=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5),lat=41.39*PI/180,dec=23.44*PI/180*Math.sin(2*PI*(284+N)/365);
