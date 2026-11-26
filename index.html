@@ -354,7 +354,6 @@ footer{background:#0b0b24}
       <label class="cons"><input type="checkbox" name="ok" required><span data-i18n="consent">Acepto recibir emails sobre la app. <a href="/privacy.html">Privacidad</a></span></label>
       <p class="err" aria-live="polite"></p>
     </form>
-    <p class="live" id="live" hidden aria-live="polite"><i></i><span></span></p>
   </div>
 </header>
 
@@ -419,13 +418,11 @@ footer{background:#0b0b24}
   <section class="cmd" id="comedor">
     <div class="wrap">
       <div class="cmdc">
-        <a class="cmdimg" href="/comedor/" aria-label="Entrar al comedor"><picture><source media="(prefers-color-scheme: dark)" srcset="capturas/comedor-dark.jpg"><img src="capturas/comedor.jpg" alt="El comedor de Primeros alimentos: bebés comiendo en un restaurante ilustrado" loading="lazy" width="1200" height="800"></picture><span class="cmdlive"><i></i><span data-i18n="cm_live">En directo</span></span></a>
+        <a class="cmdimg" href="/comedor/" aria-label="Entrar al comedor"><picture><source media="(prefers-color-scheme: dark)" srcset="capturas/comedor-dark.jpg"><img src="capturas/comedor.jpg" alt="El comedor de Primeros alimentos: cuatro bebés comiendo en las mesas del puesto" loading="lazy" width="1200" height="800"></picture><span class="cmdlive"><i></i><span data-i18n="cm_live">En directo</span></span></a>
         <div class="cmdt">
           <h2 data-i18n="cm_h">El&nbsp;comedor</h2>
-          <p class="cmdn" id="cmdn" data-i18n="cm_n">Asómate a ver qué se cocina hoy</p>
-          <p data-i18n="cm_p">Cada bebé que ves es una comida que una familia acaba de apuntar en la app: su plato, su edad y cómo le ha sentado. Desayunos, comidas, meriendas y cenas, en directo y todo anónimo.</p>
-          <div class="cmdtop" id="cmdtop"></div>
-          <a class="btn" href="/comedor/" data-i18n="cm_btn">Entrar al comedor</a>
+          <p data-i18n="cm_p">Mira en directo qué están comiendo ahora mismo los bebés que usan la app. Cada bebé es una comida que su familia acaba de apuntar, de forma anónima.</p>
+          <a class="btn" href="/comedor/" data-i18n="cm_btn">Verlo en directo</a>
         </div>
       </div>
     </div>
@@ -507,7 +504,7 @@ footer{background:#0b0b24}
       <a class="btn" href="/guia-primeros-alimentos.pdf" target="_blank" rel="noopener" data-i18n="ok_pdf">Abrir la guía (PDF)</a>
       <button class="share" type="button" data-share data-i18n="ok_share">Pásasela a otra mamá o papá</button>
     </div>
-    <a class="okcom" href="/comedor/" data-i18n="ok_com">Mientras esperas, asómate al comedor →</a>
+    <a class="okcom" href="/comedor/" data-i18n="ok_com">Mientras esperas, mira el comedor en directo →</a>
   </div>
 </template>
 
@@ -519,7 +516,7 @@ const LANGS=["es","ca","en"];
 const AEP='<a href="https://enfamilia.aeped.es/noticias/recomendaciones-asociacion-espanola-pediatria-sobre-alimentacion" target="_blank" rel="noopener">AEP</a>';
 const I18N={
  ca:{
-  cm_live:"En directe",cm_h:"El&nbsp;menjador",cm_n:"Treu-hi el cap i mira què es cuina avui",cm_p:"Cada nadó que veus és un àpat que una família acaba d'apuntar a l'app: el plat, l'edat i com li ha anat. Esmorzars, dinars, berenars i sopars, en directe i tot anònim.",cm_btn:"Entrar al menjador",ok_com:"Mentre esperes, treu el cap al menjador →",
+  cm_live:"En directe",cm_h:"El&nbsp;menjador",cm_p:"Mira en directe què estan menjant ara mateix els nadons que fan servir l'app. Cada nadó és un àpat que la seva família acaba d'apuntar, de manera anònima.",cm_btn:"Veure-ho en directe",ok_com:"Mentre esperes, mira el menjador en directe →",
   _title:"Primeros Alimentos · Llista d'espera",
   _desc:"L'app per planificar els primers aliments del teu nadó, amb les recomanacions de l'AEP. Apunta't a la llista d'espera i descarrega't la guia gratuïta per començar.",
   lang_l:"Idioma",
@@ -576,7 +573,7 @@ const I18N={
   copied:"Enllaç copiat"
  },
  en:{
-  cm_live:"Live",cm_h:"The&nbsp;dining&nbsp;room",cm_n:"Take a peek at what's cooking today",cm_p:"Every baby you see is a meal a family has just logged in the app: the dish, the age and how it went. Breakfasts, lunches, snacks and dinners, live and fully anonymous.",cm_btn:"Enter the dining room",ok_com:"While you wait, peek into the dining room →",
+  cm_live:"Live",cm_h:"The&nbsp;dining&nbsp;room",cm_p:"Watch live what the babies using the app are eating right now. Each baby is a meal their family has just logged, anonymously.",cm_btn:"Watch it live",ok_com:"While you wait, watch the dining room live →",
   _title:"Primeros Alimentos · Waitlist",
   _desc:"The app to plan your baby's first foods, following the recommendations of the Spanish Association of Pediatrics (AEP). Join the waitlist and get the free starter guide.",
   lang_l:"Language",
@@ -821,35 +818,6 @@ document.querySelectorAll("[data-form]").forEach(f=>f.addEventListener("submit",
   catch(err){console.error(err);er.textContent=T("err_save");bt.disabled=false;bt.textContent=tx}}));
 </script>
 
-<script>
-(function(){
-const FS='https://firestore.googleapis.com/v1/projects/primeros-alimentos/databases/(default)/documents/publico/comedor?key=AIzaSyBS8bb9UlOaOCJE92cpWE4nAqIFDuerypQ';
-const fv=v=>v==null?null:'stringValue' in v?v.stringValue:'integerValue' in v?+v.integerValue:'doubleValue' in v?v.doubleValue:'booleanValue' in v?v.booleanValue:'arrayValue' in v?(v.arrayValue.values||[]).map(fv):'mapValue' in v?Object.fromEntries(Object.entries(v.mapValue.fields||{}).map(([k,x])=>[k,fv(x)])):null;
-const SL=[['Desayuno',360,690],['Comida',691,960],['Merienda',961,1140],['Cena',1141,1320]];
-const TX={es:{now:{Desayuno:'desayunando',Comida:'comiendo',Merienda:'merendando',Cena:'cenando'},inf:{Desayuno:'desayunar',Comida:'comer',Merienda:'merendar',Cena:'cenar'},part:{Desayuno:'desayunado',Comida:'comido',Merienda:'merendado',Cena:'cenado'},
-  live:(n,v)=>`${n} ${n===1?'bebé':'bebés'} ${v} ahora mismo`,day:n=>`Hoy han pasado ${n} ${n===1?'bebé':'bebés'} por el comedor`,just:(m,v,d)=>`Bebé de ${m} meses acaba de ${v} <b>${d}</b>`,did:(m,v,d)=>`Bebé de ${m} meses ha ${v} <b>${d}</b>`},
- ca:{now:{Desayuno:'esmorzant',Comida:'dinant',Merienda:'berenant',Cena:'sopant'},inf:{Desayuno:'esmorzar',Comida:'dinar',Merienda:'berenar',Cena:'sopar'},part:{Desayuno:'esmorzat',Comida:'dinat',Merienda:'berenat',Cena:'sopat'},
-  live:(n,v)=>`${n} ${n===1?'nadó':'nadons'} ${v} ara mateix`,day:n=>`Avui han passat ${n} ${n===1?'nadó':'nadons'} pel menjador`,just:(m,v,d)=>`Nadó de ${m} mesos acaba d'${v} <b>${d}</b>`,did:(m,v,d)=>`Nadó de ${m} mesos ha ${v} <b>${d}</b>`},
- en:{now:{Desayuno:'having breakfast',Comida:'having lunch',Merienda:'having a snack',Cena:'having dinner'},inf:{Desayuno:'had breakfast:',Comida:'had lunch:',Merienda:'had a snack:',Cena:'had dinner:'},part:{Desayuno:'had breakfast:',Comida:'had lunch:',Merienda:'had a snack:',Cena:'had dinner:'},
-  live:(n,v)=>`${n} ${n===1?'baby':'babies'} ${v} right now`,day:n=>`${n} ${n===1?'baby has':'babies have'} been to the dining room today`,just:(m,v,d)=>`A ${m}-month-old just ${v} <b>${d}</b>`,did:(m,v,d)=>`A ${m}-month-old ${v} <b>${d}</b>`}};
-const L=()=>TX[(document.documentElement.lang||'es').slice(0,2)]||TX.es;
-const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let st=null,ti=null;
-function render(){if(!st)return;const t=L(),{items,meal}=st,cur=items.filter(x=>x.ml===meal),babies=a=>new Set(a.map(x=>x.b||x.k)).size;
- const nNow=babies(cur),nDay=babies(items),cn=document.getElementById('cmdn');
- if(cn){if(nNow>0)cn.textContent=t.live(nNow,t.now[meal]);else if(nDay>0)cn.textContent=t.day(nDay)}
- const c={};items.forEach(x=>(x.ings||[]).forEach(n=>{if(!/^(AOVE|Aceite|Pimentón|Canela|Ajo|Agua)/.test(n))c[n]=(c[n]||0)+1}));
- const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,4),tp=document.getElementById('cmdtop');if(tp)tp.innerHTML=top.map(([n])=>`<span>${esc(n)}</span>`).join('');
- const live=document.getElementById('live');if(!live||!items.length)return;const pool=(cur.length?cur:items).slice(-12);let k=0;
- const show=()=>{const x=pool[k++%pool.length],d=String(x.dish||(x.ings||[]).join(', '));const dd=d.charAt(0).toLowerCase()+d.slice(1);live.style.opacity=0;
-  setTimeout(()=>{live.querySelector('span').innerHTML=x.ml===meal?t.just(x.m||8,t.inf[x.ml]||'',esc(dd)):t.did(x.m||8,t.part[x.ml]||'',esc(dd));live.style.opacity=1},350)};
- live.hidden=false;show();clearInterval(ti);if(pool.length>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches)ti=setInterval(show,4500)}
-async function load(){try{const r=await fetch(FS,{cache:'no-store'});if(!r.ok)return;const j=await r.json(),doc=Object.fromEntries(Object.entries(j.fields||{}).map(([k,x])=>[k,fv(x)]));
- const now=new Date(),iso=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid'}).format(now);if(doc.day!==iso)return;
- const hm=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit',hour12:false}).format(now).split(':'),mi=(+hm[0]%24)*60+ +hm[1],s=SL.find(x=>mi>=x[1]&&mi<=x[2]);
- st={items:(doc.items||[]).filter(x=>x&&Array.isArray(x.ings)&&x.ings.length),meal:s?s[0]:null};render()}catch(e){}}
-load();new MutationObserver(()=>setTimeout(render,0)).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-})();
-</script>
+
 </body>
 </html>
