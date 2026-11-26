@@ -783,10 +783,11 @@ function buildPath(A,B,Cc){while(PATHG.children.length)PATHG.remove(PATHG.childr
 const ENT=new THREE.Group();S.add(ENT);let MENUS=null;
 {const c=document.createElement('canvas');c.width=512;c.height=200;const x=c.getContext('2d'),tx=new THREE.CanvasTexture(c);tx.encoding=THREE.sRGBEncoding;
  const d=()=>{x.fillStyle='#f4e9d8';x.fillRect(0,0,512,200);x.strokeStyle='#4a8760';x.lineWidth=10;x.strokeRect(12,12,488,176);x.fillStyle='#4a8760';x.textAlign='center';x.font='96px "Luckiest Guy", cursive';x.fillText('ABIERTO',256,140,440);tx.needsUpdate=true};d();document.fonts&&document.fonts.ready.then(d);
- const ms=new THREE.Group();MENUS=ms;ms.position.set(7.6,0,5.4);ms.rotation.y=.75;ENT.add(ms);{const f=new THREE.Group();f.position.set(0,.35,0);f.rotation.x=-.12;ms.add(f);mk(box(.92,1.22,.05),C.wood,0,.61,0,f);const p=new THREE.Mesh(new THREE.PlaneGeometry(.82,1.1),new THREE.MeshStandardMaterial({map:mbT,roughness:.9}));p.position.set(0,.61,.03);f.add(p);
-  [-.36,.36].forEach(x=>{const l=mk(box(.05,1.75,.05),C.wood,x,.86,.06,ms);l.rotation.x=-.12});const bl=mk(box(.05,1.7,.05),C.wood,0,.82,-.32,ms);bl.rotation.x=.3;mk(box(.8,.05,.1),C.wood,0,.36,.08,ms)}
+ const ms=new THREE.Group();MENUS=ms;ms.position.set(7.35,0,4.85);ENT.add(ms);{const f=new THREE.Group();f.position.set(0,0,.12);f.rotation.x=-.16;ms.add(f);
+  [-.47,.47].forEach(x=>mk(box(.06,1.72,.06),C.wood,x,.86,0,f));mk(box(.88,1.15,.04),C.wood,0,1.02,.01,f);const p=new THREE.Mesh(new THREE.PlaneGeometry(.8,1.07),new THREE.MeshStandardMaterial({map:mbT,roughness:.9}));p.position.set(0,1.02,.035);f.add(p);mk(box(.94,.05,.12),C.wood,0,.42,.03,f);
+  const bk=new THREE.Group();bk.position.set(0,1.66,.12-1.66*Math.sin(.16));bk.rotation.x=.32;ms.add(bk);mk(box(.06,1.72,.06),C.wood,0,-.86,0,bk)}
  ms.traverse(o=>o.userData.menu=1);
- {const g=new THREE.Group();g.position.set(7.15,0,6.05);ENT.add(g);mk(cyl(.24,.18,.42,14),C.terra,0,.21,0,g);const fc=SEASON.k==='otoño'?[0xe8892c,0xd9a23b,0xc4572e]:SEASON.k==='invierno'?[0xd9433a,0xf4e9d8,0x3f6b4f]:[0xe8b4a8,0xf3d04a,0xd9837f];for(let i=0;i<9;i++){const a=i/9*PI*2,r=i%3?.13:.04;mk(sph(.08),fc[i%3],Math.cos(a)*r,.5+(i%2)*.06,Math.sin(a)*r,g)}mk(sph(.14),0x5f8a50,0,.42,0,g).scale.y=.6}}
+ {const g=new THREE.Group();g.position.set(6.7,0,4.6);ENT.add(g);mk(cyl(.24,.18,.42,14),C.terra,0,.21,0,g);const fc=SEASON.k==='otoño'?[0xe8892c,0xd9a23b,0xc4572e]:SEASON.k==='invierno'?[0xd9433a,0xf4e9d8,0x3f6b4f]:[0xe8b4a8,0xf3d04a,0xd9837f];for(let i=0;i<9;i++){const a=i/9*PI*2,r=i%3?.13:.04;mk(sph(.08),fc[i%3],Math.cos(a)*r,.5+(i%2)*.06,Math.sin(a)*r,g)}mk(sph(.14),0x5f8a50,0,.42,0,g).scale.y=.6}}
 const SKY=new THREE.Group();S.add(SKY);
 function skyTex(f){const c=document.createElement('canvas');c.width=c.height=256;f(c.getContext('2d'));const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;return t}
 const MOONP=(((Date.now()-Date.UTC(2000,0,6,18,14))/864e5)%29.530588853+29.530588853)%29.530588853/29.530588853;
@@ -1014,10 +1015,10 @@ setInterval(async()=>{updClock();const n=nowSlot();if(n.k!==SL.k||n.open!==SL.op
 let portrait=false,AYER=null;
 function applyLevel(){const h=(location.hash.match(/nivel-(\d)/)||[])[1];LVL=h?Math.max(1,Math.min(7,+h)):AYER!=null?levelOf(AYER):4;
  KIOSK.visible=LVL===1;REST.visible=LVL>=2;SMALL.visible=LVL===2;BIG.visible=SOF.visible=LVL>=3;MID.visible=PLAY.visible=TER.visible=LVL>=4;WIDE.visible=LVL>=3;NARROW.visible=LVL===2;{const n=LVL===2;ARCH.position.x=sign.position.x=n?-.95:-1.3;ARCH.scale.setScalar(n?.8:1);sign.scale.setScalar(n?.8:1)}
- const OF=LVL===1?[-4.5,-.5]:LVL<=3?[-4.4,1.5]:[0,0];ENT.position.set(OF[0],0,OF[1]);movePit(9.73+OF[0],1.88+OF[1]);ROOF.visible=LVL>=5;GAR.visible=LVL>=6;FR.visible=LVL>=7;S.fog.far=LVL>=7?160:70;ctl.maxDistance=LVL>=7?110:40;
+ const OF=LVL===1?[0,0]:LVL<=3?[-7.1,-.1]:[0,0];ENT.position.set(OF[0],0,OF[1]);movePit(...(LVL===1?[5.23,1.38]:LVL<=3?[5.33,3.38]:[9.73,1.88]));ROOF.visible=LVL>=5;GAR.visible=LVL>=6;FR.visible=LVL>=7;S.fog.far=LVL>=7?160:70;ctl.maxDistance=LVL>=7?110:40;
  CLOCK.scale.setScalar(LVL===1?.75:1);if(LVL===1)CLOCK.position.set(1.28,1.5,-.24),CLOCK.rotation.set(0,0,0);else if(LVL===2)CLOCK.position.set(-2.3,2.3,-2.4),CLOCK.rotation.set(0,P2,0);else CLOCK.position.set(-5.95,2.3,-5.94),CLOCK.rotation.set(0,0,0);
- if(LVL===1)HOST.position.set(.6,0,4.75),HOST.rotation.y=.3;else HOST.position.set(8.4+OF[0],0,4.7+OF[1]),HOST.rotation.y=.75;
- buildPath(...(LVL===1?[[-.5,.55],[-.05,4.5],[.25,2.5]]:[[7.15+(LVL<=3?-5.6:0),2.6+(LVL<=3?-.7:0)],[8.05+OF[0],4.45+OF[1]],[7.9+OF[0]+(LVL<=3?-.6:0),3.2+OF[1]]]));ENT.visible=LVL>1;frame()}
+ if(LVL===1)HOST.position.set(-.05,0,4.85);else HOST.position.set(8.4+OF[0],0,4.7+OF[1]);HOST.rotation.y=0;
+ buildPath(...(LVL===1?[[-.5,.55],[-.1,4.35],[-.3,2.4]]:LVL<=3?[[1.1,1.95],[1.3,4.15],[1.1,3.0]]:[[7.2,2.4],[8.35,4.2],[8.2,3.0]]));ENT.visible=LVL>1;frame()}
 addEventListener('hashchange',()=>startService());
 function frame(){const d=[0,14,15,19,25,26,29,48][LVL||4]*(portrait?1.9:1),t=new THREE.Vector3(LVL===1?.3:LVL<=3?1:LVL<=6?1.8:-.5,1,LVL===1?2.6:LVL<=3?2.8:LVL===6?2.2:.6);ctl.target.copy(t);cam.position.copy(t).add(new THREE.Vector3(.55,.48,.62).normalize().multiplyScalar(d))}
 
