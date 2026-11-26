@@ -312,6 +312,23 @@ footer{background:#0b0b24}
 .food .ck,.toc li::before{background-color:#4f9d6e!important}.cons input{accent-color:#a29dff}input[type=email]:focus{border-color:#a29dff}
 .wl{box-shadow:0 10px 30px rgba(5,4,30,.4)}
 }
+.tnav a{background:var(--card)!important;color:var(--ink)!important;box-shadow:none!important;border:1.5px solid var(--line)!important;font-weight:700!important}
+.live{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px auto 0;max-width:520px;min-height:24px;font-size:.92rem;color:var(--mute);transition:opacity .4s}
+.live[hidden]{display:none}.live i{flex:none;width:9px;height:9px;border-radius:50%;background:#e0493f;box-shadow:0 0 0 0 rgba(224,73,63,.5);animation:lv 1.8s infinite}
+.live b{color:var(--ink);font-weight:700}
+@keyframes lv{70%{box-shadow:0 0 0 8px rgba(224,73,63,0)}100%{box-shadow:0 0 0 0 rgba(224,73,63,0)}}
+.cmd .cmdc{display:grid;gap:28px;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:32px;padding:18px}
+.cmd .cmdimg{position:relative;display:block;border-radius:22px;overflow:hidden;aspect-ratio:3/2}
+.cmd .cmdimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}.cmd .cmdimg:hover img{transform:scale(1.03)}
+.cmd .cmdlive{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.92);color:#262626;font:700 .8rem Montserrat,sans-serif}
+.cmd .cmdlive i{width:8px;height:8px;border-radius:50%;background:#e0493f;animation:lv 1.8s infinite}
+.cmd .cmdt{padding:6px 10px 12px}.cmd .cmdt p{margin:0 0 16px}
+.cmd .cmdn{font-family:"Luckiest Guy",system-ui,sans-serif;font-size:clamp(1.4rem,4vw,1.8rem);line-height:1.15;color:var(--terra);margin:0 0 12px!important}
+.cmd .cmdtop{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}.cmd .cmdtop:empty{display:none}
+.cmd .cmdtop span{padding:6px 12px;border-radius:99px;background:color-mix(in srgb,var(--terra) 12%,transparent);font-weight:700;font-size:.85rem}
+.cmd .btn{width:auto}
+@media (min-width:820px){.cmd .cmdc{grid-template-columns:1.25fr 1fr;padding:22px}.cmd .cmdt{padding:10px 18px 10px 0}}
+.okcom{display:block;margin:16px auto 0;font-weight:700;color:var(--terra);text-decoration:none}.okcom:hover{text-decoration:underline}
 </style>
 <script src="/consent.js" defer></script>
 </head>
@@ -337,6 +354,7 @@ footer{background:#0b0b24}
       <label class="cons"><input type="checkbox" name="ok" required><span data-i18n="consent">Acepto recibir emails sobre la app. <a href="/privacy.html">Privacidad</a></span></label>
       <p class="err" aria-live="polite"></p>
     </form>
+    <p class="live" id="live" hidden aria-live="polite"><i></i><span></span></p>
   </div>
 </header>
 
@@ -398,6 +416,21 @@ footer{background:#0b0b24}
   </section>
 
   
+  <section class="cmd" id="comedor">
+    <div class="wrap">
+      <div class="cmdc">
+        <a class="cmdimg" href="/comedor/" aria-label="Entrar al comedor"><picture><source media="(prefers-color-scheme: dark)" srcset="capturas/comedor-dark.jpg"><img src="capturas/comedor.jpg" alt="El comedor de Primeros alimentos: bebés comiendo en un restaurante ilustrado" loading="lazy" width="1200" height="800"></picture><span class="cmdlive"><i></i><span data-i18n="cm_live">En directo</span></span></a>
+        <div class="cmdt">
+          <h2 data-i18n="cm_h">El&nbsp;comedor</h2>
+          <p class="cmdn" id="cmdn" data-i18n="cm_n">Asómate a ver qué se cocina hoy</p>
+          <p data-i18n="cm_p">Cada bebé que ves es una comida que una familia acaba de apuntar en la app: su plato, su edad y cómo le ha sentado. Desayunos, comidas, meriendas y cenas, en directo y todo anónimo.</p>
+          <div class="cmdtop" id="cmdtop"></div>
+          <a class="btn" href="/comedor/" data-i18n="cm_btn">Entrar al comedor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="me">
     <div class="mefr" aria-hidden="true"><span style="left:4%;top:12%;--s:52px"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M7 15c11-5 23-5 34 0-1 14-9 27-17 29C16 42 8 29 7 15z" fill="#e2493f" /><path class="o" d="M24 14l-9-4 5 4-7 2 8 2 3 5 3-5 8-2-7-2 5-4z" fill="#6aa86f" /><circle cx="16" cy="22" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="24" cy="24" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="32" cy="22" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="20" cy="30" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="28" cy="31" r="1.6" fill="#ffe9a8" stroke="none"/><circle cx="24" cy="37" r="1.6" fill="#ffe9a8" stroke="none"/></svg></span><span style="left:38%;top:6%;--s:40px;--d:-3s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M5 31C8 17 22 8 41 10c-1 17-13 29-34 25z" fill="#6aa84a" /><circle cx="14" cy="27" r="3.4" fill="#bfe08a" stroke="none"/><circle cx="22" cy="23" r="3.4" fill="#bfe08a" stroke="none"/><circle cx="30" cy="19" r="3.4" fill="#bfe08a" stroke="none"/><circle cx="36" cy="15" r="3.4" fill="#bfe08a" stroke="none"/><path class="o" d="M5 31c-2 3-3 5-3 7" fill="none"/></svg></span><span style="right:6%;top:10%;--s:56px;--d:-5s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M9 8c3-1 5 1 5 4 0 15 9 22 25 20 3 0 4 4 1 6C21 42 5 34 5 14c0-3 2-5 4-6z" fill="#f2cf4a" /><path class="o" d="M7 7l4-2 3 4-4 2z" fill="#7a5a2d" /><path d="M16 20c3 8 9 13 17 15-9-1-16-6-17-15z" fill="#fff" opacity=".45" stroke="none"/></svg></span><span style="left:7%;bottom:10%;--s:46px;--d:-2s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><rect class="o" x="20" y="28" width="9" height="16" rx="3" fill="#8bbf7a" /><ellipse class="o" cx="14" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="34" cy="24" rx="9" ry="9" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="16" rx="10" ry="10" fill="#4a8a4a" /><ellipse class="o" cx="24" cy="26" rx="8" ry="8" fill="#4a8a4a" /><path d="M16 12c2-3 5-4 8-4-4 1-6 3-8 4z" fill="#fff" opacity=".45" stroke="none"/></svg></span><span style="left:33%;bottom:5%;--s:38px;--d:-6s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><ellipse class="o" cx="15" cy="32" rx="10" ry="10" fill="#4a5ab0" /><ellipse class="o" cx="33" cy="32" rx="10" ry="10" fill="#4a5ab0" /><ellipse class="o" cx="24" cy="20" rx="10" ry="10" fill="#4a5ab0" /><path class="o" d="M0 0c4-7 13-7 16-3-1 7-9 10-16 3z" fill="#6aa86f" transform="translate(22 8) rotate(-30) scale(0.8)"/><circle cx="12" cy="29" r="1.6" fill="#fff" stroke="none"/><circle cx="30" cy="29" r="1.6" fill="#fff" stroke="none"/><circle cx="21" cy="17" r="1.6" fill="#fff" stroke="none"/></svg></span><span style="right:9%;bottom:14%;--s:50px;--d:-4s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M24 4c6 0 9 8 9 14 0 4 8 8 8 17 0 6-7 10-17 10S7 41 7 35c0-9 8-13 8-17 0-6 3-14 9-14z" fill="#4a7a3c" /><path class="o" d="M24 12c4 0 6 6 6 10 0 3 6 6 6 12 0 5-5 8-12 8s-12-3-12-8c0-6 6-9 6-12 0-4 2-10 6-10z" fill="#d9e08a" stroke="none"/><ellipse class="o" cx="24" cy="32" rx="6" ry="6" fill="#8a5a34" /></svg></span><span style="right:30%;bottom:4%;--s:36px;--d:-1s"><svg class="fd" viewBox="-3 -3 54 54" aria-hidden="true"><path class="o" d="M24 9c5 0 6 5 6 9 0 4 9 7 9 16 0 7-7 11-15 11S9 41 9 34c0-9 9-12 9-16 0-4 1-9 6-9z" fill="#b9d05a" /><path class="o" d="M24 9c0-3 1-5 3-6" fill="none"/><path class="o" d="M0 0c4-7 13-7 16-3-1 7-9 10-16 3z" fill="#6aa86f" transform="translate(26 6) rotate(-20) scale(0.9)"/><path d="M13 33c0-4 2-6 4-8-1 3-1 6 0 9z" fill="#fff" opacity=".45" stroke="none"/></svg></span></div>
     <div class="wrap">
@@ -474,6 +507,7 @@ footer{background:#0b0b24}
       <a class="btn" href="/guia-primeros-alimentos.pdf" target="_blank" rel="noopener" data-i18n="ok_pdf">Abrir la guía (PDF)</a>
       <button class="share" type="button" data-share data-i18n="ok_share">Pásasela a otra mamá o papá</button>
     </div>
+    <a class="okcom" href="/comedor/" data-i18n="ok_com">Mientras esperas, asómate al comedor →</a>
   </div>
 </template>
 
@@ -485,6 +519,7 @@ const LANGS=["es","ca","en"];
 const AEP='<a href="https://enfamilia.aeped.es/noticias/recomendaciones-asociacion-espanola-pediatria-sobre-alimentacion" target="_blank" rel="noopener">AEP</a>';
 const I18N={
  ca:{
+  cm_live:"En directe",cm_h:"El&nbsp;menjador",cm_n:"Treu-hi el cap i mira què es cuina avui",cm_p:"Cada nadó que veus és un àpat que una família acaba d'apuntar a l'app: el plat, l'edat i com li ha anat. Esmorzars, dinars, berenars i sopars, en directe i tot anònim.",cm_btn:"Entrar al menjador",ok_com:"Mentre esperes, treu el cap al menjador →",
   _title:"Primeros Alimentos · Llista d'espera",
   _desc:"L'app per planificar els primers aliments del teu nadó, amb les recomanacions de l'AEP. Apunta't a la llista d'espera i descarrega't la guia gratuïta per començar.",
   lang_l:"Idioma",
@@ -541,6 +576,7 @@ const I18N={
   copied:"Enllaç copiat"
  },
  en:{
+  cm_live:"Live",cm_h:"The&nbsp;dining&nbsp;room",cm_n:"Take a peek at what's cooking today",cm_p:"Every baby you see is a meal a family has just logged in the app: the dish, the age and how it went. Breakfasts, lunches, snacks and dinners, live and fully anonymous.",cm_btn:"Enter the dining room",ok_com:"While you wait, peek into the dining room →",
   _title:"Primeros Alimentos · Waitlist",
   _desc:"The app to plan your baby's first foods, following the recommendations of the Spanish Association of Pediatrics (AEP). Join the waitlist and get the free starter guide.",
   lang_l:"Language",
@@ -783,6 +819,37 @@ document.querySelectorAll("[data-form]").forEach(f=>f.addEventListener("submit",
   try{toML(em);const {db,fs}=await getDB();await fs.addDoc(fs.collection(db,"lista_espera"),{email:em,fecha:fs.serverTimestamp(),origen:ORIGEN});
     try{localStorage.setItem("pa_wl","1")}catch(e){}showDone()}
   catch(err){console.error(err);er.textContent=T("err_save");bt.disabled=false;bt.textContent=tx}}));
+</script>
+
+<script>
+(function(){
+const FS='https://firestore.googleapis.com/v1/projects/primeros-alimentos/databases/(default)/documents/publico/comedor?key=AIzaSyBS8bb9UlOaOCJE92cpWE4nAqIFDuerypQ';
+const fv=v=>v==null?null:'stringValue' in v?v.stringValue:'integerValue' in v?+v.integerValue:'doubleValue' in v?v.doubleValue:'booleanValue' in v?v.booleanValue:'arrayValue' in v?(v.arrayValue.values||[]).map(fv):'mapValue' in v?Object.fromEntries(Object.entries(v.mapValue.fields||{}).map(([k,x])=>[k,fv(x)])):null;
+const SL=[['Desayuno',360,690],['Comida',691,960],['Merienda',961,1140],['Cena',1141,1320]];
+const TX={es:{now:{Desayuno:'desayunando',Comida:'comiendo',Merienda:'merendando',Cena:'cenando'},inf:{Desayuno:'desayunar',Comida:'comer',Merienda:'merendar',Cena:'cenar'},part:{Desayuno:'desayunado',Comida:'comido',Merienda:'merendado',Cena:'cenado'},
+  live:(n,v)=>`${n} ${n===1?'bebé':'bebés'} ${v} ahora mismo`,day:n=>`Hoy han pasado ${n} ${n===1?'bebé':'bebés'} por el comedor`,just:(m,v,d)=>`Bebé de ${m} meses acaba de ${v} <b>${d}</b>`,did:(m,v,d)=>`Bebé de ${m} meses ha ${v} <b>${d}</b>`},
+ ca:{now:{Desayuno:'esmorzant',Comida:'dinant',Merienda:'berenant',Cena:'sopant'},inf:{Desayuno:'esmorzar',Comida:'dinar',Merienda:'berenar',Cena:'sopar'},part:{Desayuno:'esmorzat',Comida:'dinat',Merienda:'berenat',Cena:'sopat'},
+  live:(n,v)=>`${n} ${n===1?'nadó':'nadons'} ${v} ara mateix`,day:n=>`Avui han passat ${n} ${n===1?'nadó':'nadons'} pel menjador`,just:(m,v,d)=>`Nadó de ${m} mesos acaba d'${v} <b>${d}</b>`,did:(m,v,d)=>`Nadó de ${m} mesos ha ${v} <b>${d}</b>`},
+ en:{now:{Desayuno:'having breakfast',Comida:'having lunch',Merienda:'having a snack',Cena:'having dinner'},inf:{Desayuno:'had breakfast:',Comida:'had lunch:',Merienda:'had a snack:',Cena:'had dinner:'},part:{Desayuno:'had breakfast:',Comida:'had lunch:',Merienda:'had a snack:',Cena:'had dinner:'},
+  live:(n,v)=>`${n} ${n===1?'baby':'babies'} ${v} right now`,day:n=>`${n} ${n===1?'baby has':'babies have'} been to the dining room today`,just:(m,v,d)=>`A ${m}-month-old just ${v} <b>${d}</b>`,did:(m,v,d)=>`A ${m}-month-old ${v} <b>${d}</b>`}};
+const L=()=>TX[(document.documentElement.lang||'es').slice(0,2)]||TX.es;
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let st=null,ti=null;
+function render(){if(!st)return;const t=L(),{items,meal}=st,cur=items.filter(x=>x.ml===meal),babies=a=>new Set(a.map(x=>x.b||x.k)).size;
+ const nNow=babies(cur),nDay=babies(items),cn=document.getElementById('cmdn');
+ if(cn){if(nNow>0)cn.textContent=t.live(nNow,t.now[meal]);else if(nDay>0)cn.textContent=t.day(nDay)}
+ const c={};items.forEach(x=>(x.ings||[]).forEach(n=>{if(!/^(AOVE|Aceite|Pimentón|Canela|Ajo|Agua)/.test(n))c[n]=(c[n]||0)+1}));
+ const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,4),tp=document.getElementById('cmdtop');if(tp)tp.innerHTML=top.map(([n])=>`<span>${esc(n)}</span>`).join('');
+ const live=document.getElementById('live');if(!live||!items.length)return;const pool=(cur.length?cur:items).slice(-12);let k=0;
+ const show=()=>{const x=pool[k++%pool.length],d=String(x.dish||(x.ings||[]).join(', '));const dd=d.charAt(0).toLowerCase()+d.slice(1);live.style.opacity=0;
+  setTimeout(()=>{live.querySelector('span').innerHTML=x.ml===meal?t.just(x.m||8,t.inf[x.ml]||'',esc(dd)):t.did(x.m||8,t.part[x.ml]||'',esc(dd));live.style.opacity=1},350)};
+ live.hidden=false;show();clearInterval(ti);if(pool.length>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches)ti=setInterval(show,4500)}
+async function load(){try{const r=await fetch(FS,{cache:'no-store'});if(!r.ok)return;const j=await r.json(),doc=Object.fromEntries(Object.entries(j.fields||{}).map(([k,x])=>[k,fv(x)]));
+ const now=new Date(),iso=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid'}).format(now);if(doc.day!==iso)return;
+ const hm=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit',hour12:false}).format(now).split(':'),mi=(+hm[0]%24)*60+ +hm[1],s=SL.find(x=>mi>=x[1]&&mi<=x[2]);
+ st={items:(doc.items||[]).filter(x=>x&&Array.isArray(x.ings)&&x.ings.length),meal:s?s[0]:null};render()}catch(e){}}
+load();new MutationObserver(()=>setTimeout(render,0)).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+})();
 </script>
 </body>
 </html>
