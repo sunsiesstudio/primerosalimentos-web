@@ -686,8 +686,9 @@ const KIOSK=new THREE.Group();S.add(KIOSK);CUR=KIOSK;
  {mk(box(2.6,.38,.3),C.terra,X,.19,Z+1.45);for(let i=0;i<11;i++)mk(sph(.085),[0xe8892c,0xd9a23b,0xe8b4a8,0xf3d04a,C.cream][i%5],X-1.15+i*.23,.45+(i%2)*.05,Z+1.45);for(let i=0;i<6;i++)mk(sph(.13),0x6f9a5a,X-1.1+i*.44,.4,Z+1.38)}
  [[.0,.35]].forEach(([x,z])=>{mk(cyl(.05,.07,.9,10),C.wood,x+.9,.45,z);mk(sph(.07),C.terra,x+.9,.93,z)});
  }
-const KCH=new THREE.Group();KCH.position.set(-.5,0,-1.45);KCH.scale.setScalar(.78);KIOSK.add(KCH);{const c=KCH;mk(sph(.4),0xffffff,0,.95,0,c).scale.set(1,1.25,1);mk(sph(.36),0xe0ac85,0,1.68,0,c);mk(cyl(.24,.21,.36),0xffffff,0,2.12,0,c);mk(sph(.27),0xffffff,0,2.35,0,c);
+const MOP=new THREE.Group();const KCH=new THREE.Group();KCH.position.set(-.5,0,-1.45);KCH.scale.setScalar(.78);KIOSK.add(KCH);{const c=KCH;mk(sph(.4),0xffffff,0,.95,0,c).scale.set(1,1.25,1);mk(sph(.36),0xe0ac85,0,1.68,0,c);mk(cyl(.24,.21,.36),0xffffff,0,2.12,0,c);mk(sph(.27),0xffffff,0,2.35,0,c);
  [-1,1].forEach(k=>{mk(sph(.035),C.ink,k*.11,1.72,.33,c);mk(sph(.12),0xe0ac85,k*.4,1.1,.12,c)});mk(box(.5,.55,.06),C.terra,0,1.0,.38,c);const sm=new THREE.Mesh(new THREE.TorusGeometry(.06,.014,8,16,PI),M(C.ink));sm.position.set(0,1.6,.34);sm.rotation.z=PI;c.add(sm)}
+MOP.position.set(.4,1.0,.3);KCH.add(MOP);mk(cyl(.025,.025,1.4,8),0xc9cfcc,0,-.2,0,MOP);mk(cyl(.18,.18,.12,12),0xf4efe2,0,-.92,0,MOP);mk(cyl(.15,.15,.08,10),0x6f9ad0,0,-.84,.25,MOP);MOP.visible=false;
 KCH.traverse(o=>o.userData.k=1);
 CUR=null;
 // restaurante pequeño: tres mesas redondas (nivel 3)
@@ -735,7 +736,7 @@ function trona(x,z,ry,s,col,par=S,y0=0){const g=new THREE.Group();g.position.set
  [-1,1].forEach(k=>{mk(box(.07,.06,.95),col,k*.33,.03,.08,g);const u=mk(box(.07,H,.1),col,k*.33,H/2,-.3,g);u.rotation.x=-.13});
  mk(box(.6,.05,.46),col,0,s,-.02,g);mk(box(.6,.04,.42),col,0,s*.42,.06,g);
  mk(box(.6,.09,.035),col,0,s+.38,-.38,g);mk(box(.6,.09,.035),col,0,s+.66,-.42,g);
- if(s>.6){mk(box(.5,.34,.04),col,0,s+.22,-.33,g);[-1,1].forEach(k=>{mk(box(.05,.05,.62),col,k*.25,s+.24,.02,g);mk(box(.05,.24,.05),col,k*.25,s+.12,.31,g)});mk(box(.55,.06,.06),col,0,s+.24,.31,g);mk(box(.05,.22,.05),col,0,s+.12,.31,g)}
+ if(s>.6){mk(box(.56,.3,.04),col,0,s+.2,-.26,g);[-1,1].forEach(k=>mk(box(.05,.05,.46),col,k*.27,s+.26,-.04,g));mk(box(.59,.05,.05),col,0,s+.26,.2,g);mk(box(.05,.24,.05),col,0,s+.13,.17,g)}
  return g}
 Object.entries(SEATS).forEach(([st,list])=>list.forEach(([x,z,ry,s,py,po,y0],j)=>{if(!['Purés','Cola','Barra'].includes(st))trona(x,z,ry,s,WOOD[(j+st.length)%6],st==='Grumos'?MID:st==='Barra'?BAR:st==='Banco'?KIOSK:st==='Terraza'?TER:st==='Azotea'?ROOF:st==='Jardín'?GAR:st==='Pequeño'?SMALL:BIG,y0||0)}));
 
@@ -795,7 +796,7 @@ function addBaby(d,i,instant){const st=d.stage||STAGE[d.tex],seat=seatFor(st);if
 
 
 // anfitriona: te recibe y te sienta con tu bebé
-const HOST=new THREE.Group();S.add(HOST);const hostArm=new THREE.Group();
+const HOST=new THREE.Group();S.add(HOST);const hostArm=new THREE.Group();const BROOM=new THREE.Group();BROOM.position.set(.42,1.05,.25);HOST.add(BROOM);mk(cyl(.025,.025,1.5,8),0xc9935f,0,-.15,0,BROOM);{const b=mk(cyl(.16,.06,.28,10),0xd9b56a,0,-.95,0,BROOM);b.scale.z=.45}BROOM.visible=false;
 {const H=HOST;mk(sph(.36),C.cream,0,.92,0,H).scale.set(1,1.35,1);
  mk(sph(.32),0xc68a5f,0,1.66,0,H);const hr=mk(sph(.34),0x3b2a20,0,1.74,-.05,H);hr.scale.set(1,.78,1);mk(sph(.13),0x3b2a20,0,1.98,-.2,H);
  [-1,1].forEach(k=>{mk(sph(.032),C.ink,k*.1,1.7,.29,H);const c=mk(sph(.05),0xf0a08a,k*.17,1.6,.25,H);c.scale.z=.4});
@@ -932,7 +933,11 @@ const WILL=`<svg class="wil" viewBox="0 0 240 124" aria-hidden="true">
  <circle cx="161" cy="41" r="2.6" fill="#f0a08a" opacity=".7"/><circle cx="179" cy="41" r="2.6" fill="#f0a08a" opacity=".7"/>
  <path d="M178 62h22q0 9-11 9t-11-9z" fill="#fffdf6" stroke="#e3d6c0"/><ellipse cx="189" cy="62" rx="10" ry="3" fill="#e8892c"/><circle cx="186" cy="60" r="2.4" fill="#5a9a4e"/><circle cx="192" cy="60.5" r="2" fill="#f3d04a"/>
 </svg>`;
-function openHost(){sel=-1;pvOn=false;const n=TODAY.length;
+function openHost(){sel=-1;pvOn=false;const n=CLEAN?PITB.length:TODAY.length;
+ if(CLEAN){show(`<div class="cm wel">${WILL}<h2 class="wt">¡Hoy ya hemos cerrado!</h2>
+  <div class="wn">${BABYF}<b>${n}</b><span>${n===1?'bebé jugando':'bebés jugando'} en la piscina</span></div>
+  <p class="ws">Estamos recogiendo y los bebés que han comido hoy juegan en la piscina de frutas. A las 6:00 volvemos a abrir con los desayunos.</p>
+  <div class="opts"><a class="op main" href="https://app.primerosalimentos.com/" target="_blank" rel="noopener">Ir a la app</a></div></div>`,true);return}
  const now=SL.open?{D:'desayunando',C:'comiendo',M:'merendando',N:'cenando'}[SL.k]+' ahora':'han pasado hoy por las '+esc(SL.pl);
  show(`<div class="cm wel">${WILL}<h2 class="wt">¡Bienvenidos al restaurante de Primeros Alimentos!</h2>
   <div class="wn">${BABYF}<b>${n}</b><span>${n===1?'bebé':'bebés'} ${now}</span></div>
@@ -1069,11 +1074,27 @@ async function getList0(sl){if(LIVE)return fetchLive(sl);const all=service(sl).m
  if(!sl.open)return all;if(!demoN)demoN=Math.max(3,Math.round(all.length*Math.min(1,.35+sl.frac*.65)));else demoN++;return all.slice(0,Math.min(demoN,all.length))}
 const keys=new Set();
 function sync(list,first){list.forEach(d=>{if(keys.has(d.k))return;keys.add(d.k);const i=TODAY.length;TODAY.push(d);addBaby(d,i,first);if(!first&&!sheet.classList.contains('open'))toast(d)});topFood();refreshKitchen()}
-async function startService(){babies.forEach(b=>S.remove(b.g));babies=[];used={};TODAY=[];keys.clear();demoN=0;
- SL=nowSlot();const list=await getList(SL);applyMode();applyLevel();topFood();updClock();sync(list,true)}
+// de 00:00 a 6:00 se recoge: anfitriona y cocinero limpian y los bebés del día juegan en la piscina
+let CLEAN=false;const PITB=[];
+function isClean(){if(/limpieza/.test(location.hash))return true;if(FORCE||/nivel-\d.*(desayuno|comida|merienda|cena)/.test(location.hash))return false;const h=+new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',hour12:false}).format(new Date())%24;return h<6}
+function addPitBaby(d,i){const g=new THREE.Group();const a=i*2.399,rr=Math.min(PR-.38,.25+.32*Math.sqrt(i));g.position.set(PX+Math.cos(a)*rr,0,PZ+Math.sin(a)*rr);g.rotation.y=-a+P2+(i%3-1)*.4;S.add(g);
+ const skin=SK[i%5],kk=Math.max(.8,Math.min(1.14,.8+((d.m||8)-6)*.05));const kid=new THREE.Group();kid.scale.setScalar(kk*.9);g.add(kid);
+ const bd=new THREE.Mesh(sph(.28),bibM(i));bd.position.y=.4;bd.scale.set(1,1.1,.95);kid.add(bd);
+ const head=new THREE.Group();head.position.y=.92;kid.add(head);mk(sph(.32),skin,0,0,0,head);const h=new THREE.Mesh(hairG,M(HA[(i*2)%5]));h.position.y=.02;h.rotation.x=-.25;head.add(h);
+ [-1,1].forEach(k=>{mk(sph(.07),skin,k*.31,0,0,head);mk(sph(.034),C.ink,k*.11,.02,.29,head);const nv=new THREE.Vector3(k*.19,-.07,.2476).normalize(),ck=new THREE.Mesh(cheekG,cheekM);ck.position.copy(nv).multiplyScalar(.3215);ck.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),nv);head.add(ck)});
+ const m=new THREE.Mesh(bigG,M(0x8a3a3a));m.position.set(0,-.1,.315);head.add(m);
+ const arms=[-1,1].map(k=>{const ar=new THREE.Group();ar.position.set(k*.24,.6,0);kid.add(ar);mk(sph(.085),skin,0,.28,.05,ar);return ar});
+ PITB.push({g,head,arms,ph:i*1.7})}
+async function startService(){babies.forEach(b=>S.remove(b.g));babies=[];used={};TODAY=[];keys.clear();demoN=0;PITB.forEach(b=>S.remove(b.g));PITB.length=0;
+ SL=nowSlot();CLEAN=isClean();await 0;applyMode();applyLevel();topFood();updClock();
+ if(CLEAN){const r=realSlot(),seen=new Set(),all=[];for(const sv of SLOTS){(await getList({...sv,open:false,frac:1,day:r.day,iso:r.iso})).forEach(d=>all.push(d))}
+  TODAY=all;all.forEach(d=>{const id=d.b||d.k;if(seen.has(id))return;seen.add(id);if(PITB.length<16)addPitBaby(d,PITB.length)});
+  if(!PITB.length&&AYER)for(let i=0;i<Math.min(16,AYER);i++)addPitBaby({m:6+(i*5)%7},i);
+  HOST.position.set(LVL===1?-2.2:-.6,0,LVL===1?3.2:4.0);BROOM.visible=MOP.visible=true;topFood();refreshKitchen();return}
+ BROOM.visible=MOP.visible=false;const list=await getList(SL);sync(list,true)}
 startService();
-setInterval(async()=>{updClock();const n=nowSlot();if(n.k!==SL.k||n.open!==SL.open||n.iso!==SL.iso){if(sheet.classList.contains('open')){sheet.classList.remove('open');sel=-1;pvOn=false}startService();return}
- if(!SL.open&&!LIVE)return;sync(await getList(SL),false)},LIVE?60000:EVERY);
+setInterval(async()=>{updClock();const n=nowSlot();if(isClean()!==CLEAN||n.k!==SL.k||n.open!==SL.open||n.iso!==SL.iso){if(sheet.classList.contains('open')){sheet.classList.remove('open');sel=-1;pvOn=false}startService();return}
+ if(CLEAN||(!SL.open&&!LIVE))return;sync(await getList(SL),false)},LIVE?60000:EVERY);
 
 // cámara
 let portrait=false,AYER=null;
@@ -1182,7 +1203,9 @@ function loop(){const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime,now=
  });
  if(FLY){FLY.t=Math.min(1,FLY.t+dt/1.1);const e=FLY.t*FLY.t*(3-2*FLY.t);ctl.target.lerpVectors(FLY.fT,FLY.tT,e);cam.position.lerpVectors(FLY.fP,FLY.tP,e);if(FLY.t>=1)FLY=null}
  {const k=LVL>=7?2.4:1;SKY.position.set(-23*k,-9*k,-59.5*k);SKY.scale.setScalar(k);SKY.lookAt(cam.position);SUNM.visible=nightT<.5&&!WX.hideSun;MOONM.visible=nightT>=.5&&!WX.hideSun}
- if(!reduce)KCH.position.x=-.5+Math.sin(t*.5)*.9;hostArm.rotation.z=reduce?0:-.4-Math.max(0,Math.sin(t*1.3))*.9*(Math.sin(t*.4)>.2?1:0);hostArm.rotation.x=-.2;
+ if(!reduce)KCH.position.x=-.5+Math.sin(t*.5)*.9;
+ if(CLEAN&&!reduce){BROOM.rotation.z=Math.sin(t*3.2)*.45;BROOM.rotation.x=.35;HOST.position.x=(LVL===1?-2.2:-.6)+Math.sin(t*.45)*1.4;HOST.rotation.y=Math.cos(t*.45)>0?.6:-.6;MOP.rotation.z=Math.sin(t*2.4)*.35;
+  PITB.forEach(b=>{const q=Math.sin(t*2.2+b.ph);b.g.position.y=Math.max(0,q)*.12;b.arms.forEach((a,k)=>a.rotation.z=(k?-1:1)*(.3+Math.abs(Math.sin(t*3+b.ph+k))*.5));b.head.rotation.z=Math.sin(t*1.6+b.ph)*.15})}hostArm.rotation.z=reduce?0:-.4-Math.max(0,Math.sin(t*1.3))*.9*(Math.sin(t*.4)>.2?1:0);hostArm.rotation.x=-.2;
  place(hostTag,HOST.position.x,2.2,HOST.position.z);hostTag.style.opacity=document.body.classList.contains('sh')?0:1;
  ctl.update();ctl.target.x=Math.max(-8,Math.min(8,ctl.target.x));ctl.target.z=Math.max(-7,Math.min(7,ctl.target.z));ctl.target.y=1;
  if(pvOn&&pvX){PT.rotation.y=.5;R.setViewport(0,0,pvW,pvH);R.render(PS,PC);const c=R.domElement;pvX.drawImage(c,0,c.height-pvC.height,pvC.width,pvC.height,0,0,pvC.width,pvC.height);R.setViewport(0,0,innerWidth,innerHeight)}
