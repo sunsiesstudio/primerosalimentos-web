@@ -817,10 +817,11 @@ const TBL=new THREE.Group();S.add(TBL);const GDN=new THREE.Group();S.add(GDN);
 const MARB=0xefebe4;
 function clearG(g){while(g.children.length)g.remove(g.children[0])}
 const ZONES={W:[-11,3.6],E:[10.4,3.6],NW:[-9.5,-8.6],NE:[8.9,-8.6]};
-function layout(L){if(L===1)return {tables:[[-4.9,1.8,2],[-3.5,4.9,2]],Ze:4.85,zones:[]};
- const tables=[[-3.8,2.0,4],[3.0,2.0,4],[-3.8,5.4,4],[3.0,5.4,4]],zones=['W','E','NW','NE'].slice(0,Math.max(0,Math.min(4,L-2)));
- zones.forEach(k=>{const [cx,cz]=ZONES[k];[1,3,5,7].forEach(q=>{const a=q*PI/4;tables.push([cx+Math.cos(a)*3.6,cz+Math.sin(a)*3.6,4])})});
- return {tables,Ze:8.6,zones}}
+let TABN=2;
+function layout(L){if(L===1)return {tables:[[-4.9,1.8,4],[-3.5,4.9,4]].slice(0,Math.max(1,TABN)),Ze:4.85,zones:[]};
+ const slots=[[-3.8,2.0,4,''],[3.0,2.0,4,''],[-3.8,5.4,4,''],[3.0,5.4,4,'']];['W','E','NW','NE'].forEach(k=>{const [cx,cz]=ZONES[k];[1,3,5,7].forEach(q=>{const a=q*PI/4;slots.push([cx+Math.cos(a)*3.6,cz+Math.sin(a)*3.6,4,k])})});
+ const used2=slots.slice(0,TABN),zones=['W','E','NW','NE'].filter(k=>used2.some(t=>t[3]===k));
+ return {tables:used2.map(t=>t.slice(0,3)),Ze:8.6,zones}}
 function marbleStatue(kind,x,z,g){mk(cyl(.42,.48,.7,16),MARB,x,.35,z,g,.4);mk(cyl(.5,.5,.08,16),MARB,x,.74,z,g,.4);
  if(kind==='zanahoria'){const c=mk(new THREE.ConeGeometry(.22,.95,16),MARB,x,1.28,z,g,.35);c.rotation.x=PI;[-.3,0,.3].forEach(r=>{const l=mk(cyl(.03,.05,.35,6),MARB,x,1.86,z,g,.35);l.rotation.z=r})}
  else if(kind==='pera'){mk(sph(.3),MARB,x,1.08,z,g,.35);mk(sph(.21),MARB,x,1.42,z,g,.35);mk(cyl(.025,.025,.15,6),MARB,x,1.68,z,g,.35)}
@@ -1078,7 +1079,7 @@ async function getList(sl){const lim=+((location.hash.match(/bebes-(\d+)/)||[])[
 async function getList0(sl){if(LIVE)return fetchLive(sl);const all=service(sl).map((d,i)=>({...d,k:'d'+i}));
  if(!sl.open)return all;if(!demoN)demoN=Math.max(3,Math.round(all.length*Math.min(1,.35+sl.frac*.65)));else demoN++;return all.slice(0,Math.min(demoN,all.length))}
 const keys=new Set();
-function sync(list,first){list.forEach(d=>{if(keys.has(d.k))return;keys.add(d.k);const i=TODAY.length;TODAY.push(d);addBaby(d,i,first);if(!first&&!sheet.classList.contains('open'))toast(d)});topFood();refreshKitchen()}
+function sync(list,first){const nw=list.filter(d=>!keys.has(d.k)).length;if(!first&&!/nivel-\d/.test(location.hash)&&Math.ceil((TODAY.length+nw)/4)+1>TABN){startService();return}list.forEach(d=>{if(keys.has(d.k))return;keys.add(d.k);const i=TODAY.length;TODAY.push(d);addBaby(d,i,first);if(!first&&!sheet.classList.contains('open'))toast(d)});topFood();refreshKitchen()}
 // de 00:00 a 6:00 se recoge: anfitriona y cocinero limpian y los bebés del día juegan en la piscina
 let CLEAN=false;const PITB=[];
 function isClean(){if(/limpieza/.test(location.hash))return true;if(FORCE||/nivel-\d.*(desayuno|comida|merienda|cena)/.test(location.hash))return false;const h=+new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',hour12:false}).format(new Date())%24;return h<6}
@@ -1091,19 +1092,19 @@ function addPitBaby(d,i){const g=new THREE.Group();const a=i*2.399,rr=Math.min(P
  const arms=[-1,1].map(k=>{const ar=new THREE.Group();ar.position.set(k*.24,.6,0);kid.add(ar);mk(sph(.085),skin,0,.28,.05,ar);return ar});
  PITB.push({g,head,arms,ph:i*1.7})}
 async function startService(){babies.forEach(b=>S.remove(b.g));babies=[];used={};TODAY=[];keys.clear();demoN=0;PITB.forEach(b=>S.remove(b.g));PITB.length=0;
- SL=nowSlot();CLEAN=isClean();await 0;applyMode();applyLevel();topFood();updClock();
+ SL=nowSlot();CLEAN=isClean();const list0=CLEAN?[]:await getList(SL);applyMode();applyLevel(list0.length);topFood();updClock();
  if(CLEAN){const r=realSlot(),seen=new Set(),all=[];for(const sv of SLOTS){(await getList({...sv,open:false,frac:1,day:r.day,iso:r.iso})).forEach(d=>all.push(d))}
   TODAY=all;all.forEach(d=>{const id=d.b||d.k;if(seen.has(id))return;seen.add(id);if(PITB.length<16)addPitBaby(d,PITB.length)});
   if(!PITB.length&&AYER)for(let i=0;i<Math.min(16,AYER);i++)addPitBaby({m:6+(i*5)%7},i);
   HOST.position.set(LVL===1?-2.2:-.6,0,LVL===1?3.2:4.0);BROOM.visible=MOP.visible=true;topFood();refreshKitchen();return}
- BROOM.visible=MOP.visible=false;const list=await getList(SL);sync(list,true)}
+ BROOM.visible=MOP.visible=false;sync(list0,true)}
 startService();
 setInterval(async()=>{updClock();const n=nowSlot();if(isClean()!==CLEAN||n.k!==SL.k||n.open!==SL.open||n.iso!==SL.iso){if(sheet.classList.contains('open')){sheet.classList.remove('open');sel=-1;pvOn=false}startService();return}
  if(CLEAN||(!SL.open&&!LIVE))return;sync(await getList(SL),false)},LIVE?60000:EVERY);
 
 // cámara
 let portrait=false,AYER=null;
-function applyLevel(){const h=(location.hash.match(/nivel-(\d)/)||[])[1];LVL=h?Math.max(1,Math.min(7,+h)):AYER!=null?levelOf(AYER):1;
+function applyLevel(nb){const h=(location.hash.match(/nivel-(\d)/)||[])[1];TABN=h?[0,2,4,8,12,16,20,20][Math.max(1,Math.min(7,+h))]:Math.max(1,Math.ceil((nb||0)/4)+1);LVL=h?Math.max(1,Math.min(7,+h)):TABN<=2?1:TABN<=4?2:TABN<=8?3:TABN<=12?4:TABN<=16?5:6;
  KIOSK.visible=true;REST.visible=false;TER.visible=false;ROOF.visible=false;GAR.visible=false;FR.visible=LVL>=7;S.fog.far=LVL>=7?160:70;ctl.maxDistance=LVL>=7?110:LVL>=3?60:40;ARCH.visible=false;
  OUTER.scale.setScalar([1,1,1,1.6,1.6,1.9,1.9,1.9][LVL]);
  const lo=buildGarden();LO=lo;const Ze=lo.Ze;
